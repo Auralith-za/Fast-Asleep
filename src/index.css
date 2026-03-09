@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-navy;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gold text-white uppercase font-bold px-8 py-3 rounded-none hover:bg-gold-light transition-colors duration-200 tracking-wider;
+  }
+  .btn-secondary {
+    @apply border border-navy text-navy uppercase font-bold px-8 py-3 rounded-none hover:bg-navy hover:text-white transition-colors duration-200 tracking-wider;
+  }
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4;
+  }
+}
