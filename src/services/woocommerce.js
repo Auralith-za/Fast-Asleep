@@ -98,16 +98,12 @@ const decodeHtml = (html) => {
  */
 const mapWooProducts = (wooProducts) => {
     return wooProducts.map(p => {
-        // Map Category - Bucket logic to match App routing
-        const wcCategory = p.categories.length > 0 ? p.categories[0].slug.toLowerCase() : 'uncategorized';
-        const wcName = p.categories.length > 0 ? p.categories[0].name.toLowerCase() : '';
+        // Map all categories for accurate bucketing
+        const wcCategories = p.categories ? p.categories.map(c => c.slug.toLowerCase()) : ['uncategorized'];
+        const wcCategory = wcCategories[0];
 
-        let appCategory = wcCategory; // Default to raw slug
-
-        // Bucket common categories to match Navbar/App routing
-        if (wcCategory.includes('mattress') || wcName.includes('mattress')) appCategory = 'mattresses';
-        if (wcCategory.includes('pillow') || wcName.includes('pillow')) appCategory = 'pillows';
-        if (wcCategory.includes('topper') || wcName.includes('topper')) appCategory = 'toppers';
+        // Use the exact WooCommerce slug for app routing
+        let appCategory = wcCategory;
 
         // Map Image (Robust check for various API versions)
         let image = 'https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&q=80&w=1000';
@@ -178,6 +174,7 @@ const mapWooProducts = (wooProducts) => {
         return {
             id: String(p.id),
             name: p.name,
+            categories: wcCategories,
             category: appCategory,
             priceRange: priceDisplay,
             image: image,
@@ -186,4 +183,42 @@ const mapWooProducts = (wooProducts) => {
             features: ['Premium Quality', 'Locally Made', 'Warranty']
         };
     });
+};
+
+/**
+ * Create a new Order in WooCommerce and return the order_id and order_key for payment redirection.
+ */
+export const createOrder = async (orderData) => {
+    if (!WC_KEY || !WC_SECRET) {
+        throw new Error('WooCommerce credentials missing.');
+    }
+
+    try {
+        const auth = btoa(`${WC_KEY}:${WC_SECRET}`);
+        
+        // WooCommerce REST API expects 'line_items' as an array of objects: { product_id, quantity }
+        // We will pass the full order payload from the checkout component.
+        
+        const response = await fetchWithTimeout(`${WC_URL}/wp-json/wc/v3/orders`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Basic ${auth}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData),
+            timeout: 15000 // 15s timeout for order creation
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error(`WooCommerce Create Order Error:`, data);
+            throw new Error(data.message || 'Failed to create order');
+        }
+
+        return data; // returns the created order object containing id, order_key, status, etc.
+    } catch (error) {
+        console.error('WooCommerce Create Order Fetch Error:', error);
+        throw error;
+    }
 };

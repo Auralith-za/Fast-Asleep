@@ -3,11 +3,25 @@ import ProductCard from './ProductCard';
 // import { products } from '../data/products';
 
 export default function CategoryPage({ category, onProductClick, products }) {
-    // Filter products by category
-    const categoryProducts = products.filter(product => product.category === category);
+    // Filter products by category, but if 'shop', show all
+    const categoryProducts = category === 'shop' || category === 'all' 
+        ? products 
+        : products.filter(product => product.categories?.includes(category) || product.category === category);
 
-    // Format category title (e.g., 'mattresses' -> 'Mattresses')
-    const title = category.charAt(0).toUpperCase() + category.slice(1);
+    // Format category title strictly based on exact WooCommerce mapping
+    const categoryTitles = {
+        'shop': 'All Products',
+        'babies': 'Hushhh',
+        'bed-pillows': 'Pillows',
+        'beds-and-bases': 'Beds & Bases',
+        'k9-range': 'Scrappy Tails',
+        'mattress-toppers': 'Mattress Toppers',
+        'paedic-and-travel': 'Pedic & Travel',
+        'travel-pillows': 'Travel Pillows'
+    };
+
+    const title = categoryTitles[category] || 
+        (category ? category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ') : '');
 
     return (
         <section className="bg-white py-20 min-h-[60vh]">

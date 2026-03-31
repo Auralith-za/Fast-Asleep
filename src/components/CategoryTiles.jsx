@@ -7,35 +7,35 @@ export default function CategoryTiles({ onNavigate }) {
             title: "Kids Range",
             subtitle: "Fun, safe & colorful foam beds",
             image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.11.39.png", // Kids bedroom
-            action: () => onNavigate('pillows'), // Keeping navigation simple for now
+            action: () => onNavigate('babies'), 
             colSpan: "md:col-span-2"
         },
         {
             title: "Pet Range",
             subtitle: "Durable comfort for furry friends",
             image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.13.22.png", // Dog sleeping
-            action: () => onNavigate('toppers'),
+            action: () => onNavigate('k9-range'),
             colSpan: "md:col-span-1"
         },
         {
             title: "Medical Solutions",
             subtitle: "Pressure relief & orthopaedic care",
             image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.15.43.png", // Clean medical/white
-            action: () => onNavigate('mattresses'),
+            action: () => onNavigate('paedic-and-travel'),
             colSpan: "md:col-span-1"
         },
         {
             title: "Caravan & Bakkie",
             subtitle: "Comfort on the road",
             image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.14.51.png", // Camping/Van
-            action: () => onNavigate('toppers'),
+            action: () => onNavigate('contact'),
             colSpan: "md:col-span-1"
         },
         {
             title: "Custom Foam Cuts",
             subtitle: "Any size, any shape, made to order",
             image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?auto=format&fit=crop&q=80&w=800", // Abstract foam/shapes
-            action: () => onNavigate('mattresses'),
+            action: () => onNavigate('contact'),
             colSpan: "md:col-span-1"
         }
     ];

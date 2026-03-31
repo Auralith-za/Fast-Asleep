@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import PromoCarousel from './components/PromoCarousel';
 import TrustBuilders from './components/TrustBuilders';
 import CategoryTiles from './components/CategoryTiles';
 import Bestsellers from './components/Bestsellers';
+import FeaturedTiles from './components/FeaturedTiles';
 import Promotions from './components/Promotions';
 import Reviews from './components/Reviews';
 import WhyChooseUs from './components/WhyChooseUs';
@@ -63,6 +65,9 @@ function App() {
                     <>
                         {/* 1. Hero Banner */}
                         <Hero />
+                        
+                        {/* 1.5 Promo Carousel */}
+                        <PromoCarousel onNavigate={navigateToCategory} />
 
                         {/* 2. Quick Trust Builders */}
                         <TrustBuilders />
@@ -72,6 +77,9 @@ function App() {
 
                         {/* What Sets Us Apart */}
                         <ValuesSection />
+
+                        {/* Feature Tiles - 4 Promo Images */}
+                        <FeaturedTiles onNavigate={navigateToCategory} />
 
                         {/* 4. Most Popular / Bestsellers */}
                         <Bestsellers onProductClick={navigateToProduct} products={products} />

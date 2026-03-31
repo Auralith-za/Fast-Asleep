@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import { X, Trash2, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import CheckoutModal from './CheckoutModal';
 
 export default function CartDrawer() {
     const { cart, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, cartTotal } = useCart();
+    const [isCheckoutOpen, setIsCheckoutOpen] = React.useState(false);
 
     if (!isCartOpen) return null;
 
@@ -107,7 +109,7 @@ export default function CartDrawer() {
                                 <p className="mt-0.5 text-sm text-gray-500 mb-6">Shipping and taxes calculated at checkout.</p>
                                 <div className="mt-6">
                                     <button
-                                        href="#"
+                                        onClick={() => setIsCheckoutOpen(true)}
                                         className="btn-primary w-full flex items-center justify-center"
                                     >
                                         Checkout
@@ -131,6 +133,11 @@ export default function CartDrawer() {
                     </div>
                 </div>
             </div>
+            
+            <CheckoutModal 
+                isOpen={isCheckoutOpen} 
+                onClose={() => setIsCheckoutOpen(false)} 
+            />
         </div>
     );
 }
