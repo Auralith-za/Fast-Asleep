@@ -180,7 +180,12 @@ const mapWooProducts = (wooProducts) => {
             image: image,
             description: p.short_description ? decodeHtml(p.short_description) : 'Premium comfort.',
             slug: p.slug,
-            features: ['Premium Quality', 'Locally Made', 'Warranty']
+            features: ['Premium Quality', 'Locally Made', 'Warranty'],
+            attributes: p.attributes ? p.attributes.map(attr => ({
+                id: attr.id,
+                name: decodeHtml(attr.name),
+                options: attr.options || []
+            })) : []
         };
     });
 };
@@ -220,5 +225,27 @@ export const createOrder = async (orderData) => {
     } catch (error) {
         console.error('WooCommerce Create Order Fetch Error:', error);
         throw error;
+    }
+};
+
+/**
+ * Fetch specific variations for a variable product to get accurate pricing
+ */
+export const fetchProductVariations = async (productId) => {
+    if (!WC_KEY || !WC_SECRET) return [];
+    
+    try {
+        const auth = btoa(`${WC_KEY}:${WC_SECRET}`);
+        const response = await fetchWithTimeout(`${WC_URL}/wp-json/wc/v3/products/${productId}/variations`, {
+            headers: { 'Authorization': `Basic ${auth}` },
+            timeout: 8000
+        });
+
+        if (!response.ok) return [];
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(`Failed to fetch variations for product ${productId}:`, error);
+        return [];
     }
 };

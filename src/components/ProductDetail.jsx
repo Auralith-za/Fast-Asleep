@@ -1,17 +1,94 @@
 import React, { useState } from 'react';
 // import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
-import { Star, Truck, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Star, Truck, ShieldCheck, ArrowRight, Loader2 } from 'lucide-react';
+import { fetchProductVariations } from '../services/woocommerce';
 
 export default function ProductDetail({ productId, onBack, products }) {
     const product = products.find(p => p.id === productId);
     const { addToCart } = useCart();
-    const [selectedVariant, setSelectedVariant] = useState('Standard');
+    const [selectedVariants, setSelectedVariants] = useState({});
+    const [variationsData, setVariationsData] = useState([]);
+    const [displayedPrice, setDisplayedPrice] = useState(product ? product.priceRange : '');
+    const [exactPrice, setExactPrice] = useState(null);
+    const [isLoadingVars, setIsLoadingVars] = useState(false);
+
+    // 1. Setup Defaults
+    React.useEffect(() => {
+        if (product && product.attributes) {
+            setDisplayedPrice(product.priceRange);
+            setExactPrice(null);
+            const defaults = {};
+            product.attributes.forEach(attr => {
+                if (attr.options && attr.options.length > 0) {
+                    defaults[attr.name] = attr.options[0];
+                }
+            });
+            setSelectedVariants(defaults);
+        }
+    }, [product]);
+
+    // 2. Load API Variations for this specific product
+    React.useEffect(() => {
+        if (!product || !product.attributes || product.attributes.length === 0) return;
+        
+        let isMounted = true;
+        const loadVars = async () => {
+            setIsLoadingVars(true);
+            const data = await fetchProductVariations(product.id);
+            if (isMounted && data && data.length > 0) {
+                setVariationsData(data);
+            }
+            if (isMounted) setIsLoadingVars(false);
+        };
+        loadVars();
+        return () => { isMounted = false; };
+    }, [product]);
+
+    // 3. Match user selection against API variations to grab live price
+    React.useEffect(() => {
+        if (variationsData.length === 0 || !product) return;
+
+        const sanitizeStr = (str) => {
+            const doc = new DOMParser().parseFromString(str || "", 'text/html');
+            return (doc.body.textContent || "").trim().toLowerCase();
+        };
+
+        const match = variationsData.find(v => {
+            if (!v.attributes || v.attributes.length === 0) return false;
+            
+            return v.attributes.every(attr => {
+                // Find matching user selection key gracefully
+                const cleanAttrName = sanitizeStr(attr.name);
+                const matchedKey = Object.keys(selectedVariants).find(k => sanitizeStr(k) === cleanAttrName);
+                
+                if (!matchedKey) return false;
+                return sanitizeStr(selectedVariants[matchedKey]) === sanitizeStr(attr.option);
+            });
+        });
+
+        if (match && match.price) {
+            setDisplayedPrice(`R${parseFloat(match.price).toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`);
+            setExactPrice(match.price); // Store raw decimal to pass directly to cart engine
+        } else {
+            setDisplayedPrice(product.priceRange);
+            setExactPrice(null);
+        }
+    }, [selectedVariants, variationsData, product]);
 
     if (!product) return <div>Product not found</div>;
 
     const handleAddToCart = () => {
-        addToCart(product, 1, selectedVariant);
+        const variantString = product.attributes && product.attributes.length > 0
+            ? Object.entries(selectedVariants).map(([k, v]) => `${k}: ${v}`).join(', ')
+            : 'Standard';
+            
+        const cartItemToPass = { ...product };
+        if (exactPrice) {
+             cartItemToPass.exactPrice = exactPrice;
+        }
+        
+        addToCart(cartItemToPass, 1, variantString);
     };
 
     return (
@@ -73,34 +150,41 @@ export default function ProductDetail({ productId, onBack, products }) {
                             <span className="text-sm text-gray-500 font-medium">12 Reviews</span>
                         </div>
 
-                        <p className="text-2xl font-medium text-navy mb-8">
-                            {product.priceRange}
+                        <p className="text-2xl font-medium text-navy mb-8 flex items-center gap-3 transition-opacity duration-300">
+                            {displayedPrice}
+                            {isLoadingVars && <Loader2 className="w-5 h-5 text-gray-400 animate-spin" />}
                         </p>
 
                         <div className="prose prose-sm text-gray-600 mb-8 leading-relaxed">
                             <p>{product.description}</p>
                         </div>
 
-                        {/* Variants */}
-                        <div className="mb-8">
-                            <label className="block text-sm font-bold text-navy uppercase tracking-wide mb-3">
-                                Size
-                            </label>
-                            <div className="flex flex-wrap gap-3">
-                                {['Single', 'Three Quarter', 'Double', 'Queen', 'King', 'Super King'].map((size) => (
-                                    <button
-                                        key={size}
-                                        onClick={() => setSelectedVariant(size)}
-                                        className={`px-4 py-3 border text-sm font-medium transition-all ${selectedVariant === size
-                                            ? 'border-navy bg-navy text-white'
-                                            : 'border-gray-200 text-gray-600 hover:border-navy'
-                                            }`}
-                                    >
-                                        {size}
-                                    </button>
+                        {/* Dynamic Variants */}
+                        {product.attributes && product.attributes.length > 0 && (
+                            <div className="mb-8 space-y-6">
+                                {product.attributes.map(attr => (
+                                    <div key={attr.id || attr.name}>
+                                        <label className="block text-sm font-bold text-navy uppercase tracking-wide mb-3">
+                                            {attr.name}
+                                        </label>
+                                        <div className="flex flex-wrap gap-3">
+                                            {attr.options.map((option) => (
+                                                <button
+                                                    key={option}
+                                                    onClick={() => setSelectedVariants(prev => ({ ...prev, [attr.name]: option }))}
+                                                    className={`px-4 py-3 border text-sm font-medium transition-all ${selectedVariants[attr.name] === option
+                                                        ? 'border-navy bg-navy text-white'
+                                                        : 'border-gray-200 text-gray-600 hover:border-navy'
+                                                        }`}
+                                                >
+                                                    {option}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
-                        </div>
+                        )}
 
                         {/* Add to Cart */}
                         <button

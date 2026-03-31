@@ -53,10 +53,15 @@ export function CartProvider({ children }) {
     const clearCart = () => setCart([]);
 
     const cartTotal = cart.reduce((total, item) => {
-        // Parse price logic (assuming price range string for now, but in real app would use actual price)
-        // For this clone, we'll extract the first number from the price string "R9,995.00..."
-        const priceString = item.priceRange ? item.priceRange.split('–')[0].replace(/[^0-9.]/g, '') : '0';
-        const price = parseFloat(priceString);
+        if (item.exactPrice) {
+            return total + (parseFloat(item.exactPrice) * item.quantity);
+        }
+        
+        const priceRange = item.priceRange || '0';
+        const firstPriceStr = priceRange.split(/to|–|-/i)[0];
+        const cleaned = firstPriceStr.replace(/[^0-9.,]/g, '');
+        const standardized = cleaned.replace(/,(?=\d{2}$)/, '.').replace(/,/g, '');
+        const price = parseFloat(standardized) || 0;
         return total + (price * item.quantity);
     }, 0);
 

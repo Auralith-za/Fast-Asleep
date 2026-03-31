@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { X, Loader2 } from 'lucide-react';
+import { X, Loader2, CheckCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { createOrder } from '../services/woocommerce';
+import { generatePayfastForm } from '../utils/payfast';
 
 export default function CheckoutModal({ isOpen, onClose }) {
     const { cart, cartTotal, clearCart } = useCart();
@@ -20,6 +21,9 @@ export default function CheckoutModal({ isOpen, onClose }) {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [orderId, setOrderId] = useState(null);
+    const [paymentMethod, setPaymentMethod] = useState('bacs');
 
     if (!isOpen) return null;
 
@@ -35,10 +39,10 @@ export default function CheckoutModal({ isOpen, onClose }) {
         try {
             // Prepare the order payload
             const orderData = {
-                payment_method: 'bacs', // A placeholder, actual payment is handled on WooCommerce Order Pay page
-                payment_method_title: 'Direct Bank Transfer',
+                payment_method: paymentMethod, 
+                payment_method_title: paymentMethod === 'bacs' ? 'Direct Bank Transfer' : 'PayFast',
                 set_paid: false,
-                status: 'pending',
+                status: paymentMethod === 'bacs' ? 'on-hold' : 'pending',
                 billing: {
                     first_name: formData.first_name,
                     last_name: formData.last_name,
@@ -68,13 +72,34 @@ export default function CheckoutModal({ isOpen, onClose }) {
 
             const createdOrder = await createOrder(orderData);
             
-            if (createdOrder && createdOrder.id && createdOrder.order_key) {
+            if (createdOrder && createdOrder.id) {
                 // Clear the local cart
                 clearCart();
                 
-                // Redirect user to the WooCommerce payment page seamlessly!
-                const wcUrl = import.meta.env.VITE_WC_URL;
-                window.location.href = `${wcUrl}/checkout/order-pay/${createdOrder.id}/?pay_for_order=true&key=${createdOrder.order_key}`;
+                if (paymentMethod === 'payfast') {
+                    // Generate Payfast payload securely
+                    const payfastData = generatePayfastForm(createdOrder.id, cartTotal, formData);
+                    
+                    // Create dynamic form and bounce to Payfast
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = 'https://www.payfast.co.za/eng/process';
+                    
+                    payfastData.forEach(param => {
+                        const hiddenField = document.createElement('input');
+                        hiddenField.type = 'hidden';
+                        hiddenField.name = param.name;
+                        hiddenField.value = param.value;
+                        form.appendChild(hiddenField);
+                    });
+                    
+                    document.body.appendChild(form);
+                    form.submit();
+                } else {
+                    // Show native success for Bank Transfer
+                    setOrderId(createdOrder.id);
+                    setIsSuccess(true);
+                }
             } else {
                 setError('Failed to create order on WooCommerce. Please try again.');
             }
@@ -114,6 +139,33 @@ export default function CheckoutModal({ isOpen, onClose }) {
                             </div>
                         )}
 
+                        {isSuccess ? (
+                            <div className="py-10 text-center flex flex-col items-center">
+                                <CheckCircle className="w-16 h-16 text-green-500 mb-6" />
+                                <h4 className="text-2xl font-bold text-navy mb-2">Order Successfully Placed!</h4>
+                                <p className="text-gray-600 mb-6 max-w-sm mx-auto">
+                                    Thank you for your order! Your Order Number is <strong>#{orderId}</strong>.
+                                </p>
+                                <div className="bg-gray-50 border border-gray-100 rounded-lg p-6 w-full text-left mb-8 text-sm text-gray-700">
+                                    <h5 className="font-bold text-navy uppercase tracking-wide mb-3">Make Payment To:</h5>
+                                    <div className="bg-white p-4 border border-gray-200 rounded mb-4 font-mono text-base">
+                                        <div className="grid grid-cols-3 gap-2">
+                                            <div className="font-bold">Bank Name:</div><div className="col-span-2">Nedbank</div>
+                                            <div className="font-bold">Account Name:</div><div className="col-span-2">DMFS</div>
+                                            <div className="font-bold">Account No:</div><div className="col-span-2">1136063110</div>
+                                            <div className="font-bold text-navy mt-2">Reference:</div><div className="col-span-2 mt-2 font-bold text-navy">Order #{orderId}</div>
+                                        </div>
+                                    </div>
+                                    <p className="text-gray-500 font-medium">Please note: Your order will not be shipped until the funds have cleared.</p>
+                                </div>
+                                <button 
+                                    onClick={() => { setIsSuccess(false); onClose(); }} 
+                                    className="btn-primary"
+                                >
+                                    Continue Shopping
+                                </button>
+                            </div>
+                        ) : (
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
@@ -155,6 +207,38 @@ export default function CheckoutModal({ isOpen, onClose }) {
                                 </div>
                             </div>
                             
+                            {/* Payment Methods */}
+                            <div className="mt-8 pt-6 border-t border-gray-100">
+                                <h4 className="text-lg font-bold text-navy mb-4">Payment Method</h4>
+                                <div className="space-y-4 text-left">
+                                    <label className={`flex flex-col border rounded-lg p-4 cursor-pointer transition-colors ${paymentMethod === 'bacs' ? 'border-gold bg-gold/5' : 'border-gray-200'}`}>
+                                        <div className="flex items-center gap-3">
+                                            <input type="radio" name="payment_method" value="bacs" checked={paymentMethod === 'bacs'} onChange={(e) => setPaymentMethod(e.target.value)} className="w-4 h-4 text-gold focus:ring-gold" />
+                                            <span className="font-bold text-navy uppercase tracking-wide">Direct Bank Transfer</span>
+                                        </div>
+                                        {paymentMethod === 'bacs' && (
+                                            <p className="mt-3 text-sm text-gray-600 pl-7 leading-relaxed">
+                                                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
+                                            </p>
+                                        )}
+                                    </label>
+
+                                    <label className={`flex flex-col border rounded-lg p-4 cursor-pointer transition-colors ${paymentMethod === 'payfast' ? 'border-gold bg-gold/5' : 'border-gray-200'}`}>
+                                        <div className="flex items-center gap-3">
+                                            <input type="radio" name="payment_method" value="payfast" checked={paymentMethod === 'payfast'} onChange={(e) => setPaymentMethod(e.target.value)} className="w-4 h-4 text-gold focus:ring-gold" />
+                                            <span className="font-bold text-navy uppercase tracking-wide">
+                                                PayFast 
+                                            </span>
+                                        </div>
+                                        {paymentMethod === 'payfast' && (
+                                            <p className="mt-3 text-sm text-gray-600 pl-7 leading-relaxed">
+                                                Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
+                                            </p>
+                                        )}
+                                    </label>
+                                </div>
+                            </div>
+
                             <div className="mt-6 pt-6 border-t border-gray-100 flex justify-between items-center">
                                 <div className="text-lg font-bold text-navy">
                                     Total: R{cartTotal.toLocaleString()}
@@ -163,7 +247,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="btn-primary flex justify-center items-center py-2 px-6 disabled:opacity-70 disabled:cursor-not-allowed"
+                                    className="btn-primary flex justify-center items-center py-3 px-8 text-lg disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
                                     {isSubmitting ? (
                                         <>
@@ -171,11 +255,12 @@ export default function CheckoutModal({ isOpen, onClose }) {
                                             Processing...
                                         </>
                                     ) : (
-                                        'Proceed to Payment'
+                                        paymentMethod === 'payfast' ? 'Pay via PayFast' : 'Place Order'
                                     )}
                                 </button>
                             </div>
                         </form>
+                        )}
                     </div>
                 </div>
             </div>
