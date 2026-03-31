@@ -1,10 +1,10 @@
 import React from 'react';
 
 const images = [
-    "https://fastasleep.co.za/wp-content/uploads/2021/11/6FBF97A9-637E-4553-AC6C-C57E7A3B20D2.png",
-    "https://fastasleep.co.za/wp-content/uploads/2021/11/54A96A54-2BCB-4C10-A9FE-8DB67B668425.png",
-    "https://fastasleep.co.za/wp-content/uploads/2021/11/C9A005F1-32F8-40F9-9095-0C7D85D84A86.png",
-    "https://fastasleep.co.za/wp-content/uploads/2021/11/FCA4D6E3-7775-4E41-8BAE-CF773EC1C4FF.png"
+    "https://wp.fastasleep.co.za/wp-content/uploads/2021/11/6FBF97A9-637E-4553-AC6C-C57E7A3B20D2.png",
+    "https://wp.fastasleep.co.za/wp-content/uploads/2021/11/54A96A54-2BCB-4C10-A9FE-8DB67B668425.png",
+    "https://wp.fastasleep.co.za/wp-content/uploads/2021/11/C9A005F1-32F8-40F9-9095-0C7D85D84A86.png",
+    "https://wp.fastasleep.co.za/wp-content/uploads/2021/11/FCA4D6E3-7775-4E41-8BAE-CF773EC1C4FF.png"
 ];
 
 export default function FeaturedTiles({ onNavigate }) {

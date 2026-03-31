@@ -1,9 +1,9 @@
 import React from 'react';
 
 const images = [
-    "https://fastasleep.co.za/wp-content/uploads/2021/11/0A85685E-20D9-4FA8-902C-EDD98778400C.png",
-    "https://fastasleep.co.za/wp-content/uploads/2021/11/1FE97949-61D7-4891-91F7-989D3FFDA69B.png",
-    "https://fastasleep.co.za/wp-content/uploads/2021/11/4FDDE4A6-C228-4DC0-9BCC-7B6DC8E9A351.png"
+    "https://wp.fastasleep.co.za/wp-content/uploads/2021/11/0A85685E-20D9-4FA8-902C-EDD98778400C.png",
+    "https://wp.fastasleep.co.za/wp-content/uploads/2021/11/1FE97949-61D7-4891-91F7-989D3FFDA69B.png",
+    "https://wp.fastasleep.co.za/wp-content/uploads/2021/11/4FDDE4A6-C228-4DC0-9BCC-7B6DC8E9A351.png"
 ];
 
 export default function PromoCarousel({ onNavigate }) {

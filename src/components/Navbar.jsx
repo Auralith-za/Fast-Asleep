@@ -39,7 +39,7 @@ export default function Navbar({ onNavigate, onHome }) {
                     {/* Logo */}
                     <div className="flex-grow md:flex-grow-0 text-center md:text-left cursor-pointer flex justify-center md:justify-start" onClick={onHome}>
                         <img 
-                            src="https://fastasleep.co.za/wp-content/uploads/2021/11/fast_asleep_logo_updated.pdf.png" 
+                            src="https://wp.fastasleep.co.za/wp-content/uploads/2021/11/fast_asleep_logo_updated.pdf.png" 
                             alt="Fast Asleep Logo" 
                             className="h-16 md:h-28 w-auto object-contain"
                         />
