@@ -6,7 +6,7 @@ export default function CategoryTiles({ onNavigate }) {
             id: 'beds-and-bases',
             title: "BEDS & BASE",
             subtitle: "Complete sleep systems",
-            image: "https://wp.fastasleep.co.za/wp-content/uploads/2021/11/6.png",
+            image: "/assets/beds-and-bases.png",
             gridClass: "md:col-span-2 md:row-span-2",
             aspectClass: "aspect-[16/10] md:aspect-auto h-full",
             actionText: "VIEW RANGE"
