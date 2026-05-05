@@ -67,7 +67,12 @@ export default function CartDrawer() {
                                                         <h3>
                                                             <a href="#">{item.name}</a>
                                                         </h3>
-                                                        <p className="ml-4 font-bold">{item.priceRange.replace(/From\s*/i, '').split(/to|–|-/i)[0].trim()}</p>
+                                                        <p className="ml-4 font-bold">
+                                                            {item.exactPrice 
+                                                                ? `R${parseFloat(item.exactPrice).toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`
+                                                                : item.priceRange.replace(/From\s*/i, '').split(/to|–|-/i)[0].trim()
+                                                            }
+                                                        </p>
                                                     </div>
                                                     <p className="mt-1 text-sm text-gray-500">Variant: {item.variant}</p>
                                                 </div>
