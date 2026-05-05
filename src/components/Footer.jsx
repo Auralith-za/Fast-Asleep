@@ -9,7 +9,8 @@ export default function Footer() {
 
                     {/* Column 1: About */}
                     <div>
-                        <h3 className="text-white text-lg font-bold uppercase tracking-widest mb-6">Fast Asleep</h3>
+                        <h3 className="text-white text-lg font-bold uppercase tracking-widest mb-2">Fast Asleep</h3>
+                        <p className="text-gold font-script text-2xl mb-6">Where Better Sleep Begin</p>
                         <p className="mb-6 leading-relaxed">
                             South Africa's trusted foam specialists. We manufacture high-quality, fully customisable mattresses for every need — from homes to hospitals, caravans to cribs.
                         </p>

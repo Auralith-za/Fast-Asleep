@@ -12,6 +12,10 @@ import WhyChooseUs from './components/WhyChooseUs';
 import ValuesSection from './components/ValuesSection';
 import BlogTeasers from './components/BlogTeasers';
 import WhatsAppButton from './components/WhatsAppButton';
+import MothersDaySpecials from './components/MothersDaySpecials';
+import CustomisationSection from './components/CustomisationSection';
+import NewsletterSection from './components/NewsletterSection';
+import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import ProductDetail from './components/ProductDetail';
@@ -66,38 +70,37 @@ function App() {
                         {/* 1. Hero Banner */}
                         <Hero />
                         
-                        {/* 1.5 Promo Carousel */}
-                        <PromoCarousel onNavigate={navigateToCategory} />
-
                         {/* 2. Quick Trust Builders */}
                         <TrustBuilders />
 
-                        {/* 3. Shop by Category */}
-                        <CategoryTiles onNavigate={navigateToCategory} />
-
-                        {/* What Sets Us Apart */}
-                        <ValuesSection />
-
-                        {/* Feature Tiles - 4 Promo Images */}
-                        <FeaturedTiles onNavigate={navigateToCategory} />
+                        {/* Mother's Day Specials */}
+                        <MothersDaySpecials onNavigate={navigateToCategory} onProductClick={navigateToProduct} />
 
                         {/* 4. Most Popular / Bestsellers */}
                         <Bestsellers onProductClick={navigateToProduct} products={products} />
+
+                        {/* Customisation Section */}
+                        <CustomisationSection />
+
+                        {/* 3. Shop by Category */}
+                        <CategoryTiles onNavigate={navigateToCategory} />
 
                         {/* 5. Customer Reviews */}
                         <Reviews />
 
                         {/* 6. Special Promotions */}
-                        <Promotions />
+                        <Promotions onProductClick={navigateToProduct} />
 
-                        {/* 7. Why Choose Fast Asleep */}
-
+                        <ValuesSection />
 
                         {/* 8. Instant Communication (WhatsApp) */}
                         <WhatsAppButton />
 
                         {/* 9. Content / Educational Section */}
                         <BlogTeasers />
+                        
+                        <NewsletterSection />
+                        <ContactSection />
                     </>
                 )}
 

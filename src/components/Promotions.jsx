@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Promotions() {
+export default function Promotions({ onProductClick }) {
     const [timeLeft, setTimeLeft] = useState({ days: 2, hours: 14, minutes: 35, seconds: 12 });
 
     useEffect(() => {
@@ -42,7 +42,10 @@ export default function Promotions() {
                     <p className="text-navy/80 text-lg mb-8 font-medium">
                         Upgrade your little one's sleep and get a complimentary memory foam pillow on us.
                     </p>
-                    <button className="bg-navy text-white px-8 py-3 font-bold uppercase tracking-wider hover:bg-navy-dark transition-colors shadow-lg">
+                    <button 
+                        onClick={() => onProductClick("4687")}
+                        className="bg-navy text-white px-8 py-3 font-bold uppercase tracking-wider hover:bg-navy-dark transition-colors shadow-lg"
+                    >
                         Claim Offer
                     </button>
                 </div>

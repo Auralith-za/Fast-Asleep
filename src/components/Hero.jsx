@@ -7,38 +7,40 @@ export default function Hero() {
 
             {/* Running Special Banner */}
             <div className="bg-navy text-white text-center py-2 px-4 text-sm font-medium tracking-wide">
-                Spring Special: <span className="text-gold font-bold">10% OFF</span> All Kids’ Mattresses – Limited Time!
+                Mother's Day Special: <span className="text-gold font-bold">Up to 20% OFF</span> Base Sets & Ultimate Combos – Limited Time!
             </div>
 
-            <div className="relative h-[600px] md:h-[700px] flex items-center overflow-hidden">
+            <div className="relative h-[650px] md:h-[800px] flex items-center overflow-hidden">
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.10.25.png" // Placeholder: Family/Bedroom vibe
-                        alt="Family sleeping comfortably"
-                        className="w-full h-full object-cover opacity-90"
+                        src="/assets/hero-family.png"
+                        alt="Family laughing on a comfortable bed"
+                        className="w-full h-full object-cover"
                     />
-                    {/* Overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/70 to-transparent"></div>
+                    {/* Overlay gradient - more subtle to keep image visible */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/20 to-transparent"></div>
                 </div>
 
                 {/* Content */}
-                <div className="container-custom relative z-10 flex flex-col items-center justify-center text-center h-full">
-                    <div className="max-w-4xl animate-fade-in-up">
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-navy leading-tight mb-2">
-                            South African sleep specialists
+                <div className="container-custom relative z-10 flex flex-col items-start justify-center h-full text-left">
+                    <div className="max-w-3xl animate-fade-in-up">
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#1a2b4b] leading-[0.9] mb-8">
+                            Wake Up To A <br />
+                            <span className="font-script font-normal lowercase text-[#98c1c2] text-6xl md:text-8xl lg:text-9xl block mt-2">Better Version</span> 
+                            Of You.
                         </h1>
 
-                        <p className="font-script text-4xl md:text-6xl text-navy mb-12">
-                            Designed for all types of sleepers
+                        <p className="text-xl md:text-2xl text-[#1a2b4b] mb-12 font-medium max-w-xl">
+                            Because when you <span className="font-script text-[#98c1c2] text-3xl lowercase">sleep better</span>, everything in your world feels better.
                         </p>
-
-                        <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                            <button className="bg-navy text-white py-4 px-10 text-sm font-bold uppercase tracking-widest hover:bg-navy-dark transition-all flex items-center justify-center gap-2 shadow-lg">
-                                Shop Mattress <ArrowRight className="w-4 h-4" />
+                        
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <button className="bg-[#1a2b4b] text-white py-5 px-10 text-xs font-black uppercase tracking-[0.2em] hover:bg-[#98c1c2] transition-all shadow-2xl rounded-sm">
+                                Find Your Perfect Mattress
                             </button>
-                            <button className="bg-white border-2 border-navy text-navy font-bold py-4 px-10 uppercase tracking-widest text-sm hover:bg-gray-50 transition-all flex items-center justify-center">
-                                How It Works
+                            <button className="bg-white/80 backdrop-blur-md border-2 border-[#1a2b4b] text-[#1a2b4b] font-black py-5 px-10 uppercase tracking-[0.2em] text-xs hover:bg-[#1a2b4b] hover:text-white transition-all rounded-sm">
+                                Explore Sleep Solutions
                             </button>
                         </div>
                     </div>
