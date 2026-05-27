@@ -65,21 +65,26 @@ export default function CartDrawer() {
                                                 <div>
                                                     <div className="flex justify-between text-base font-medium text-navy">
                                                         <div>
-                                                            <h3>
-                                                                <a href="#">{item.name}</a>
-                                                            </h3>
+                                                            <h3 className="font-semibold">{item.name}</h3>
                                                             {item.isFathersDaySale && !item.noFathersDay20Percent && (
                                                                 <span className="text-[9px] text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-1.5 py-0.5 rounded block w-max mt-1">Fathers Day Sale</span>
                                                             )}
                                                         </div>
-                                                        <p className="ml-4 font-bold">
-                                                            {item.exactPrice 
-                                                                ? `R${parseFloat(item.exactPrice).toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`
-                                                                : item.priceRange.replace(/From\s*/i, '').split(/to|–|-/i)[0].trim()
-                                                            }
-                                                        </p>
+                                                        <div className="ml-4 text-right">
+                                                            <p className="font-bold">
+                                                                {item.exactPrice
+                                                                    ? `R${parseFloat(item.exactPrice).toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`
+                                                                    : (item.priceRange || '').replace(/From\s*/i, '').split(/to|–|-/i)[0].trim()
+                                                                }
+                                                            </p>
+                                                            {item.quantity > 1 && item.exactPrice && (
+                                                                <p className="text-xs text-gray-400 font-medium mt-0.5">
+                                                                    × {item.quantity} = R{(parseFloat(item.exactPrice) * item.quantity).toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
+                                                                </p>
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                    <p className="mt-1 text-sm text-gray-500">Variant: {item.variant}</p>
+                                                    <p className="mt-1 text-xs text-gray-400 font-medium">{item.variant !== 'Standard' ? item.variant : ''}</p>
                                                 </div>
                                                 <div className="flex flex-1 items-end justify-between text-sm">
                                                     <div className="flex items-center border border-gray-200">

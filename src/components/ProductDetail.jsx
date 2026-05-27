@@ -55,62 +55,88 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
         if (variationsData.length === 0 || !product) return;
 
         const sanitizeStr = (str) => {
-            const doc = new DOMParser().parseFromString(str || "", 'text/html');
-            return (doc.body.textContent || "").trim().toLowerCase();
+            if (!str) return '';
+            try {
+                const doc = new DOMParser().parseFromString(str, 'text/html');
+                return (doc.body.textContent || '').trim().toLowerCase();
+            } catch (e) {
+                return String(str).trim().toLowerCase();
+            }
         };
 
+        // Count how many attributes the product/user has selected
+        const userAttrCount = Object.keys(selectedVariants).length;
+
+        // Try to find an exact match across all user-selected attributes
         const match = variationsData.find(v => {
             if (!v.attributes || v.attributes.length === 0) return false;
-            
+
+            // Each variation attribute must match the user's selection
             return v.attributes.every(attr => {
-                // Find matching user selection key gracefully
                 const cleanAttrName = sanitizeStr(attr.name);
-                const matchedKey = Object.keys(selectedVariants).find(k => sanitizeStr(k) === cleanAttrName);
-                
-                if (!matchedKey) return false;
+                const matchedKey = Object.keys(selectedVariants).find(
+                    k => sanitizeStr(k) === cleanAttrName
+                );
+                if (!matchedKey) return true; // WooCommerce "any" wildcard – allow it
                 return sanitizeStr(selectedVariants[matchedKey]) === sanitizeStr(attr.option);
             });
         });
 
-        if (match && match.price) {
-            const priceVal = parseFloat(match.price);
-            // Store the variation id and attributes for order creation
-            setVariationId(match.id || null);
-            setVariationAttributes(match.attributes || []);
-            if (product.isFathersDaySale && !product.noFathersDay20Percent) {
-                const discountedPrice = priceVal * 0.8;
-                setDisplayedPrice(
-                    <div className="flex flex-col items-center sm:items-start gap-1">
-                        <span className="text-xs text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded inline-block">Fathers Day Sale - 20% OFF</span>
-                        <div className="flex items-center gap-3">
-                            <span className="text-lg text-gray-400 line-through font-medium">R{priceVal.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}</span>
-                            <span className="text-3xl font-extrabold text-[#0a1530]">R{discountedPrice.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}</span>
+        // Resolve the best price from the variation (sale_price takes priority, fallback to regular_price)
+        const resolvePrice = (v) => {
+            const sale = parseFloat(v.sale_price);
+            const regular = parseFloat(v.regular_price);
+            const base = parseFloat(v.price);
+            if (!isNaN(sale) && sale > 0) return sale;
+            if (!isNaN(base) && base > 0) return base;
+            if (!isNaN(regular) && regular > 0) return regular;
+            return null;
+        };
+
+        if (match) {
+            const priceVal = resolvePrice(match);
+            if (priceVal !== null) {
+                // Store the variation id and attributes for order creation
+                setVariationId(match.id || null);
+                setVariationAttributes(match.attributes || []);
+
+                if (product.isFathersDaySale && !product.noFathersDay20Percent) {
+                    const discountedPrice = priceVal * 0.8;
+                    setDisplayedPrice(
+                        <div className="flex flex-col items-center sm:items-start gap-1">
+                            <span className="text-xs text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded inline-block">Fathers Day Sale - 20% OFF</span>
+                            <div className="flex items-center gap-3">
+                                <span className="text-lg text-gray-400 line-through font-medium">R{priceVal.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}</span>
+                                <span className="text-3xl font-extrabold text-[#0a1530]">R{discountedPrice.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}</span>
+                            </div>
                         </div>
-                    </div>
-                );
-                setExactPrice(discountedPrice.toFixed(2));
-            } else {
-                setDisplayedPrice(`R${priceVal.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`);
-                setExactPrice(match.price);
+                    );
+                    setExactPrice(discountedPrice.toFixed(2));
+                } else {
+                    setDisplayedPrice(`R${priceVal.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`);
+                    setExactPrice(priceVal.toFixed(2));
+                }
+                return;
             }
-        } else {
-            setVariationId(null);
-            setVariationAttributes([]);
-            if (product.isFathersDaySale && product.originalPriceRange) {
-                setDisplayedPrice(
-                    <div className="flex flex-col items-center sm:items-start gap-1">
-                        <span className="text-xs text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded inline-block">Fathers Day Sale - 20% OFF</span>
-                        <div className="flex items-center gap-3">
-                            <span className="text-lg text-gray-400 line-through font-medium">{product.originalPriceRange}</span>
-                            <span className="text-3xl font-extrabold text-[#0a1530]">{product.priceRange}</span>
-                        </div>
-                    </div>
-                );
-            } else {
-                setDisplayedPrice(product.priceRange);
-            }
-            setExactPrice(null);
         }
+
+        // No match found — fall back to product price range
+        setVariationId(null);
+        setVariationAttributes([]);
+        if (product.isFathersDaySale && product.originalPriceRange) {
+            setDisplayedPrice(
+                <div className="flex flex-col items-center sm:items-start gap-1">
+                    <span className="text-xs text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded inline-block">Fathers Day Sale - 20% OFF</span>
+                    <div className="flex items-center gap-3">
+                        <span className="text-lg text-gray-400 line-through font-medium">{product.originalPriceRange}</span>
+                        <span className="text-3xl font-extrabold text-[#0a1530]">{product.priceRange}</span>
+                    </div>
+                </div>
+            );
+        } else {
+            setDisplayedPrice(product.priceRange);
+        }
+        setExactPrice(null);
     }, [selectedVariants, variationsData, product]);
 
     if (!product) return <div>Product not found</div>;
@@ -119,17 +145,23 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
         const variantString = product.attributes && product.attributes.length > 0
             ? Object.entries(selectedVariants).map(([k, v]) => `${k}: ${v}`).join(', ')
             : 'Standard';
-            
+
         const cartItemToPass = { ...product };
+
+        // Store the exact price so the cart total and checkout are correct
         if (exactPrice) {
-             cartItemToPass.exactPrice = exactPrice;
+            cartItemToPass.exactPrice = exactPrice;
         }
-        // Pass variation_id and its attributes so the order is created correctly in WooCommerce
+
+        // Store the variant label for display in the cart drawer
+        cartItemToPass.variantLabel = variantString;
+
+        // Pass variation_id and its attributes so the WooCommerce order is created correctly
         if (variationId) {
             cartItemToPass.variationId = variationId;
             cartItemToPass.variationAttributes = variationAttributes;
         }
-        
+
         addToCart(cartItemToPass, 1, variantString);
     };
 
@@ -192,9 +224,15 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                             <span className="text-sm text-gray-500 font-medium">12 Reviews</span>
                         </div>
 
-                        <p className="text-2xl font-medium text-navy mb-8 flex items-center gap-3 transition-opacity duration-300">
-                            {displayedPrice}
-                            {isLoadingVars && <Loader2 className="w-5 h-5 text-gray-400 animate-spin" />}
+                        <p className="text-2xl font-bold text-navy mb-8 flex items-center gap-3 min-h-[2.5rem]">
+                            {isLoadingVars ? (
+                                <span className="flex items-center gap-2 text-gray-400 text-base font-medium">
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    Loading prices...
+                                </span>
+                            ) : (
+                                displayedPrice
+                            )}
                         </p>
 
                         <div className="prose prose-sm text-gray-600 mb-8 leading-relaxed">
@@ -231,9 +269,12 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                         {/* Add to Cart */}
                         <button
                             onClick={handleAddToCart}
-                            className="btn-primary w-full py-4 text-base mb-6"
+                            disabled={isLoadingVars}
+                            className="btn-primary w-full py-4 text-base mb-6 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
-                            Add to Cart
+                            {isLoadingVars ? (
+                                <><Loader2 className="w-5 h-5 animate-spin" /> Loading prices...</>
+                            ) : 'Add to Cart'}
                         </button>
 
                         {/* Trust Badges */}

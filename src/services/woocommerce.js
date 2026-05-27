@@ -245,20 +245,33 @@ export const createOrder = async (orderData) => {
 };
 
 /**
- * Fetch specific variations for a variable product to get accurate pricing
+ * Fetch ALL variations for a variable product (paginated, up to 100 per page).
+ * WooCommerce defaults to 10 per page which misses most variations.
  */
 export const fetchProductVariations = async (productId) => {
     if (!WC_KEY || !WC_SECRET) return [];
-    
+
     try {
         const auth = btoa(`${WC_KEY}:${WC_SECRET}`);
-        const response = await fetchWithTimeout(`${WC_URL}/wp-json/wc/v3/products/${productId}/variations`, {
-            headers: { 'Authorization': `Basic ${auth}` },
-            timeout: 8000
-        });
+        // Fetch up to 100 variations in one request (covers virtually all products)
+        const response = await fetchWithTimeout(
+            `${WC_URL}/wp-json/wc/v3/products/${productId}/variations?per_page=100&status=publish`,
+            {
+                headers: { 'Authorization': `Basic ${auth}` },
+                timeout: 12000
+            }
+        );
 
         if (!response.ok) return [];
         const data = await response.json();
+
+        if (!Array.isArray(data)) return [];
+
+        console.log(`Variations loaded for product ${productId}:`, data.length, 'variations');
+        if (data.length > 0) {
+            console.log('Sample variation:', data[0]);
+        }
+
         return data;
     } catch (error) {
         console.error(`Failed to fetch variations for product ${productId}:`, error);
