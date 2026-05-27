@@ -63,11 +63,35 @@ export default function CheckoutModal({ isOpen, onClose }) {
                     postcode: formData.postcode,
                     country: formData.country,
                 },
-                line_items: cart.map(item => ({
-                    product_id: parseInt(item.id),
-                    quantity: item.quantity,
-                    // Note: If you have variants, you must also pass variant_id here if WooCommerce uses it
-                }))
+                line_items: cart.map(item => {
+                    const lineItem = {
+                        product_id: parseInt(item.id),
+                        quantity: item.quantity,
+                    };
+
+                    // Pass the variation_id so WooCommerce knows which variant was selected
+                    if (item.variationId) {
+                        lineItem.variation_id = parseInt(item.variationId);
+                    }
+
+                    // Pass the exact price the customer saw (subtotal/total per line, before/after tax)
+                    // This prevents WooCommerce from using a stale or different price from its database
+                    if (item.exactPrice) {
+                        const lineTotal = (parseFloat(item.exactPrice) * item.quantity).toFixed(2);
+                        lineItem.subtotal = lineTotal;
+                        lineItem.total = lineTotal;
+                    }
+
+                    // Pass variation attributes as meta_data so the order reflects the chosen options
+                    if (item.variationAttributes && item.variationAttributes.length > 0) {
+                        lineItem.meta_data = item.variationAttributes.map(attr => ({
+                            key: attr.name,
+                            value: attr.option
+                        }));
+                    }
+
+                    return lineItem;
+                })
             };
 
             const createdOrder = await createOrder(orderData);
@@ -239,9 +263,12 @@ export default function CheckoutModal({ isOpen, onClose }) {
                                 </div>
                             </div>
 
-                            <div className="mt-6 pt-6 border-t border-gray-100 flex justify-between items-center">
+                            <div className="mt-6 pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                 <div className="text-lg font-bold text-navy">
-                                    Total: R{cartTotal.toLocaleString()}
+                                    Total: R{cartTotal.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
+                                    {cart.some(item => item.isFathersDaySale && !item.noFathersDay20Percent) && (
+                                        <span className="block text-[11px] text-rose-500 font-extrabold uppercase tracking-wider mt-1">Includes 20% Fathers Day Sale discount</span>
+                                    )}
                                 </div>
                                 
                                 <button

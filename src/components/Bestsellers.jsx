@@ -1,51 +1,82 @@
 import React from 'react';
-import { Flame } from 'lucide-react';
 
-export default function Bestsellers({ onProductClick, products }) {
-    // Select the first 4 products from the 'Beds and Bases' category from WooCommerce
-    const bestsellerItems = Array.isArray(products) 
-        ? products.filter(p => p.categories && p.categories.includes('beds-and-bases')).slice(0, 4) 
-        : [];
+export default function Bestsellers({ onProductClick }) {
+    const specials = [
+        {
+            id: "fathers-day-sale-redirect",
+            name: "20% fathers day sale",
+            image: "/fathers-day/05485534-4615-416C-8761-20DD20F14C66.PNG",
+            price: null,
+            cta: "Shop Special Now"
+        },
+        {
+            id: "father-day-camping-mattress",
+            name: "Fathers day Special",
+            image: "/fathers-day/68600FBE-5935-41C3-8C42-A36C02ACCA05.PNG",
+            price: null,
+            cta: "Shop Special Deal"
+        },
+        {
+            id: "4698",
+            name: "Father's Day Comfort Special",
+            image: "/assets/bakkie-mattress.png",
+            price: null,
+            cta: "Get a Quote"
+        }
+    ];
 
     return (
-        <section className="bg-white py-20">
+        <section className="bg-[#fcfbf9] py-20 border-b border-gray-150">
             <div className="container-custom">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-                    <div>
-                        <h2 className="text-3xl font-black text-[#1a2b4b] uppercase tracking-wider flex items-center gap-3 mb-2">
-                            <Flame className="w-8 h-8 text-[#98c1c2]" /> MOST POPULAR
-                        </h2>
-                        <p className="text-gray-500 font-medium">Sleep solutions loved by thousands of South Africans.</p>
-                    </div>
-                    <a href="#" className="text-[#1a2b4b] font-bold text-sm tracking-widest border-b-2 border-[#1a2b4b] pb-1 uppercase mt-4 md:mt-0">
-                        View All Products
-                    </a>
+                {/* Header */}
+                <div className="text-center mb-14">
+                    <span className="text-gray-400 font-bold uppercase tracking-[0.25em] text-[10px] block mb-2">
+                        FATHER'S DAY
+                    </span>
+                    <h2 className="font-script text-[#97BFBF] lowercase text-6xl md:text-7xl font-normal leading-[1.05] mb-4">
+                        current specials
+                    </h2>
+                    <div className="w-24 h-0.5 bg-[#97BFBF] mx-auto"></div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {bestsellerItems.map((product) => (
-                        <div key={product.id} className="group cursor-pointer" onClick={() => onProductClick(product.id)}>
-                            <div className="relative aspect-square mb-8 flex items-center justify-center bg-[#fdfdfd] rounded-sm overflow-hidden">
-                                {product.tag && (
-                                    <div className={`absolute top-0 left-0 z-10 px-3 py-1 text-[10px] font-black tracking-widest text-white uppercase ${product.tag === 'BESTSELLER' ? 'bg-[#98c1c2]' : 'bg-[#1a2b4b]'}`}>
-                                        ★ {product.tag}
-                                    </div>
+                {/* Cards Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {specials.map((special) => (
+                        <div 
+                            key={special.id}
+                            className="bg-white border border-gray-150 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all duration-300 group cursor-pointer"
+                            onClick={() => onProductClick(special.id)}
+                        >
+                            {/* Artwork Image - aspect-ratio and object-contain to prevent cutoff */}
+                            <div className="aspect-[3/4] w-full overflow-hidden bg-white border-b border-gray-100 relative">
+                                {special.id === '4698' ? (
+                                    <img 
+                                        src={special.image} 
+                                        alt={special.name} 
+                                        className="w-full h-full object-cover object-top scale-[1.22] origin-top"
+                                    />
+                                ) : (
+                                    <img 
+                                        src={special.image} 
+                                        alt={special.name} 
+                                        className="w-full h-full object-contain"
+                                    />
                                 )}
-                                <img 
-                                    src={product.image} 
-                                    alt={product.name} 
-                                    className="w-4/5 h-4/5 object-contain group-hover:scale-110 transition-transform duration-500"
-                                />
                             </div>
-                            
-                            <div className="text-center px-4">
-                                <h3 className="font-black text-[#1a2b4b] text-lg mb-4 tracking-wider">{product.name}</h3>
-                                <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-2">
-                                    {product.description}
-                                </p>
-                                <p className="text-[#98c1c2] font-bold text-lg">
-                                    {product.priceRange}
-                                </p>
+
+                            {/* Info & CTA */}
+                            <div className="p-6 text-center">
+                                <h3 className="font-extrabold text-navy text-sm uppercase tracking-wider mb-2 group-hover:text-[#97BFBF] transition-colors">
+                                    {special.name}
+                                </h3>
+                                {special.price && (
+                                    <p className="text-[#97BFBF] font-bold text-sm mb-4">
+                                        {special.price}
+                                    </p>
+                                )}
+                                <button className="w-full bg-navy text-white font-bold uppercase tracking-[0.18em] text-[10px] py-3.5 hover:bg-[#97BFBF] transition-colors mt-auto">
+                                    {special.cta}
+                                </button>
                             </div>
                         </div>
                     ))}

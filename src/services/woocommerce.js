@@ -97,10 +97,26 @@ const decodeHtml = (html) => {
  * Map WooCommerce product shape to our internal application shape.
  */
 const mapWooProducts = (wooProducts) => {
-    return wooProducts.map(p => {
-        // Map all categories for accurate bucketing
-        const wcCategories = p.categories ? p.categories.map(c => c.slug.toLowerCase()) : ['uncategorized'];
-        const wcCategory = wcCategories[0];
+    return wooProducts
+        .filter(p => {
+            const name = p.name.toLowerCase();
+            // Remove the unwanted special products: Pillow Flash Sale, Backrest Wedge, Full Body Support Pillow, and Topper Bundle
+            if (
+                name.includes('flash sale') || 
+                name.includes('backrest wedge') || 
+                name.includes('full body support pillow') ||
+                name.includes('topper bundle') ||
+                name.includes('mother\'s day') ||
+                name.includes('mother’s day')
+            ) {
+                return false;
+            }
+            return true;
+        })
+        .map(p => {
+            // Map all categories for accurate bucketing
+            const wcCategories = p.categories ? p.categories.map(c => c.slug.toLowerCase()) : ['uncategorized'];
+            const wcCategory = wcCategories[0];
 
         // Use the exact WooCommerce slug for app routing
         let appCategory = wcCategory;
@@ -146,7 +162,7 @@ const mapWooProducts = (wooProducts) => {
                 // It's a range
                 const min = foundPrices[0].trim();
                 const max = foundPrices[findLastPriceIndex(foundPrices)].trim();
-                priceDisplay = `From ${min} to ${max}`;
+                priceDisplay = `${min} - ${max}`;
             } else if (foundPrices && foundPrices.length === 1) {
                 priceDisplay = foundPrices[0].trim();
             }

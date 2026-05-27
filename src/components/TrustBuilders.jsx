@@ -1,53 +1,49 @@
 import React from 'react';
-import { Scissors, Truck, ShieldCheck, Star, MessageCircle } from 'lucide-react';
+import { Truck, ShieldCheck, ChevronDown, RefreshCw, Award } from 'lucide-react';
 
 export default function TrustBuilders() {
     const features = [
         {
-            icon: <Scissors className="w-6 h-6 text-[#98c1c2]" />,
-            title: "CUSTOM SIZES & SHAPES",
-            subtitle: "Made to order"
+            icon: <RefreshCw className="w-10 h-10 text-navy" />,
+            title: "South Africa's First & Only Modular Mattress",
+            subtitle: "Tailor your comfort layer"
         },
         {
-            icon: <Truck className="w-6 h-6 text-[#98c1c2]" />,
-            title: "FREE SA DELIVERY",
-            subtitle: "Nationwide shipping"
+            icon: <Truck className="w-10 h-10 text-navy" />,
+            title: "Free & Fast Delivery",
+            subtitle: "Delivered straight to your door"
         },
         {
-            icon: <ShieldCheck className="w-6 h-6 text-[#98c1c2]" />,
-            title: "5–10 YEAR WARRANTY",
-            subtitle: "Guaranteed quality"
+            icon: <ShieldCheck className="w-10 h-10 text-navy" />,
+            title: "100-Night Risk-Free Trial",
+            subtitle: "Try it in your own bedroom"
         },
         {
-            icon: <Star className="w-6 h-6 text-[#98c1c2]" />,
-            title: "TRUSTED BY 10,000+",
-            subtitle: "Happy customers"
-        },
-        {
-            icon: <MessageCircle className="w-6 h-6 text-[#98c1c2]" />,
-            title: "INSTANT SUPPORT",
-            subtitle: "Chat on WhatsApp"
+            icon: <Award className="w-10 h-10 text-navy" />,
+            title: "25-Year Service Warranty",
+            subtitle: "Built to support you for decades"
         }
     ];
 
     return (
-        <section className="bg-[#f8f9fa] py-12 border-b border-gray-100">
+        <section className="bg-white py-14 border-b border-gray-150">
             <div className="container-custom">
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
                     {features.map((feature, index) => (
                         <div
                             key={index}
                             className="flex flex-col items-center text-center group cursor-pointer"
                         >
-                            <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-4 border border-gray-50 group-hover:scale-110 transition-transform duration-300">
+                            <div className="w-20 h-20 rounded-full bg-lightGrey flex items-center justify-center mb-5 border border-gray-200/50 group-hover:scale-105 transition-transform duration-300">
                                 {feature.icon}
                             </div>
-                            <h3 className="font-black text-[#1a2b4b] text-[10px] md:text-[11px] uppercase tracking-wider mb-1">
+                            <h3 className="font-extrabold text-navy text-[15px] uppercase tracking-wide mb-2 max-w-[220px] leading-snug">
                                 {feature.title}
                             </h3>
-                            <p className="text-gray-500 text-[10px] md:text-xs">
+                            <p className="text-gray-500 text-xs mb-3">
                                 {feature.subtitle}
                             </p>
+                            <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-navy transition-colors" />
                         </div>
                     ))}
                 </div>

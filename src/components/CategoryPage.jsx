@@ -14,7 +14,7 @@ export default function CategoryPage({ category, onProductClick, products }) {
         'babies': 'Hushhh',
         'bed-pillows': 'Pillows',
         'beds-and-bases': 'Beds & Bases',
-        'k9-range': 'Scrappy Tails',
+        'k9-range': 'Scratchy Tails',
         'mattress-toppers': 'Mattress Toppers',
         'paedic-and-travel': 'Pedic & Travel',
         'travel-pillows': 'Travel Pillows'

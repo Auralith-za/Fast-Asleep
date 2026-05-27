@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, CreditCard } from 'lucide-react';
+import { Facebook, Instagram, Mail, Phone, MapPin, CreditCard } from 'lucide-react';
 
 export default function Footer() {
     return (
@@ -15,14 +15,16 @@ export default function Footer() {
                             South Africa's trusted foam specialists. We manufacture high-quality, fully customisable mattresses for every need — from homes to hospitals, caravans to cribs.
                         </p>
                         <div className="flex gap-4">
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-white transition-colors">
+                            <a href="https://www.facebook.com/fastasleepsa" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-white transition-colors">
                                 <Facebook className="w-5 h-5" />
                             </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-white transition-colors">
+                            <a href="https://www.instagram.com/fastasleepsa/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-white transition-colors">
                                 <Instagram className="w-5 h-5" />
                             </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-white transition-colors">
-                                <Twitter className="w-5 h-5" />
+                            <a href="https://www.tiktok.com/@fastasleepza" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-white transition-colors">
+                                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.7-1.451 4.793 4.793 0 0 1-1.451-3.7h-3.95v14.128a3.292 3.292 0 0 1-3.29 3.29 3.293 3.293 0 0 1-3.29-3.29 3.292 3.292 0 0 1 3.29-3.29c.28 0 .553.038.815.11v-4.103a7.358 7.358 0 0 0-8.115 7.283 7.393 7.393 0 0 0 7.39 7.39 7.393 7.393 0 0 0 7.39-7.39V7.61a8.678 8.678 0 0 0 4.316 1.157v-2.08z"/>
+                                </svg>
                             </a>
                         </div>
                     </div>

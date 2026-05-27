@@ -1,11 +1,20 @@
 import React from 'react';
-import { ShoppingCart, Search, Menu, Phone, Mail, X, ChevronDown } from 'lucide-react';
+import { ShoppingCart, Search, Menu, X, ChevronDown, Instagram, Facebook, User } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 export default function Navbar({ onNavigate, onHome }) {
+    const [isScrolled, setIsScrolled] = React.useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
     const [isMobileShopOpen, setIsMobileShopOpen] = React.useState(false);
     const { setIsCartOpen, cartCount } = useCart();
+
+    React.useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 60);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const handleNavClick = (category) => {
         onNavigate(category);
@@ -20,15 +29,47 @@ export default function Navbar({ onNavigate, onHome }) {
     return (
         <>
             {/* Announcement Bar */}
-            <div className="bg-gold text-white text-[11px] md:text-xs py-2 text-center uppercase tracking-[0.15em] font-bold">
-                Free Delivery Nationwide
+            <div className={`bg-[#97BFBF] text-white text-[11px] md:text-xs py-2 text-center uppercase tracking-[0.15em] font-semibold transition-all duration-300 ${
+                isScrolled ? 'h-0 py-0 overflow-hidden opacity-0' : 'h-auto opacity-100'
+            }`}>
+                100-Night Risk-Free Trial on Mattress | Free Nationwide Delivery
             </div>
 
             {/* Header */}
-            <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
-                <div className="container-custom py-2 md:py-4 flex items-center justify-between">
+            <header className={`sticky top-0 z-50 bg-white transition-all duration-300 ${
+                isScrolled ? 'shadow-md py-1' : 'shadow-sm'
+            } border-b border-gray-100`}>
+                
+                {/* Full Header Layout (Not Scrolled) */}
+                <div className={`container-custom flex items-center justify-between transition-all duration-300 ${
+                    isScrolled ? 'py-1' : 'py-4'
+                }`}>
+                    
+                    {/* Left: Social Media Icons / Small Logo when Scrolled */}
+                    {isScrolled ? (
+                        <div className="cursor-pointer transition-all duration-300" onClick={onHome}>
+                            <img 
+                                src="https://wp.fastasleep.co.za/wp-content/uploads/2021/11/fast_asleep_logo_updated.pdf.png" 
+                                alt="Fast Asleep Logo" 
+                                className="h-14 md:h-16 w-auto object-contain"
+                            />
+                        </div>
+                    ) : (
+                        <div className="hidden md:flex items-center space-x-5 text-navy">
+                            <a href="https://www.instagram.com/fastasleepsa/" target="_blank" rel="noreferrer" className="hover:text-[#97BFBF] transition-colors">
+                                <Instagram className="w-4 h-4" />
+                            </a>
+                            <a href="https://www.facebook.com/fastasleepsa" target="_blank" rel="noreferrer" className="hover:text-[#97BFBF] transition-colors">
+                                <Facebook className="w-4 h-4" />
+                            </a>
+                            <span className="text-[10px] font-extrabold uppercase tracking-widest text-navy/40">|</span>
+                            <a href="https://www.tiktok.com/@fastasleepza" target="_blank" rel="noreferrer" className="hover:text-[#97BFBF] transition-colors text-[10px] font-bold uppercase tracking-wider">
+                                TikTok
+                            </a>
+                        </div>
+                    )}
 
-                    {/* Mobile Menu Icon */}
+                    {/* Left: Mobile Menu Icon */}
                     <button
                         className="md:hidden text-navy p-2"
                         onClick={() => setIsMobileMenuOpen(true)}
@@ -36,54 +77,63 @@ export default function Navbar({ onNavigate, onHome }) {
                         <Menu className="w-6 h-6" />
                     </button>
 
-                    {/* Logo */}
-                    <div className="flex-grow md:flex-grow-0 text-center md:text-left cursor-pointer flex justify-center md:justify-start" onClick={onHome}>
-                        <img 
-                            src="https://wp.fastasleep.co.za/wp-content/uploads/2021/11/fast_asleep_logo_updated.pdf.png" 
-                            alt="Fast Asleep Logo" 
-                            className="h-16 md:h-28 w-auto object-contain"
-                        />
-                    </div>
-
-                    {/* Desktop Navigation */}
-                    <nav className="hidden md:flex items-center space-x-10 text-[13px] font-semibold uppercase tracking-[0.1em] text-navy">
-                        <button onClick={onHome} className="hover:text-gold transition-colors duration-200">Home</button>
-                        <div className="relative group py-4">
-                            <button className="hover:text-gold transition-colors duration-200 flex items-center gap-1">
-                                Shop <ChevronDown className="w-4 h-4" />
-                            </button>
-                            <div className="absolute top-[100%] left-0 bg-white shadow-xl border border-gray-100 rounded-lg py-3 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 flex flex-col items-start px-2">
-                                <button onClick={() => onNavigate('shop')} className="w-full text-left font-bold px-4 py-2 text-navy hover:text-gold hover:bg-gray-50 rounded-md transition-colors">All Products</button>
-                                <div className="h-px bg-gray-100 w-full my-1"></div>
-                                <button onClick={() => onNavigate('babies')} className="w-full text-left px-4 py-2 text-navy hover:text-gold hover:bg-gray-50 rounded-md transition-colors">Hushhh</button>
-                                <button onClick={() => onNavigate('bed-pillows')} className="w-full text-left px-4 py-2 text-navy hover:text-gold hover:bg-gray-50 rounded-md transition-colors">Pillows</button>
-                                <button onClick={() => onNavigate('beds-and-bases')} className="w-full text-left px-4 py-2 text-navy hover:text-gold hover:bg-gray-50 rounded-md transition-colors">Beds & Bases</button>
-                                <button onClick={() => onNavigate('k9-range')} className="w-full text-left px-4 py-2 text-navy hover:text-gold hover:bg-gray-50 rounded-md transition-colors">Scrappy Tails</button>
-                                <button onClick={() => onNavigate('mattress-toppers')} className="w-full text-left px-4 py-2 text-navy hover:text-gold hover:bg-gray-50 rounded-md transition-colors">Toppers</button>
-                                <button onClick={() => onNavigate('paedic-and-travel')} className="w-full text-left px-4 py-2 text-navy hover:text-gold hover:bg-gray-50 rounded-md transition-colors">Pedic & Travel</button>
-                                <button onClick={() => onNavigate('travel-pillows')} className="w-full text-left px-4 py-2 text-navy hover:text-gold hover:bg-gray-50 rounded-md transition-colors">Travel Pillows</button>
-                            </div>
+                    {/* Center: Brand Logo / Navigation Links when Scrolled */}
+                    {isScrolled ? (
+                        <nav className="hidden md:flex items-center space-x-8 text-[11px] font-bold uppercase tracking-[0.15em] text-navy">
+                            <button onClick={onHome} className="hover:text-[#97BFBF] transition-colors duration-200">Home</button>
+                            <button onClick={() => onNavigate('beds-and-bases')} className="hover:text-[#97BFBF] transition-colors duration-200">Beds & Mattresses</button>
+                            <button onClick={() => onNavigate('mattress-toppers')} className="hover:text-[#97BFBF] transition-colors duration-200">Toppers</button>
+                            <button onClick={() => onNavigate('paedic-and-travel')} className="hover:text-[#97BFBF] transition-colors duration-200">Paedic Supports</button>
+                            <button onClick={() => onNavigate('bed-pillows')} className="hover:text-[#97BFBF] transition-colors duration-200">Pillows</button>
+                            <button onClick={() => onNavigate('babies')} className="hover:text-[#97BFBF] transition-colors duration-200">Babies</button>
+                            <button onClick={() => onNavigate('k9-range')} className="hover:text-[#97BFBF] transition-colors duration-200">Scratchy Tails</button>
+                            <button onClick={() => onNavigate('contact')} className="hover:text-[#97BFBF] transition-colors duration-200">Contact</button>
+                        </nav>
+                    ) : (
+                        <div className="cursor-pointer flex justify-center flex-grow md:flex-grow-0 transition-all duration-300" onClick={onHome}>
+                            <img 
+                                src="https://wp.fastasleep.co.za/wp-content/uploads/2021/11/fast_asleep_logo_updated.pdf.png" 
+                                alt="Fast Asleep Logo" 
+                                className="h-28 md:h-36 w-auto object-contain"
+                            />
                         </div>
-                        <button onClick={() => alert('Coming Soon!')} className="text-gold font-bold border border-gold px-3 py-1 hover:bg-gold hover:text-white transition-all duration-200 uppercase tracking-wider">Build Your Own</button>
-                        <button onClick={() => onNavigate('contact')} className="hover:text-gold transition-colors duration-200">Contact</button>
-                    </nav>
+                    )}
 
-                    {/* Icons */}
+                    {/* Right: Actions */}
                     <div className="flex items-center space-x-6 text-navy">
-                        <Search className="w-5 h-5 cursor-pointer hover:text-gold transition-colors hidden md:block" />
+                        <Search className="w-5 h-5 cursor-pointer hover:text-[#97BFBF] transition-colors hidden md:block" />
+                        <User className="w-5 h-5 cursor-pointer hover:text-[#97BFBF] transition-colors hidden md:block" />
                         <div
-                            className="relative cursor-pointer hover:text-gold transition-colors"
+                            className="relative cursor-pointer hover:text-[#97BFBF] transition-colors"
                             onClick={() => setIsCartOpen(true)}
                         >
                             <ShoppingCart className="w-5 h-5" />
                             {cartCount > 0 && (
-                                <span className="absolute -top-2 -right-2 bg-gold text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
+                                <span className="absolute -top-2 -right-2 bg-[#97BFBF] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
                                     {cartCount}
                                 </span>
                             )}
                         </div>
                     </div>
                 </div>
+
+                {/* Bottom Row: Navigation Links (Only visible when NOT scrolled) */}
+                {!isScrolled && (
+                    <div className="border-t border-gray-50 hidden md:block bg-white transition-all duration-300">
+                        <div className="container-custom py-3.5 flex justify-center">
+                            <nav className="flex items-center space-x-10 text-[12px] font-bold uppercase tracking-[0.18em] text-navy">
+                                <button onClick={onHome} className="hover:text-[#97BFBF] transition-colors duration-200">Home</button>
+                                <button onClick={() => onNavigate('beds-and-bases')} className="hover:text-[#97BFBF] transition-colors duration-200">Beds & Mattresses</button>
+                                <button onClick={() => onNavigate('mattress-toppers')} className="hover:text-[#97BFBF] transition-colors duration-200">Toppers</button>
+                                <button onClick={() => onNavigate('paedic-and-travel')} className="hover:text-[#97BFBF] transition-colors duration-200">Paedic Supports</button>
+                                <button onClick={() => onNavigate('bed-pillows')} className="hover:text-[#97BFBF] transition-colors duration-200">Pillows</button>
+                                <button onClick={() => onNavigate('babies')} className="hover:text-[#97BFBF] transition-colors duration-200">Babies</button>
+                                <button onClick={() => onNavigate('k9-range')} className="hover:text-[#97BFBF] transition-colors duration-200">Scratchy Tails</button>
+                                <button onClick={() => onNavigate('contact')} className="hover:text-[#97BFBF] transition-colors duration-200">Contact</button>
+                            </nav>
+                        </div>
+                    </div>
+                )}
             </header>
 
             {/* Mobile Menu Overlay */}
@@ -111,7 +161,7 @@ export default function Navbar({ onNavigate, onHome }) {
                                         <button className="hover:text-gold" onClick={() => handleNavClick('babies')}>Hushhh</button>
                                         <button className="hover:text-gold" onClick={() => handleNavClick('bed-pillows')}>Pillows</button>
                                         <button className="hover:text-gold" onClick={() => handleNavClick('beds-and-bases')}>Beds & Bases</button>
-                                        <button className="hover:text-gold" onClick={() => handleNavClick('k9-range')}>Scrappy Tails</button>
+                                        <button className="hover:text-gold" onClick={() => handleNavClick('k9-range')}>Scratchy Tails</button>
                                         <button className="hover:text-gold" onClick={() => handleNavClick('mattress-toppers')}>Toppers</button>
                                         <button className="hover:text-gold" onClick={() => handleNavClick('paedic-and-travel')}>Pedic & Travel</button>
                                         <button className="hover:text-gold" onClick={() => handleNavClick('travel-pillows')}>Travel Pillows</button>

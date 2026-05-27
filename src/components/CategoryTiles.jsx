@@ -21,7 +21,7 @@ export default function CategoryTiles({ onNavigate }) {
             actionText: "VIEW"
         },
         {
-            id: 'kids',
+            id: 'babies',
             title: "KIDS RANGE",
             subtitle: "Fun, safe & colorful foam beds",
             image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.11.39.png",
@@ -30,7 +30,7 @@ export default function CategoryTiles({ onNavigate }) {
             actionText: "SHOP RANGE"
         },
         {
-            id: 'pet',
+            id: 'k9-range',
             title: "PET RANGE",
             subtitle: "Durable comfort for furry friends",
             image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.13.22.png",

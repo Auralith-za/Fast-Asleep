@@ -1,58 +1,74 @@
 import React from 'react';
-import { MousePointerClick, Maximize, Scissors, Moon } from 'lucide-react';
 
 export default function CustomisationSection() {
     const steps = [
         {
-            icon: <MousePointerClick className="w-8 h-8 text-gold" />,
-            title: "1. Pick It",
-            desc: "Start with what you need."
+            image: "/assets/ideal-bases-bg.png",
+            title: "1. Choose a Bed Base",
+            desc: "Storage or standard"
         },
         {
-            icon: <Maximize className="w-8 h-8 text-gold" />,
-            title: "2. Size It",
-            desc: "Exact size, exact shape."
+            image: "/assets/detail-bed-slats.png",
+            title: "2. Choose Your Size",
+            desc: "Match your mattress size"
         },
         {
-            icon: <Scissors className="w-8 h-8 text-gold" />,
-            title: "3. Shape It",
-            desc: "Your feel. Your support."
+            image: "/assets/comfort-medium.png",
+            title: "3. Choose Colour",
+            desc: "Select your fabric color"
         },
         {
-            icon: <Moon className="w-8 h-8 text-gold" />,
-            title: "4. Sleep On It",
-            desc: "Crafted. Delivered. Perfect."
+            image: "/assets/trial-bg.png",
+            title: "4. We Craft It",
+            desc: "Delivered to perfection"
         }
     ];
 
     return (
-        <section className="py-24 bg-navy text-white relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&q=80&w=1200')] opacity-10 object-cover bg-center mix-blend-overlay"></div>
-            
+        <section className="py-24 bg-[#0a1530] text-white relative overflow-hidden">
             <div className="container-custom relative z-10 text-center">
-                <div className="mb-16">
-                    <span className="inline-flex items-center gap-2 bg-gold/20 text-gold px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
-                        💎 Your Powerful Differentiator
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4">Can't Find The Perfect Fit? We'll Make It.</h2>
-                    <p className="text-xl text-gray-300 font-script mb-8">custom comfort in 4 easy steps</p>
+                
+                {/* Header Section */}
+                <div className="mb-16 flex flex-col items-center">
+                    {/* Highlighted Heading Block */}
+                    <div className="relative inline-block px-8 py-4 bg-[#1a2b4b]/60 border border-white/10 backdrop-blur-sm mb-4">
+                        <h2 className="text-3xl md:text-5xl font-extrabold tracking-wide uppercase leading-tight">
+                            Can't Find The Perfect Fit? We'll Make It.
+                        </h2>
+                    </div>
+                    
+                    <p className="text-xl text-[#97BFBF] font-script font-normal lowercase tracking-wider">
+                        custom comfort in 4 easy steps
+                    </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 relative">
-                    {/* Connection line for desktop */}
-                    <div className="hidden md:block absolute top-1/2 left-[10%] right-[10%] h-[1px] bg-white/20 -translate-y-1/2 z-0"></div>
+                {/* Steps Section */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 relative max-w-6xl mx-auto">
+                    {/* Horizontal connecting line for desktop */}
+                    <div className="hidden md:block absolute top-[72px] left-[12%] right-[12%] h-[1px] bg-white/15 z-0"></div>
                     
                     {steps.map((step, index) => (
                         <div key={index} className="relative z-10 flex flex-col items-center">
-                            <div className="w-20 h-20 rounded-full bg-navy border border-white/20 flex items-center justify-center mb-6 shadow-xl relative">
-                                <div className="absolute inset-0 rounded-full bg-gold opacity-0 hover:opacity-20 transition-opacity"></div>
-                                {step.icon}
+                            {/* Circular Image Container with light outline */}
+                            <div className="w-32 h-32 md:w-36 md:h-36 rounded-full bg-[#0a1530] border border-white/20 flex items-center justify-center mb-6 shadow-xl relative hover:border-[#97BFBF] transition-all duration-300 overflow-hidden">
+                                <img 
+                                    src={step.image} 
+                                    alt={step.title}
+                                    className="w-full h-full object-cover rounded-full transition-transform duration-500 hover:scale-110"
+                                />
                             </div>
-                            <h3 className="text-2xl font-bold mb-2">{step.title}</h3>
-                            <p className="text-gray-400 text-sm max-w-[200px]">{step.desc}</p>
+                            
+                            <h3 className="text-lg font-bold uppercase tracking-wider mb-2 text-white/95">
+                                {step.title}
+                            </h3>
+                            
+                            <p className="text-white/60 text-xs md:text-[13px] leading-relaxed max-w-[200px]">
+                                {step.desc}
+                            </p>
                         </div>
                     ))}
                 </div>
+
             </div>
         </section>
     );

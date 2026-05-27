@@ -12,7 +12,8 @@ import WhyChooseUs from './components/WhyChooseUs';
 import ValuesSection from './components/ValuesSection';
 import BlogTeasers from './components/BlogTeasers';
 import WhatsAppButton from './components/WhatsAppButton';
-import MothersDaySpecials from './components/MothersDaySpecials';
+import SleepBundles from './components/SleepBundles';
+import SleepCollection from './components/SleepCollection';
 import CustomisationSection from './components/CustomisationSection';
 import NewsletterSection from './components/NewsletterSection';
 import ContactSection from './components/ContactSection';
@@ -22,7 +23,9 @@ import ProductDetail from './components/ProductDetail';
 import CategoryPage from './components/CategoryPage';
 import ContactPage from './components/ContactPage';
 import Configurator from './components/Configurator';
+import FAQ from './components/FAQ';
 import { CartProvider } from './context/CartContext';
+import LovedProductsAndUpgrades from './components/LovedProductsAndUpgrades';
 
 import { useProducts } from './hooks/useProducts';
 import DebugInfo from './components/DebugInfo';
@@ -34,13 +37,21 @@ function App() {
     const { products, loading } = useProducts();
 
     const navigateToProduct = (productId) => {
+        if (productId === '4698' || productId === 'father-day-bakkie-mattress') {
+            navigateToCategory('contact');
+            return;
+        }
+        if (productId === 'fathers-day-sale-redirect' || productId === '4696') {
+            navigateToCategory('shop');
+            return;
+        }
         setSelectedProductId(productId);
         setCurrentView('product');
         window.scrollTo(0, 0);
     };
 
     const navigateToCategory = (category) => {
-        if (category === 'contact') {
+        if (category === 'contact' || category === 'caravan' || category === 'custom' || category === 'medical') {
             setCurrentView('contact');
         } else if (category === 'configurator') {
             setCurrentView('configurator');
@@ -56,10 +67,6 @@ function App() {
         window.scrollTo(0, 0);
     };
 
-    if (loading) {
-        return <div className="min-h-screen flex items-center justify-center text-navy font-bold">Loading Store...</div>;
-    }
-
     return (
         <CartProvider>
             <div className="min-h-screen bg-white font-sans text-navy">
@@ -68,22 +75,28 @@ function App() {
                 {currentView === 'home' && (
                     <>
                         {/* 1. Hero Banner */}
-                        <Hero />
+                        <Hero onNavigate={navigateToCategory} />
                         
                         {/* 2. Quick Trust Builders */}
                         <TrustBuilders />
 
-                        {/* Mother's Day Specials */}
-                        <MothersDaySpecials onNavigate={navigateToCategory} onProductClick={navigateToProduct} />
+                        {/* Fast Asleep Sleep Bundles */}
+                        <SleepBundles onNavigate={navigateToCategory} onProductClick={navigateToProduct} products={products} />
 
-                        {/* 4. Most Popular / Bestsellers */}
-                        <Bestsellers onProductClick={navigateToProduct} products={products} />
+                        {/* Father's Day Specials */}
+                        <Bestsellers onProductClick={navigateToProduct} />
 
                         {/* Customisation Section */}
                         <CustomisationSection />
 
+                        {/* Bestsellers/Sleep Collection Carousel */}
+                        <SleepCollection onProductClick={navigateToProduct} products={products} />
+
                         {/* 3. Shop by Category */}
                         <CategoryTiles onNavigate={navigateToCategory} />
+
+                        {/* South Africa's Most Loved & Upgrades */}
+                        <LovedProductsAndUpgrades onProductClick={navigateToProduct} onNavigate={navigateToCategory} products={products} />
 
                         {/* 5. Customer Reviews */}
                         <Reviews />
@@ -91,6 +104,7 @@ function App() {
                         {/* 6. Special Promotions */}
                         <Promotions onProductClick={navigateToProduct} />
 
+                        <FAQ />
                         <ValuesSection />
 
                         {/* 8. Instant Communication (WhatsApp) */}
@@ -99,7 +113,6 @@ function App() {
                         {/* 9. Content / Educational Section */}
                         <BlogTeasers />
                         
-                        <NewsletterSection />
                         <ContactSection />
                     </>
                 )}
@@ -109,7 +122,7 @@ function App() {
                 )}
 
                 {currentView === 'product' && (
-                    <ProductDetail productId={selectedProductId} onBack={navigateToHome} products={products} />
+                    <ProductDetail productId={selectedProductId} onBack={navigateToHome} products={products} onNavigate={navigateToCategory} />
                 )}
 
                 {currentView === 'contact' && (

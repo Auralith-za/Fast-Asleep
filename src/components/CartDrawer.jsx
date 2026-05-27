@@ -64,9 +64,14 @@ export default function CartDrawer() {
                                             <div className="ml-4 flex flex-1 flex-col">
                                                 <div>
                                                     <div className="flex justify-between text-base font-medium text-navy">
-                                                        <h3>
-                                                            <a href="#">{item.name}</a>
-                                                        </h3>
+                                                        <div>
+                                                            <h3>
+                                                                <a href="#">{item.name}</a>
+                                                            </h3>
+                                                            {item.isFathersDaySale && !item.noFathersDay20Percent && (
+                                                                <span className="text-[9px] text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-1.5 py-0.5 rounded block w-max mt-1">Fathers Day Sale</span>
+                                                            )}
+                                                        </div>
                                                         <p className="ml-4 font-bold">
                                                             {item.exactPrice 
                                                                 ? `R${parseFloat(item.exactPrice).toLocaleString('en-ZA', { minimumFractionDigits: 2 })}`
