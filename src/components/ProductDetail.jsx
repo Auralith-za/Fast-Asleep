@@ -58,9 +58,11 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
             if (!str) return '';
             try {
                 const doc = new DOMParser().parseFromString(str, 'text/html');
-                return (doc.body.textContent || '').trim().toLowerCase();
+                let text = (doc.body.textContent || '').trim().toLowerCase();
+                // Replace dashes and underscores with spaces to match slugs to labels
+                return text.replace(/[-_]/g, ' ').replace(/\s+/g, ' ');
             } catch (e) {
-                return String(str).trim().toLowerCase();
+                return String(str).trim().toLowerCase().replace(/[-_]/g, ' ').replace(/\s+/g, ' ');
             }
         };
 
@@ -73,11 +75,14 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
 
             // Each variation attribute must match the user's selection
             return v.attributes.every(attr => {
+                // If the variation option is empty, it means "Any" in WooCommerce, so it matches whatever the user selected.
+                if (!attr.option || attr.option === '') return true;
+
                 const cleanAttrName = sanitizeStr(attr.name);
                 const matchedKey = Object.keys(selectedVariants).find(
                     k => sanitizeStr(k) === cleanAttrName
                 );
-                if (!matchedKey) return true; // WooCommerce "any" wildcard – allow it
+                if (!matchedKey) return true; // If we don't have this attribute selected yet, assume it might match
                 return sanitizeStr(selectedVariants[matchedKey]) === sanitizeStr(attr.option);
             });
         });
