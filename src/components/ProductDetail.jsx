@@ -195,6 +195,8 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                                     e.target.src = 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?auto=format&fit=crop&q=80&w=800';
                                 }}
                             />
+                        </div>
+
                         {/* Only show gallery thumbnails if not a Fathers Day product */}
                         {!product.isFathersDaySale && (
                             <div className="grid grid-cols-4 gap-4">
