@@ -9,10 +9,10 @@ export default function Hero({ onNavigate }) {
                     <img
                         src="/family_bed_hero.png"
                         alt="Happy family laughing in a comfortable bed"
-                        className="w-full h-full object-cover object-[center_10%] md:object-[center_20%]"
+                        className="w-full h-full object-cover object-[center_60%] md:object-[center_75%]"
                     />
                     {/* Dark gradient overlay for text readability */}
-                    <div className="absolute inset-0 bg-black/20"></div>
+                    <div className="absolute inset-0 bg-black/10"></div>
                 </div>
 
                 {/* Content */}
