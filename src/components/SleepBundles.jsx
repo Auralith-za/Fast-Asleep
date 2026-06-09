@@ -64,18 +64,18 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                 <div className="flex flex-col lg:flex-row items-center">
                     
                     {/* Left Column: Copy & Button */}
-                    <div className="w-full lg:w-[35%] flex flex-col justify-center pt-8 lg:pt-0 pr-0 lg:pr-8">
+                    <div className="w-full lg:w-[30%] flex flex-col justify-center pt-8 lg:pt-0 pr-0 lg:pr-8 z-20">
                         <span className="text-gray-600 font-bold uppercase text-[11px] md:text-xs mb-2 block tracking-wider">
                             Save whilst you sleep with our
                         </span>
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-navy uppercase tracking-widest mb-8 lg:mb-16 leading-tight">
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-navy uppercase tracking-widest mb-8 lg:mb-12 leading-tight">
                             FAST ASLEEP BUNDLES
                         </h2>
 
                         <div className="hidden lg:block">
                             <button 
                                 onClick={() => onNavigate('beds-and-bases')}
-                                className="bg-[#cca86e] text-white hover:bg-[#b5925a] transition-all duration-300 uppercase tracking-widest font-extrabold text-[11px] py-4 px-8 shadow-sm"
+                                className="bg-[#cca86e] text-white hover:bg-[#b5925a] transition-all duration-300 uppercase tracking-widest font-extrabold text-[11px] py-4 px-8 shadow-sm whitespace-nowrap"
                             >
                                 Shop Bundles
                             </button>
@@ -83,9 +83,9 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                     </div>
 
                     {/* Right Column: Lifestyle Image & Overlapping Cards */}
-                    <div className="w-full lg:w-[65%] relative mt-10 lg:mt-0">
+                    <div className="w-full lg:w-[70%] relative mt-10 lg:mt-0 flex items-center">
                         {/* Lifestyle Image inside Navy background */}
-                        <div className="relative w-full h-[350px] md:h-[550px] lg:h-[600px] lg:p-12 z-0">
+                        <div className="relative w-full h-[350px] md:h-[550px] lg:h-[600px] lg:p-12 z-0 lg:ml-auto lg:w-[85%]">
                             <div className="w-full h-full relative overflow-hidden">
                                 <img 
                                     src="/bundle_bedroom.png" 
@@ -96,14 +96,14 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                         </div>
 
                         {/* Cards Container - Overlapping the left side and image */}
-                        <div className="lg:absolute lg:top-1/2 lg:-left-[35%] lg:-translate-y-1/2 z-20 flex flex-row gap-4 overflow-x-auto lg:overflow-visible pb-6 lg:pb-0 px-4 lg:px-0 mt-[-80px] lg:mt-0 relative scrollbar-hide w-full max-w-full">
+                        <div className="lg:absolute lg:top-1/2 lg:left-0 lg:-translate-y-1/2 z-20 flex flex-row gap-4 overflow-x-auto lg:overflow-visible pb-6 lg:pb-0 px-4 lg:px-0 mt-[-80px] lg:mt-0 relative scrollbar-hide w-full max-w-full">
                             {bundles.map((bundle, idx) => {
                                 const activeImage = (bundle.product && bundle.product.image) ? bundle.product.image : bundle.fallbackImage;
                                 return (
                                     <div 
                                         key={idx}
                                         onClick={() => handleBundleClick(bundle.product)}
-                                        className="bg-white p-3 md:p-4 rounded-none shadow-[0_10px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.15)] transition-all duration-300 cursor-pointer group min-w-[200px] md:min-w-[240px] max-w-[240px] flex-shrink-0"
+                                        className="bg-white p-3 md:p-4 rounded-none shadow-[0_10px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.15)] transition-all duration-300 cursor-pointer group min-w-[200px] md:min-w-[220px] max-w-[220px] flex-shrink-0"
                                     >
                                         <div className="w-full aspect-square mb-4 overflow-hidden bg-gray-100">
                                             <img 
@@ -118,8 +118,8 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                                             </h4>
                                             <div className="w-px h-6 bg-gray-300"></div>
                                             <div className="flex flex-col items-center justify-center w-1/3">
-                                                <span className="text-navy font-bold text-[9px] uppercase">Save</span>
-                                                <span className="text-navy font-extrabold text-[11px] md:text-[12px] uppercase tracking-wider">
+                                                <span className="text-navy font-bold text-[8px] uppercase">Save</span>
+                                                <span className="text-navy font-extrabold text-[10px] md:text-[11px] uppercase tracking-wider whitespace-nowrap">
                                                     {bundle.save.replace('Save ', '')}
                                                 </span>
                                             </div>
