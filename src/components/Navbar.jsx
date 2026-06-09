@@ -35,7 +35,7 @@ export default function Navbar({ onNavigate, onHome }) {
                 
                 {/* Full Header Layout (Not Scrolled) */}
                 <div className={`container-custom flex items-center justify-between transition-all duration-300 ${
-                    isScrolled ? 'py-1' : 'py-4'
+                    isScrolled ? 'py-1' : 'py-2'
                 }`}>
                     
                     {/* Left: Social Media Icons / Small Logo when Scrolled */}
@@ -44,7 +44,7 @@ export default function Navbar({ onNavigate, onHome }) {
                             <img 
                                 src="https://wp.fastasleep.co.za/wp-content/uploads/2021/11/fast_asleep_logo_updated.pdf.png" 
                                 alt="Fast Asleep Logo" 
-                                className="h-14 md:h-16 w-auto object-contain"
+                                className="h-10 md:h-12 w-auto object-contain"
                             />
                         </div>
                     ) : (
@@ -87,7 +87,7 @@ export default function Navbar({ onNavigate, onHome }) {
                             <img 
                                 src="https://wp.fastasleep.co.za/wp-content/uploads/2021/11/fast_asleep_logo_updated.pdf.png" 
                                 alt="Fast Asleep Logo" 
-                                className="h-28 md:h-36 w-auto object-contain"
+                                className="h-20 md:h-28 w-auto object-contain"
                             />
                         </div>
                     )}

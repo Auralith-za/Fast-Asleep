@@ -8,7 +8,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Montserrat', 'sans-serif'],
-                script: ['"Great Vibes"', 'cursive'],
+                script: ['"Caveat"', 'cursive'],
             },
             colors: {
                 navy: {

@@ -55,82 +55,90 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
     };
 
     return (
-        <section className="bg-lightGrey py-20 overflow-hidden">
-            <div className="container-custom">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <section className="relative py-16 md:py-24 overflow-hidden bg-gray-50 lg:bg-transparent">
+            {/* Split Background for Desktop */}
+            <div className="hidden lg:block absolute inset-y-0 left-0 w-[45%] bg-gray-50"></div>
+            <div className="hidden lg:block absolute inset-y-0 right-0 w-[55%] bg-navy"></div>
+
+            <div className="container-custom relative z-10">
+                <div className="flex flex-col lg:flex-row items-center">
                     
-                    {/* Left Column: Bundles & Copy */}
-                    <div className="lg:col-span-5 flex flex-col justify-center">
-                        <span className="text-gray-400 font-bold uppercase tracking-[0.25em] text-[11px] mb-3 block">
+                    {/* Left Column: Copy & Button */}
+                    <div className="w-full lg:w-[35%] flex flex-col justify-center pt-8 lg:pt-0 pr-0 lg:pr-8">
+                        <span className="text-gray-600 font-bold uppercase text-[11px] md:text-xs mb-2 block tracking-wider">
                             Save whilst you sleep with our
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-navy uppercase tracking-wide mb-10 leading-tight">
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-navy uppercase tracking-widest mb-8 lg:mb-16 leading-tight">
                             FAST ASLEEP BUNDLES
                         </h2>
 
-                        <div className="space-y-6 mb-10">
+                        <div className="hidden lg:block">
+                            <button 
+                                onClick={() => onNavigate('beds-and-bases')}
+                                className="bg-[#cca86e] text-white hover:bg-[#b5925a] transition-all duration-300 uppercase tracking-widest font-extrabold text-[11px] py-4 px-8 shadow-sm"
+                            >
+                                Shop Bundles
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Right Column: Lifestyle Image & Overlapping Cards */}
+                    <div className="w-full lg:w-[65%] relative mt-10 lg:mt-0">
+                        {/* Lifestyle Image inside Navy background */}
+                        <div className="relative w-full h-[350px] md:h-[550px] lg:h-[600px] lg:p-12 z-0">
+                            <div className="w-full h-full relative overflow-hidden">
+                                <img 
+                                    src="/bundle_bedroom.png" 
+                                    alt="Luxury bed styling" 
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Cards Container - Overlapping the left side and image */}
+                        <div className="lg:absolute lg:top-1/2 lg:-left-[35%] lg:-translate-y-1/2 z-20 flex flex-row gap-4 overflow-x-auto lg:overflow-visible pb-6 lg:pb-0 px-4 lg:px-0 mt-[-80px] lg:mt-0 relative scrollbar-hide w-full max-w-full">
                             {bundles.map((bundle, idx) => {
                                 const activeImage = (bundle.product && bundle.product.image) ? bundle.product.image : bundle.fallbackImage;
                                 return (
                                     <div 
                                         key={idx}
                                         onClick={() => handleBundleClick(bundle.product)}
-                                        className="bg-white p-5 rounded-none border border-gray-150 flex items-center gap-5 hover:shadow-md transition-all duration-300 cursor-pointer group"
+                                        className="bg-white p-3 md:p-4 rounded-none shadow-[0_10px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.15)] transition-all duration-300 cursor-pointer group min-w-[200px] md:min-w-[240px] max-w-[240px] flex-shrink-0"
                                     >
-                                        <img 
-                                            src={activeImage} 
-                                            alt={bundle.title} 
-                                            className="w-20 h-20 object-cover border border-gray-100 flex-shrink-0"
-                                        />
-                                        <div className="flex-grow">
-                                            <div className="flex items-baseline justify-between mb-1">
-                                                <h4 className="font-bold text-navy text-[13px] md:text-[14px] tracking-wide uppercase">
-                                                    {bundle.title}
-                                                </h4>
-                                                <span className="text-[#97BFBF] font-bold text-xs uppercase tracking-wider flex-shrink-0">
-                                                    {bundle.save}
+                                        <div className="w-full aspect-square mb-4 overflow-hidden bg-gray-100">
+                                            <img 
+                                                src={activeImage} 
+                                                alt={bundle.title} 
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                        </div>
+                                        <div className="flex items-center justify-between gap-3 border-t border-gray-100 pt-3">
+                                            <h4 className="font-extrabold text-navy text-[10px] md:text-[11px] tracking-wider uppercase leading-snug w-2/3 pr-2">
+                                                {bundle.title.replace(' BUNDLE', '\nBUNDLE')}
+                                            </h4>
+                                            <div className="w-px h-6 bg-gray-300"></div>
+                                            <div className="flex flex-col items-center justify-center w-1/3">
+                                                <span className="text-navy font-bold text-[9px] uppercase">Save</span>
+                                                <span className="text-navy font-extrabold text-[11px] md:text-[12px] uppercase tracking-wider">
+                                                    {bundle.save.replace('Save ', '')}
                                                 </span>
                                             </div>
-                                            <p className="text-gray-500 text-xs leading-relaxed max-w-sm">
-                                                {bundle.desc}
-                                            </p>
-                                            {bundle.product && (
-                                                <p className="text-[10px] text-gray-400 font-semibold mt-1">
-                                                    Linked product: {bundle.product.name}
-                                                </p>
-                                            )}
                                         </div>
-                                        <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-[#97BFBF] group-hover:translate-x-1 transition-all flex-shrink-0" />
                                     </div>
                                 );
                             })}
                         </div>
 
-                        <button 
-                            onClick={() => onNavigate('beds-and-bases')}
-                            className="bg-[#97BFBF] text-white hover:bg-[#80a5a5] transition-all duration-300 uppercase tracking-[0.2em] font-extrabold text-xs py-5 px-10 text-center w-full sm:w-auto shadow-md self-start"
-                        >
-                            Shop All Beds & Bases
-                        </button>
-                    </div>
-
-                    {/* Right Column: Premium Styled Lifestyle Image */}
-                    <div className="lg:col-span-7 relative h-[500px] md:h-[650px] w-full overflow-hidden border-[15px] border-white shadow-xl bg-navy">
-                        <img 
-                            src="/bundle_bedroom.png" 
-                            alt="Luxury bed styling" 
-                            className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-1000"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent"></div>
-                        <div className="absolute bottom-10 left-10 text-white z-10 max-w-md">
-                            <span className="font-script text-[#97BFBF] text-4xl block mb-2 lowercase">rest easy</span>
-                            <h3 className="text-2xl font-bold uppercase tracking-wider mb-2">The Ultimate Sleep Experience</h3>
-                            <p className="text-white/80 text-sm leading-relaxed">
-                                Handcrafted bed structures, cooling modular mattresses, and premium bamboo covers combined to elevate your bedtime.
-                            </p>
+                        {/* Mobile Button */}
+                        <div className="lg:hidden mt-6 px-4 pb-8 flex justify-center">
+                            <button 
+                                onClick={() => onNavigate('beds-and-bases')}
+                                className="bg-[#cca86e] text-white hover:bg-[#b5925a] transition-all duration-300 uppercase tracking-widest font-extrabold text-[11px] py-4 px-8 shadow-sm w-full"
+                            >
+                                Shop Bundles
+                            </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
