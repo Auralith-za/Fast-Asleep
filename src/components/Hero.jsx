@@ -21,8 +21,8 @@ export default function Hero({ onNavigate }) {
                         <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-white/90 mb-4">
                             WELCOME TO FAST ASLEEP
                         </p>
-                        <h1 className="font-light leading-[1] mb-6">
-                            <span className="font-script font-normal lowercase text-white text-[12vw] sm:text-[9vw] md:text-[7vw] lg:text-[6.5rem] block mb-2 leading-none">wake up to a better version of you.</span>
+                        <h1 className="font-light leading-[1] mb-6 whitespace-nowrap">
+                            <span className="font-script font-normal lowercase text-white text-[7.5vw] sm:text-[6vw] md:text-[5vw] lg:text-[4.5rem] xl:text-[5rem] block mb-2 leading-none">wake up to a better version of you.</span>
                         </h1>
 
                         <p className="text-lg md:text-xl text-white/95 mb-10 font-medium max-w-xl mx-auto tracking-wide">
