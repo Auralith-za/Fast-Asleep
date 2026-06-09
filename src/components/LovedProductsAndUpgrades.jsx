@@ -61,87 +61,89 @@ export default function LovedProductsAndUpgrades({ onProductClick, onNavigate, p
     });
 
     return (
-        <div className="space-y-16 py-16 bg-[#fcfbf9] border-b border-gray-150">
-            {/* Section 1: South Africa's Most Loved Sleep Products */}
+        <section className="bg-white py-16 md:py-24 border-b border-gray-150 overflow-hidden">
             <div className="container-custom">
-                <div className="text-center mb-10">
-                    <h3 className="font-serif italic text-2xl md:text-3xl text-navy">
-                        South Africa's Most Loved Sleep Products
-                    </h3>
-                    <div className="w-16 h-[1px] bg-gray-300 mx-auto mt-4"></div>
-                </div>
+                <div className="flex flex-col lg:flex-row gap-10 items-stretch">
+                    
+                    {/* Left side: Heading, Subtitle, Lifestyle Image */}
+                    <div className="w-full lg:w-[35%] flex flex-col justify-center relative rounded-sm overflow-hidden min-h-[300px] p-8 md:p-12 z-10 group">
+                        {/* Background Lifestyle Image */}
+                        <div className="absolute inset-0 z-0">
+                            <img 
+                                src="/bundle_bedroom.png" 
+                                alt="Lifestyle Bedroom" 
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            />
+                            <div className="absolute inset-0 bg-navy/80 mix-blend-multiply"></div>
+                        </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    {lovedProducts.map((p, idx) => (
-                        <div 
-                            key={idx}
-                            onClick={() => onProductClick && onProductClick(p.id)}
-                            className="bg-white border border-gray-150 p-6 flex flex-col justify-between hover:shadow-md transition-shadow duration-300 cursor-pointer group rounded-sm"
-                        >
-                            <div className="aspect-[4/3] w-full mb-6 overflow-hidden bg-gray-50 flex items-center justify-center rounded-sm">
-                                <img 
-                                    src={p.image} 
-                                    alt={p.name}
-                                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-350"
-                                />
-                            </div>
-                            <div className="text-center">
-                                <h4 className="font-bold text-navy text-[13px] uppercase tracking-wider mb-2 group-hover:text-[#97BFBF] transition-colors leading-tight">
-                                    {p.name}
-                                </h4>
-                                <div className="flex justify-center text-amber-400 gap-0.5 mb-2">
-                                    {[...Array(p.rating)].map((_, i) => (
-                                        <span key={i} className="text-xs">★</span>
-                                    ))}
+                        {/* Content over image */}
+                        <div className="relative z-10 text-white flex flex-col justify-center h-full">
+                            <h3 className="font-extrabold text-2xl md:text-3xl lg:text-4xl uppercase tracking-widest leading-tight mb-3">
+                                South Africa's Most Loved Sleep Products
+                            </h3>
+                            <p className="font-script text-[#cca86e] text-4xl md:text-5xl lowercase mb-8">
+                                trial tested and loved
+                            </p>
+                            
+                            <div className="mt-auto">
+                                <div className="flex items-center text-amber-400 gap-1 mb-2 text-xl md:text-2xl">
+                                    ★★★★★
                                 </div>
-                                {p.isSale && p.originalPrice ? (
-                                    <div className="flex flex-col items-center gap-0.5">
-                                        <span className="text-[9px] text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-1.5 py-0.5 rounded">Fathers Day Sale</span>
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-xs text-gray-400 line-through">{p.originalPrice}</span>
-                                            <span className="text-sm font-bold text-navy">{p.price}</span>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <span className="text-gray-500 text-xs font-bold">{p.price}</span>
-                                )}
+                                <p className="text-white/90 font-bold text-sm uppercase tracking-wider">
+                                    Trusted by thousands of South Africans
+                                </p>
                             </div>
                         </div>
-                    ))}
-                </div>
-
-                <div className="text-center mt-10">
-                    <button 
-                        onClick={() => onNavigate && onNavigate('shop')}
-                        className="bg-navy hover:bg-[#97BFBF] text-white font-bold uppercase tracking-wider text-xs px-8 py-3.5 transition-colors duration-300 rounded-sm"
-                    >
-                        Shop Specials ▾
-                    </button>
-                </div>
-            </div>
-
-            {/* Section 2: Limited Time Sleep Upgrades Banner */}
-            <div className="container-custom">
-                <div className="max-w-6xl mx-auto bg-[#faf8f4] border border-gray-200 overflow-hidden shadow-sm grid grid-cols-1 md:grid-cols-12 items-center rounded-sm">
-                    <div className="p-8 md:p-12 md:col-span-7 text-center md:text-left space-y-6">
-                        <h4 className="font-serif italic text-2xl md:text-3xl text-navy">
-                            Limited Time Sleep Upgrades
-                        </h4>
-                        <p className="text-gray-600 text-sm md:text-base font-medium">
-                            Save 20% on Select Mattresses & Pillows • Fathers Day Sale Active
-                        </p>
-                        <button 
-                            onClick={() => onNavigate && onNavigate('shop')}
-                            className="bg-navy hover:bg-[#97BFBF] text-white font-bold uppercase tracking-wider text-xs px-8 py-3.5 transition-colors duration-300 rounded-sm"
-                        >
-                            Shop Specials ▾
-                        </button>
                     </div>
 
-                    <div className="md:col-span-5 h-64 md:h-full min-h-[220px] bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&q=80&w=600')` }}>
+                    {/* Right side: One-line compact Carousel */}
+                    <div className="w-full lg:w-[65%] flex items-center">
+                        <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 pb-4 px-4 lg:px-0 -mx-4 lg:mx-0 w-full">
+                            {lovedProducts.map((p, idx) => (
+                                <div 
+                                    key={idx}
+                                    onClick={() => onProductClick && onProductClick(p.id)}
+                                    className="bg-white border border-gray-150 p-4 flex flex-col justify-between hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 cursor-pointer group min-w-[200px] md:min-w-[240px] max-w-[240px] flex-shrink-0 snap-center"
+                                >
+                                    <div className="aspect-square w-full mb-4 overflow-hidden bg-gray-50 flex items-center justify-center">
+                                        <img 
+                                            src={p.image} 
+                                            alt={p.name}
+                                            className="w-[90%] h-[90%] object-contain group-hover:scale-105 transition-transform duration-500 mix-blend-multiply"
+                                        />
+                                    </div>
+                                    <div className="text-left flex flex-col flex-grow">
+                                        <h4 className="font-extrabold text-navy text-[11px] md:text-xs uppercase tracking-wider mb-2 group-hover:text-[#cca86e] transition-colors leading-snug">
+                                            {p.name}
+                                        </h4>
+                                        
+                                        {/* Bigger Rating with Review Text */}
+                                        <div className="flex items-center gap-1.5 mb-3">
+                                            <div className="flex text-amber-400 text-sm md:text-base">
+                                                ★★★★★
+                                            </div>
+                                            <span className="text-gray-400 text-[10px] font-bold">(120+ Reviews)</span>
+                                        </div>
+
+                                        <div className="mt-auto pt-2 border-t border-gray-100 flex items-end justify-between">
+                                            {p.isSale && p.originalPrice ? (
+                                                <div className="flex flex-col">
+                                                    <span className="text-[10px] text-gray-400 line-through mb-0.5">{p.originalPrice}</span>
+                                                    <span className="text-xs font-bold text-navy">{p.price}</span>
+                                                </div>
+                                            ) : (
+                                                <span className="text-xs font-bold text-navy">{p.price}</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
+
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

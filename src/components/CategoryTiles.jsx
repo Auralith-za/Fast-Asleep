@@ -3,13 +3,13 @@ import React from 'react';
 export default function CategoryTiles({ onNavigate }) {
     const categories = [
         {
-            id: 'beds-and-bases',
-            title: "BEDS & BASE",
-            subtitle: "Complete sleep systems",
-            image: "/assets/beds-and-bases.png",
+            id: 'babies',
+            title: "KIDS RANGE",
+            subtitle: "Fun, safe & colorful foam beds",
+            image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.11.39.png",
             gridClass: "md:col-span-2 md:row-span-2",
             aspectClass: "aspect-[16/10] md:aspect-auto h-full",
-            actionText: "VIEW RANGE"
+            actionText: "SHOP RANGE"
         },
         {
             id: 'bed-pillows',
@@ -21,13 +21,13 @@ export default function CategoryTiles({ onNavigate }) {
             actionText: "VIEW"
         },
         {
-            id: 'babies',
-            title: "KIDS RANGE",
-            subtitle: "Fun, safe & colorful foam beds",
-            image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.11.39.png",
+            id: 'beds-and-bases',
+            title: "BEDS & BASE",
+            subtitle: "Complete sleep systems",
+            image: "/assets/beds-and-bases.png",
             gridClass: "md:col-span-1",
             aspectClass: "aspect-[16/10]",
-            actionText: "SHOP RANGE"
+            actionText: "VIEW RANGE"
         },
         {
             id: 'k9-range',

@@ -86,28 +86,25 @@ export default function SleepCollection({ onProductClick, products }) {
                     <div className="lg:col-span-9 overflow-hidden mt-10 lg:mt-0">
                         <div 
                             className="flex transition-transform duration-500 ease-out"
-                            style={{ transform: `translateX(-${scrollIndex * (100 / 3)}%)` }}
+                            style={{ transform: `translateX(-${scrollIndex * 25}%)` }}
                         >
                             {collectionItems.map((product, idx) => (
                                 <div 
                                     key={product.id} 
-                                    className={`w-[calc(100%)] sm:w-[50%] lg:w-[33.333%] flex-shrink-0 bg-white border-y border-r border-gray-200 ${idx === 0 ? 'border-l' : ''} p-6 flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group`}
+                                    className={`w-full sm:w-[50%] lg:w-[25%] flex-shrink-0 bg-white border-y border-r border-gray-200 ${idx === 0 ? 'border-l' : ''} p-5 flex flex-col justify-between cursor-pointer group hover:bg-gray-50 transition-colors duration-300`}
                                     onClick={() => onProductClick(product.id)}
                                 >
-                                    <div className="aspect-square w-full mb-8 overflow-hidden bg-white flex items-center justify-center">
+                                    <div className="aspect-square w-full mb-6 overflow-hidden flex items-center justify-center">
                                         <img 
                                             src={product.image} 
                                             alt={product.name} 
-                                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                                            className="w-[90%] h-[90%] object-contain mix-blend-multiply"
                                         />
                                     </div>
-                                    <div className="mt-auto">
-                                        <h3 className="font-extrabold text-navy text-[10px] md:text-[11px] uppercase tracking-wider mb-2 group-hover:text-[#cca86e] transition-colors leading-relaxed">
+                                    <div className="mt-auto text-left">
+                                        <h3 className="font-extrabold text-navy text-[9px] md:text-[10px] uppercase tracking-wider group-hover:text-[#cca86e] transition-colors leading-relaxed">
                                             {product.name}
                                         </h3>
-                                        <p className="text-gray-400 text-xs font-semibold">
-                                            {product.priceRange}
-                                        </p>
                                     </div>
                                 </div>
                             ))}
