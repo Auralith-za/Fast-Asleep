@@ -28,13 +28,6 @@ export default function Navbar({ onNavigate, onHome }) {
 
     return (
         <>
-            {/* Announcement Bar */}
-            <div className={`bg-[#97BFBF] text-white text-[11px] md:text-xs py-2 text-center uppercase tracking-[0.15em] font-semibold transition-all duration-300 ${
-                isScrolled ? 'h-0 py-0 overflow-hidden opacity-0' : 'h-auto opacity-100'
-            }`}>
-                100-Night Risk-Free Trial on Mattress | Free Nationwide Delivery
-            </div>
-
             {/* Header */}
             <header className={`sticky top-0 z-50 bg-white transition-all duration-300 ${
                 isScrolled ? 'shadow-md py-1' : 'shadow-sm'
@@ -79,7 +72,7 @@ export default function Navbar({ onNavigate, onHome }) {
 
                     {/* Center: Brand Logo / Navigation Links when Scrolled */}
                     {isScrolled ? (
-                        <nav className="hidden md:flex items-center space-x-8 text-[11px] font-bold uppercase tracking-[0.15em] text-navy">
+                        <nav className="hidden md:flex items-center space-x-8 text-[10px] font-bold uppercase tracking-[0.15em] text-navy">
                             <button onClick={onHome} className="hover:text-[#97BFBF] transition-colors duration-200">Home</button>
                             <button onClick={() => onNavigate('beds-and-bases')} className="hover:text-[#97BFBF] transition-colors duration-200">Beds & Mattresses</button>
                             <button onClick={() => onNavigate('mattress-toppers')} className="hover:text-[#97BFBF] transition-colors duration-200">Toppers</button>
@@ -121,7 +114,7 @@ export default function Navbar({ onNavigate, onHome }) {
                 {!isScrolled && (
                     <div className="border-t border-gray-50 hidden md:block bg-white transition-all duration-300">
                         <div className="container-custom py-3.5 flex justify-center">
-                            <nav className="flex items-center space-x-10 text-[12px] font-bold uppercase tracking-[0.18em] text-navy">
+                            <nav className="flex items-center space-x-10 text-[11px] font-bold uppercase tracking-[0.18em] text-navy">
                                 <button onClick={onHome} className="hover:text-[#97BFBF] transition-colors duration-200">Home</button>
                                 <button onClick={() => onNavigate('beds-and-bases')} className="hover:text-[#97BFBF] transition-colors duration-200">Beds & Mattresses</button>
                                 <button onClick={() => onNavigate('mattress-toppers')} className="hover:text-[#97BFBF] transition-colors duration-200">Toppers</button>
