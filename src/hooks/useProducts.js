@@ -56,19 +56,20 @@ const processProductsList = (list) => {
 
     // 2. Map and apply 20% discount to all eligible products
     return updatedList.map(p => {
-        const category = (p.category || '').toLowerCase();
-        const categories = (p.categories || []).map(c => c.toLowerCase());
-        const isTopper = category.includes('topper') || categories.some(c => c.includes('topper')) || p.name.toLowerCase().includes('topper');
-        const isBaby = category.includes('babies') || category.includes('kids') || categories.some(c => c.includes('babies') || c.includes('kids')) || p.name.toLowerCase().includes('baby') || p.name.toLowerCase().includes('cot') || p.name.toLowerCase().includes('changing mat') || p.name.toLowerCase().includes('bumper') || p.name.toLowerCase().includes('snooz buddy') || p.name.toLowerCase().includes('kids');
-        const isPaedicSupport = category.includes('paedic') || categories.some(c => c.includes('paedic')) || p.name.toLowerCase().includes('paedic') || p.name.toLowerCase().includes('wedge') || p.name.toLowerCase().includes('elevation') || p.name.toLowerCase().includes('support') || p.name.toLowerCase().includes('lounger') || p.name.toLowerCase().includes('cushion') || p.name.toLowerCase().includes('roll');
-        const isK9 = category.includes('k9') || categories.some(c => c.includes('k9') || c.includes('pet')) || p.name.toLowerCase().includes('dog') || p.name.toLowerCase().includes('pet') || p.name.toLowerCase().includes('k9');
-        
-        const isMattress = (category.includes('mattress') || categories.some(c => c.includes('mattress')) || p.name.toLowerCase().includes('pc') || p.name.toLowerCase().includes('cool') || p.name.toLowerCase().includes('eclipse') || p.name.toLowerCase().includes('plush') || p.name.toLowerCase().includes('bronnel')) && !isTopper && !isBaby && !isK9 && !isPaedicSupport;
-        const isBase = category.includes('base') || category.includes('bed') || categories.some(c => c.includes('base')) || categories.some(c => c.includes('bed')) || p.name.toLowerCase().includes('base') || p.name.toLowerCase().includes('frame');
+        const nameUpper = p.name ? p.name.toUpperCase() : '';
+        const eligibleNames = [
+            'HYBRID-PC',
+            'LATEX PLUSH',
+            'B ZEN BRONNEL',
+            'COMFY KING',
+            'THE MECHANICAL MOTION BED',
+            'HYDRA-COOL',
+            'ORTHO ECLIPSE'
+        ];
 
-        const isEligibleCategory = isMattress || isBase;
+        const isEligibleCategory = eligibleNames.some(name => nameUpper.includes(name));
 
-        const isExcluded = !isEligibleCategory || p.id === '4698' || p.id === 'father-day-bakkie-mattress' || p.id === 'father-day-camping-mattress' || p.id === '4700' || p.noFathersDay20Percent;
+        const isExcluded = !isEligibleCategory || p.noFathersDay20Percent;
         
         // Update Bakkie special image
         if (p.id === '4698') {
