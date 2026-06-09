@@ -83,7 +83,7 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                     </div>
 
                     {/* Right Column: Lifestyle Image & Overlapping Cards */}
-                    <div className="w-full lg:w-[60%] relative mt-8 lg:mt-0 flex items-center">
+                    <div className="w-full lg:w-[60%] relative mt-8 lg:mt-0 flex flex-col lg:block">
                         {/* Lifestyle Image filling the container */}
                         <div className="relative w-full h-[350px] md:h-[550px] lg:h-[650px] z-0 shadow-2xl">
                             <div className="w-full h-full relative overflow-hidden bg-white">

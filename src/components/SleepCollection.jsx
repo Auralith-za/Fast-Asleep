@@ -41,19 +41,19 @@ export default function SleepCollection({ onProductClick, products }) {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                     
                     {/* Left Column: Heading and Slider Controls */}
-                    <div className="lg:col-span-3 flex flex-col justify-center">
-                        <div>
+                    <div className="lg:col-span-3 flex flex-col justify-center items-center lg:items-start text-center lg:text-left mb-8 lg:mb-0">
+                        <div className="flex flex-col items-center lg:items-start">
                             <span className="text-navy font-bold uppercase tracking-widest text-[11px] block mb-1">
                                 DIVE INTO OUR
                             </span>
                             <h2 className="font-script text-navy text-5xl md:text-6xl font-normal leading-tight mb-4">
                                 Sleep Collection
                             </h2>
-                            <div className="w-12 h-0.5 bg-[#cca86e] mb-10"></div>
+                            <div className="w-12 h-0.5 bg-[#cca86e] mb-8 lg:mb-10"></div>
                         </div>
 
                         {/* Slider controls */}
-                        <div className="flex items-center gap-4 w-full max-w-[200px]">
+                        <div className="flex items-center justify-center lg:justify-start gap-4 w-full max-w-[200px]">
                             <button 
                                 onClick={handlePrev}
                                 disabled={scrollIndex === 0}
