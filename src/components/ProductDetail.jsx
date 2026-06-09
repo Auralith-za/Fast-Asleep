@@ -304,7 +304,22 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                     </div>
                 </div>
 
-
+                {/* TEMPORARY DEBUG PANEL */}
+                {process.env.NODE_ENV !== 'production' && (
+                    <div className="mt-12 bg-gray-100 p-6 rounded text-xs font-mono overflow-auto">
+                        <h3 className="font-bold mb-4">Debug Variation Matching</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <strong>selectedVariants:</strong>
+                                <pre>{JSON.stringify(selectedVariants, null, 2)}</pre>
+                            </div>
+                            <div>
+                                <strong>variationsData (first 5):</strong>
+                                <pre>{JSON.stringify(variationsData.slice(0, 5).map(v => ({ id: v.id, price: v.price, attributes: v.attributes })), null, 2)}</pre>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
             </div>
 

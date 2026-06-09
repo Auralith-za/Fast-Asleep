@@ -1,38 +1,66 @@
-const https = require('https');
+import 'dotenv/config';
+import fetch from 'node-fetch';
 
-const url = 'https://fastasleep.co.za/wp-json/wc/v3/products?per_page=10&status=publish';
-const auth = 'Basic ' + Buffer.from('ck_f3acf5c6ea42f9eb6ce106c79ad3c5d40671e1db:cs_d7b869f131e09ad8cd05979cf9393a9e5c5f63cf').toString('base64');
+const WC_URL = process.env.VITE_WC_URL;
+const WC_KEY = process.env.VITE_WC_KEY;
+const WC_SECRET = process.env.VITE_WC_SECRET;
 
-const options = {
-    headers: {
-        'Authorization': auth,
-        'User-Agent': 'Node/TestScript'
-    }
-};
-
-https.get(url, options, (res) => {
-    let data = '';
-    res.on('data', (chunk) => { data += chunk; });
-
-    res.on('end', () => {
-        try {
-            const products = JSON.parse(data);
-            console.log(`Fetched ${products.length} products.`);
-            products.forEach(p => {
-                console.log(`\nProduct: ${p.name} (ID: ${p.id})`);
-                console.log(`Images Count: ${p.images.length}`);
-                if (p.images.length > 0) {
-                    console.log(`First Image SRC: ${p.images[0].src}`);
-                } else {
-                    console.log('NO IMAGES FOUND');
-                }
-            });
-        } catch (e) {
-            console.error('Error parsing JSON:', e);
-            console.log('Raw Data Preview:', data.substring(0, 200));
-        }
+async function test() {
+    const auth = Buffer.from(`${WC_KEY}:${WC_SECRET}`).toString('base64');
+    
+    const res = await fetch(`${WC_URL}/wp-json/wc/v3/products?search=comfy&per_page=10`, {
+        headers: { 'Authorization': `Basic ${auth}` }
     });
+    const products = await res.json();
+    const comfyKing = products.find(p => p.name.toLowerCase().includes('comfy king'));
+    
+    const varRes = await fetch(`${WC_URL}/wp-json/wc/v3/products/${comfyKing.id}/variations?per_page=100`, {
+        headers: { 'Authorization': `Basic ${auth}` }
+    });
+    const variations = await varRes.json();
+    
+    const sanitizeStr = (str) => {
+        if (!str) return '';
+        return String(str).trim().toLowerCase().replace(/[-_]/g, ' ').replace(/\s+/g, ' ');
+    };
+    
+    // Simulate all possible combinations of attributes
+    const sizeOptions = comfyKing.attributes.find(a => a.name === 'Size').options;
+    const lengthOptions = comfyKing.attributes.find(a => a.name === 'Length').options;
+    const colourOptions = comfyKing.attributes.find(a => a.name === 'Colour')?.options || [''];
+    
+    let fails = 0;
+    
+    for (const size of sizeOptions) {
+        for (const length of lengthOptions) {
+            for (const colour of colourOptions) {
+                const selectedVariants = { Size: size, Length: length };
+                if (colour) selectedVariants.Colour = colour;
+                
+                const match = variations.find(v => {
+                    if (!v.attributes || v.attributes.length === 0) return false;
 
-}).on('error', (e) => {
-    console.error(e);
-});
+                    return v.attributes.every(attr => {
+                        if (!attr.option || attr.option === '') return true;
+
+                        const cleanAttrName = sanitizeStr(attr.name);
+                        const matchedKey = Object.keys(selectedVariants).find(
+                            k => sanitizeStr(k) === cleanAttrName
+                        );
+                        if (!matchedKey) return true; 
+                        return sanitizeStr(selectedVariants[matchedKey]) === sanitizeStr(attr.option);
+                    });
+                });
+                
+                if (!match) {
+                    fails++;
+                    console.log(`NO MATCH FOR:`, selectedVariants);
+                }
+            }
+        }
+    }
+    
+    console.log(`Total fails: ${fails}`);
+}
+
+test();

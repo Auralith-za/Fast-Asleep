@@ -9,10 +9,10 @@ export default function Hero({ onNavigate }) {
                     <img
                         src="/family_bed_hero.png"
                         alt="Happy family laughing in a comfortable bed"
-                        className="w-full h-full object-cover object-[center_35%]"
+                        className="w-full h-full object-cover object-[center_10%] md:object-[center_20%]"
                     />
                     {/* Dark gradient overlay for text readability */}
-                    <div className="absolute inset-0 bg-black/40"></div>
+                    <div className="absolute inset-0 bg-black/20"></div>
                 </div>
 
                 {/* Content */}
@@ -22,7 +22,7 @@ export default function Hero({ onNavigate }) {
                             WELCOME TO FAST ASLEEP
                         </p>
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-[1.2] mb-6">
-                            <span className="font-script font-normal lowercase text-white text-6xl md:text-8xl block mb-2">wake up to a better version of you.</span>
+                            <span className="font-script font-normal lowercase text-white text-[2.2rem] sm:text-5xl md:text-7xl lg:text-[6rem] xl:text-[7rem] block mb-2 whitespace-nowrap">wake up to a better version of you.</span>
                         </h1>
 
                         <p className="text-lg md:text-xl text-white/95 mb-10 font-medium max-w-xl mx-auto tracking-wide">
