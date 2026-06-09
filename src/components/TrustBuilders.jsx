@@ -1,34 +1,39 @@
 import React from 'react';
-import { Truck, ShieldCheck, ChevronDown, RefreshCw, Award } from 'lucide-react';
+import { Truck, MapPin, Sliders, Tag, Award, ChevronDown } from 'lucide-react';
 
 export default function TrustBuilders() {
     const features = [
         {
-            icon: <RefreshCw className="w-8 h-8 md:w-10 md:h-10 text-navy" strokeWidth={1} />,
-            title: "South Africa's First & Only Modular Mattress",
+            icon: <MapPin className="w-8 h-8 md:w-10 md:h-10 text-navy" strokeWidth={1} />,
+            title: "Made in South Africa",
+            subtitle: "Locally manufactured"
+        },
+        {
+            icon: <Sliders className="w-8 h-8 md:w-10 md:h-10 text-navy" strokeWidth={1} />,
+            title: "Fully Customisable",
             subtitle: "Tailor your comfort layer"
         },
         {
-            icon: <Truck className="w-8 h-8 md:w-10 md:h-10 text-navy" strokeWidth={1} />,
-            title: "Free & Fast Delivery",
-            subtitle: "Delivered straight to your door"
+            icon: <Tag className="w-8 h-8 md:w-10 md:h-10 text-navy" strokeWidth={1} />,
+            title: "Factory Direct Pricing",
+            subtitle: "Direct from our factory"
         },
         {
-            icon: <ShieldCheck className="w-8 h-8 md:w-10 md:h-10 text-navy" strokeWidth={1} />,
-            title: "100-Night Risk-Free Trial",
-            subtitle: "Try it in your own bedroom"
+            icon: <Truck className="w-8 h-8 md:w-10 md:h-10 text-navy" strokeWidth={1} />,
+            title: "Fast Nationwide Delivery",
+            subtitle: "Delivered to your door"
         },
         {
             icon: <Award className="w-8 h-8 md:w-10 md:h-10 text-navy" strokeWidth={1} />,
-            title: "25-Year Service Warranty",
-            subtitle: "Built to support you for decades"
+            title: "Trusted For Over 20 Years",
+            subtitle: "Decades of experience"
         }
     ];
 
     return (
         <section className="bg-white py-14 border-b border-gray-150">
             <div className="container-custom">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10 sm:gap-12">
+                <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-10 sm:gap-8">
                     {features.map((feature, index) => (
                         <div
                             key={index}
