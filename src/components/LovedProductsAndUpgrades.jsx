@@ -144,6 +144,29 @@ export default function LovedProductsAndUpgrades({ onProductClick, onNavigate, p
 
                 </div>
             </div>
+
+            {/* Section 2: Limited Time Sleep Upgrades Banner */}
+            <div className="container-custom mt-12 md:mt-16">
+                <div className="max-w-6xl mx-auto bg-[#faf8f4] border border-gray-200 overflow-hidden shadow-sm grid grid-cols-1 md:grid-cols-12 items-center rounded-sm">
+                    <div className="p-4 md:p-6 md:col-span-7 text-center md:text-left space-y-2">
+                        <h4 className="font-serif italic text-xl md:text-2xl text-navy">
+                            Limited Time Sleep Upgrades
+                        </h4>
+                        <p className="text-gray-600 text-xs md:text-sm font-medium">
+                            Save 20% on Select Mattresses & Pillows
+                        </p>
+                        <button 
+                            onClick={() => onNavigate && onNavigate('shop')}
+                            className="bg-navy hover:bg-[#97BFBF] text-white font-bold uppercase tracking-wider text-[9px] px-4 py-2 transition-colors duration-300 rounded-sm inline-block"
+                        >
+                            Shop Specials ▾
+                        </button>
+                    </div>
+
+                    <div className="md:col-span-5 h-32 md:h-full min-h-[120px] bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&q=80&w=600')` }}>
+                    </div>
+                </div>
+            </div>
         </section>
     );
 }

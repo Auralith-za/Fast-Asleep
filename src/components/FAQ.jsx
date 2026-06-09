@@ -32,14 +32,14 @@ export default function FAQ() {
     };
 
     return (
-        <section className="bg-white py-24 border-b border-gray-150">
+        <section className="bg-gray-50/50 py-24 border-b border-gray-150">
             <div className="container-custom max-w-4xl">
                 {/* Header */}
-                <div className="text-center md:text-left mb-16">
-                    <span className="text-gray-400 font-bold uppercase tracking-[0.25em] text-[10px] block mb-2">
-                        QUESTIONS?
+                <div className="text-center mb-16">
+                    <span className="font-script text-[#cca86e] text-4xl md:text-5xl block mb-2 lowercase">
+                        questions?
                     </span>
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-navy uppercase tracking-wider">
+                    <h2 className="text-3xl md:text-4xl font-extrabold text-navy uppercase tracking-widest">
                         Frequently Asked Questions
                     </h2>
                 </div>
@@ -51,28 +51,28 @@ export default function FAQ() {
                         return (
                             <div 
                                 key={index} 
-                                className="border border-gray-250 bg-gray-50/50 hover:bg-gray-50 transition-colors"
+                                className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
                             >
                                 <button
                                     onClick={() => toggleOpen(index)}
-                                    className="w-full py-5 px-6 flex items-center justify-between text-left focus:outline-none"
+                                    className="w-full py-5 px-6 md:px-8 flex items-center justify-between text-left focus:outline-none"
                                 >
-                                    <span className="font-extrabold text-navy text-sm md:text-base tracking-wide">
+                                    <span className={`font-bold text-sm md:text-base tracking-wide transition-colors ${isOpen ? 'text-[#cca86e]' : 'text-navy'}`}>
                                         {item.q}
                                     </span>
                                     <ChevronDown 
-                                        className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${
-                                            isOpen ? 'rotate-180 text-navy' : ''
+                                        className={`w-5 h-5 transition-transform duration-300 ${
+                                            isOpen ? 'rotate-180 text-[#cca86e]' : 'text-gray-400'
                                         }`} 
                                     />
                                 </button>
                                 
                                 <div 
-                                    className={`overflow-hidden transition-all duration-300 ${
-                                        isOpen ? 'max-h-60 border-t border-gray-150' : 'max-h-0'
+                                    className={`transition-all duration-300 ease-in-out ${
+                                        isOpen ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
                                     }`}
                                 >
-                                    <p className="p-6 text-gray-600 text-xs md:text-sm leading-relaxed bg-white">
+                                    <p className="px-6 md:px-8 pb-6 text-gray-600 text-xs md:text-sm leading-relaxed">
                                         {item.a}
                                     </p>
                                 </div>

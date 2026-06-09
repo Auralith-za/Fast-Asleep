@@ -51,60 +51,51 @@ export default function Reviews() {
     };
 
     return (
-        <section className="bg-[#F6F6F6] py-20 border-t border-b border-gray-200/50">
+        <section className="bg-gray-50 py-20 border-t border-b border-gray-150">
             <div className="container-custom">
                 {/* Headers */}
-                <div className="text-center mb-10">
-                    <span className="text-gray-400 font-bold uppercase tracking-[0.25em] text-[10px] block mb-2">
-                        READ UP ON
+                <div className="text-center mb-8">
+                    <span className="text-navy font-bold uppercase tracking-widest text-[11px] block mb-2">
+                        Real People.
                     </span>
-                    <h2 className="font-script text-[#c5a059] lowercase text-6xl md:text-7xl font-normal mb-3">
-                        Our Reviews
+                    <h2 className="font-script text-navy text-5xl md:text-6xl font-normal leading-tight">
+                        Real Sleep Transformations.
                     </h2>
-                    <p className="text-navy font-bold text-lg md:text-xl tracking-wide">
-                        10 000+ happy Sleepers
-                    </p>
                 </div>
 
-                {/* Platform Reviews Stats Bar */}
-                <div className="max-w-4xl mx-auto bg-white border border-gray-200/80 p-5 grid grid-cols-1 md:grid-cols-3 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-gray-200 mb-14 shadow-sm">
-                    <div className="py-2 md:py-0 flex flex-col justify-center items-center">
-                        <span className="text-xs text-gray-500 font-medium">4.7 based on 35 reviews on <span className="font-bold text-blue-500">hellopeter</span></span>
-                    </div>
-                    <div className="py-2 md:py-0 flex flex-col justify-center items-center">
-                        <span className="text-xs text-gray-500 font-medium">4.8 based on 197 reviews on <span className="font-bold text-red-500">G</span><span className="font-bold text-yellow-500">o</span><span className="font-bold text-green-500">o</span><span className="font-bold text-blue-500">g</span><span className="font-bold text-green-500">l</span><span className="font-bold text-red-500">e</span></span>
-                    </div>
-                    <div className="py-2 md:py-0 flex flex-col justify-center items-center">
-                        <span className="text-xs text-gray-500 font-medium">4.5 based on 103 reviews on <span className="font-bold text-blue-800">facebook</span></span>
+                {/* Platform Reviews Stats Bar - Google Only */}
+                <div className="flex justify-center mb-14">
+                    <div className="bg-[#f0f0f0] border border-gray-200/60 py-2.5 px-6 text-center shadow-sm">
+                        <span className="text-xs text-gray-500 font-medium">4.8 based on <span className="font-bold">199</span> reviews on <span className="font-bold text-red-500">G</span><span className="font-bold text-yellow-500">o</span><span className="font-bold text-green-500">o</span><span className="font-bold text-blue-500">g</span><span className="font-bold text-green-500">l</span><span className="font-bold text-red-500">e</span></span>
                     </div>
                 </div>
 
                 {/* Reviews Bubbles Slider */}
-                <div className="relative max-w-6xl mx-auto px-4 md:px-12 mb-12">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="relative max-w-6xl mx-auto px-4 lg:px-0 mb-12">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
                         {reviews.slice(activeIndex, activeIndex + 3).map((review) => (
-                            <div key={review.id} className="flex flex-col items-center">
+                            <div key={review.id} className="flex flex-col">
                                 {/* Bubble element */}
-                                <div className="relative bg-white border border-gray-150 p-8 shadow-sm flex flex-col min-h-[220px] justify-between">
+                                <div className="relative bg-white p-8 md:p-10 shadow-sm flex flex-col justify-center min-h-[220px]">
                                     {/* Star Rating */}
-                                    <div className="flex text-[#c5a059] justify-center mb-5">
+                                    <div className="flex text-amber-400 justify-center mb-6">
                                         {[...Array(review.rating)].map((_, i) => (
-                                            <Star key={i} className="w-4 h-4 fill-current" />
+                                            <Star key={i} className="w-3.5 h-3.5 fill-current mx-0.5" />
                                         ))}
                                     </div>
-                                    <p className="text-gray-600 text-xs md:text-[13px] leading-relaxed text-center italic mb-4">
+                                    <p className="text-gray-600 text-[11px] md:text-xs leading-relaxed text-center font-medium">
                                         "{review.text}"
                                     </p>
-                                    {/* Caret pointing down */}
-                                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-white border-b border-r border-gray-150 rotate-45"></div>
+                                    {/* Caret pointing down-left */}
+                                    <div className="absolute -bottom-3 left-10 w-6 h-6 bg-white rotate-45 transform"></div>
                                 </div>
 
                                 {/* Author details below the bubble */}
-                                <div className="mt-8 text-center">
-                                    <h4 className="text-navy font-bold text-xs uppercase tracking-wider mb-1">
+                                <div className="mt-8 pl-10 text-left">
+                                    <h4 className="text-navy font-extrabold text-[10px] uppercase tracking-wider mb-1">
                                         {review.author}
                                     </h4>
-                                    <span className="text-gray-400 text-[10px]">
+                                    <span className="text-gray-400 text-[9px] font-bold uppercase">
                                         {review.date}
                                     </span>
                                 </div>
@@ -113,16 +104,16 @@ export default function Reviews() {
                     </div>
 
                     {/* Slider Navigation */}
-                    <div className="flex justify-center items-center gap-6 mt-12">
+                    <div className="flex justify-center items-center gap-6 mt-14">
                         <button 
                             onClick={handlePrev}
-                            className="w-10 h-10 border border-gray-300 rounded-none flex items-center justify-center text-gray-600 hover:border-navy hover:text-navy transition-all bg-white"
+                            className="flex items-center justify-center text-navy hover:scale-110 transition-transform"
                         >
-                            <ChevronLeft className="w-5 h-5" />
+                            <ChevronLeft className="w-6 h-6" strokeWidth={1.5} />
                         </button>
-                        <div className="w-32 h-1 bg-gray-200 relative">
+                        <div className="w-32 h-[2px] bg-white relative rounded-full overflow-hidden">
                             <div 
-                                className="absolute top-0 h-full bg-[#c5a059] transition-all duration-300"
+                                className="absolute top-0 h-full bg-[#cca86e] transition-all duration-300"
                                 style={{ 
                                     width: `${100 / (reviews.length - 2)}%`, 
                                     left: `${(activeIndex * 100) / (reviews.length - 2)}%` 
@@ -131,16 +122,16 @@ export default function Reviews() {
                         </div>
                         <button 
                             onClick={handleNext}
-                            className="w-10 h-10 border border-gray-300 rounded-none flex items-center justify-center text-gray-600 hover:border-navy hover:text-navy transition-all bg-white"
+                            className="flex items-center justify-center text-navy hover:scale-110 transition-transform"
                         >
-                            <ChevronRight className="w-5 h-5" />
+                            <ChevronRight className="w-6 h-6" strokeWidth={1.5} />
                         </button>
                     </div>
                 </div>
 
                 {/* Read more button */}
-                <div className="flex justify-center mt-12">
-                    <button className="bg-transparent border border-[#c5a059] text-[#c5a059] font-bold uppercase tracking-[0.2em] text-xs py-4 px-8 hover:bg-[#c5a059] hover:text-white transition-all duration-300">
+                <div className="flex justify-center mt-14">
+                    <button className="bg-transparent border border-[#cca86e] text-[#cca86e] font-extrabold uppercase tracking-widest text-[10px] py-3.5 px-8 hover:bg-[#cca86e] hover:text-white transition-all duration-300">
                         Read More Reviews
                     </button>
                 </div>

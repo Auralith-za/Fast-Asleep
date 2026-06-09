@@ -195,23 +195,25 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                                     e.target.src = 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?auto=format&fit=crop&q=80&w=800';
                                 }}
                             />
-                        </div>
-                        <div className="grid grid-cols-4 gap-4">
-                            {/* Placeholder thumbnails */}
-                            {[...Array(4)].map((_, i) => (
-                                <div key={i} className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-100 cursor-pointer opacity-70 hover:opacity-100">
-                                    <img
-                                        src={product.image}
-                                        alt={`Thumbnail ${i}`}
-                                        className="h-full w-full object-cover"
-                                        onError={(e) => {
-                                            e.target.onerror = null;
-                                            e.target.src = 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?auto=format&fit=crop&q=80&w=800';
-                                        }}
-                                    />
-                                </div>
-                            ))}
-                        </div>
+                        {/* Only show gallery thumbnails if not a Fathers Day product */}
+                        {!product.isFathersDaySale && (
+                            <div className="grid grid-cols-4 gap-4">
+                                {/* Placeholder thumbnails */}
+                                {[...Array(4)].map((_, i) => (
+                                    <div key={i} className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-100 cursor-pointer opacity-70 hover:opacity-100">
+                                        <img
+                                            src={product.image}
+                                            alt={`Thumbnail ${i}`}
+                                            className="h-full w-full object-cover"
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src = 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?auto=format&fit=crop&q=80&w=800';
+                                            }}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     {/* Right: Product Info */}
