@@ -26,60 +26,64 @@ export default function Bestsellers({ onProductClick }) {
     ];
 
     return (
-        <section className="bg-[#fcfbf9] py-20 border-b border-gray-150">
+        <section className="bg-gray-50 py-16 md:py-24 border-b border-gray-150 overflow-hidden">
             <div className="container-custom">
                 {/* Header */}
-                <div className="text-center mb-14">
-                    <span className="text-gray-400 font-bold uppercase tracking-[0.25em] text-[10px] block mb-2">
-                        FATHER'S DAY
+                <div className="text-center mb-10 md:mb-14">
+                    <span className="text-navy font-bold uppercase tracking-widest text-[11px] block mb-2">
+                        LIMITED TIME UPGRADES
                     </span>
-                    <h2 className="font-script text-[#97BFBF] lowercase text-6xl md:text-7xl font-normal leading-[1.05] mb-4">
-                        current specials
+                    <h2 className="font-script text-navy lowercase text-5xl md:text-6xl font-normal leading-tight mb-4">
+                        better sleep shouldn't wait
                     </h2>
-                    <div className="w-24 h-0.5 bg-[#97BFBF] mx-auto"></div>
+                    <div className="w-12 h-0.5 bg-[#cca86e] mx-auto"></div>
                 </div>
 
-                {/* Cards Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {specials.map((special) => (
-                        <div 
-                            key={special.id}
-                            className="bg-white border border-gray-150 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all duration-300 group cursor-pointer"
-                            onClick={() => onProductClick(special.id)}
-                        >
-                            {/* Artwork Image - aspect-ratio and object-contain to prevent cutoff */}
-                            <div className="aspect-[3/4] w-full overflow-hidden bg-white border-b border-gray-100 relative">
-                                {special.id === '4698' ? (
-                                    <img 
-                                        src={special.image} 
-                                        alt={special.name} 
-                                        className="w-full h-full object-cover object-top scale-[1.22] origin-top"
-                                    />
-                                ) : (
-                                    <img 
-                                        src={special.image} 
-                                        alt={special.name} 
-                                        className="w-full h-full object-contain"
-                                    />
-                                )}
-                            </div>
+                {/* Cards Layout - Carousel on Mobile, Grid on Desktop */}
+                <div className="mx-auto max-w-6xl">
+                    <div className="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory scrollbar-hide md:border md:border-gray-200 bg-white pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0">
+                        {specials.map((special, index) => (
+                            <div 
+                                key={special.id}
+                                className={`flex-shrink-0 w-[85vw] md:w-auto flex flex-col justify-between group cursor-pointer snap-center bg-white border border-gray-200 md:border-0 ${index !== specials.length - 1 ? 'md:border-r md:border-gray-200' : ''} mr-4 md:mr-0 last:mr-4 md:last:mr-0`}
+                                onClick={() => onProductClick(special.id)}
+                            >
+                                {/* Artwork Image */}
+                                <div className="aspect-[3/4] w-full overflow-hidden relative bg-gray-50">
+                                    {special.id === '4698' ? (
+                                        <img 
+                                            src={special.image} 
+                                            alt={special.name} 
+                                            className="w-full h-full object-cover object-top scale-[1.22] origin-top group-hover:scale-[1.25] transition-transform duration-500"
+                                        />
+                                    ) : (
+                                        <img 
+                                            src={special.image} 
+                                            alt={special.name} 
+                                            className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    )}
+                                </div>
 
-                            {/* Info & CTA */}
-                            <div className="p-6 text-center">
-                                <h3 className="font-extrabold text-navy text-sm uppercase tracking-wider mb-2 group-hover:text-[#97BFBF] transition-colors">
-                                    {special.name}
-                                </h3>
-                                {special.price && (
-                                    <p className="text-[#97BFBF] font-bold text-sm mb-4">
-                                        {special.price}
-                                    </p>
-                                )}
-                                <button className="w-full bg-navy text-white font-bold uppercase tracking-[0.18em] text-[10px] py-3.5 hover:bg-[#97BFBF] transition-colors mt-auto">
-                                    {special.cta}
-                                </button>
+                                {/* Info & CTA */}
+                                <div className="p-6 text-center border-t border-gray-100 flex flex-col flex-grow">
+                                    <h3 className="font-extrabold text-navy text-[11px] md:text-[12px] uppercase tracking-wider mb-2 group-hover:text-[#cca86e] transition-colors">
+                                        {special.name}
+                                    </h3>
+                                    {special.price && (
+                                        <p className="text-[#cca86e] font-bold text-sm mb-4">
+                                            {special.price}
+                                        </p>
+                                    )}
+                                    <div className="mt-auto pt-4">
+                                        <button className="text-navy font-bold uppercase tracking-widest text-[10px] group-hover:text-[#cca86e] transition-colors pb-1 border-b border-navy group-hover:border-[#cca86e]">
+                                            {special.cta}
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
