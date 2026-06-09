@@ -36,74 +36,76 @@ export default function SleepCollection({ onProductClick, products }) {
     };
 
     return (
-        <section className="bg-white py-24 overflow-hidden border-b border-gray-150">
+        <section className="bg-gray-50 py-20 md:py-32 overflow-hidden">
             <div className="container-custom">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                     
                     {/* Left Column: Heading and Slider Controls */}
-                    <div className="lg:col-span-3 flex flex-col justify-between py-6">
+                    <div className="lg:col-span-3 flex flex-col justify-center">
                         <div>
-                            <span className="text-gray-400 font-bold uppercase tracking-[0.25em] text-[10px] block mb-2">
-                                UPGRADE YOUR SLEEP
+                            <span className="text-navy font-bold uppercase tracking-widest text-[11px] block mb-1">
+                                DIVE INTO OUR
                             </span>
-                            <h2 className="font-script text-[#97BFBF] lowercase text-5xl md:text-6xl font-normal leading-[1.05] mb-6">
-                                pillows & toppers
+                            <h2 className="font-script text-navy text-5xl md:text-6xl font-normal leading-tight mb-4">
+                                Sleep Collection
                             </h2>
-                            <div className="w-16 h-0.5 bg-[#97BFBF] mb-8"></div>
+                            <div className="w-12 h-0.5 bg-[#cca86e] mb-10"></div>
                         </div>
 
                         {/* Slider controls */}
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4 w-full max-w-[200px]">
                             <button 
                                 onClick={handlePrev}
                                 disabled={scrollIndex === 0}
-                                className={`w-12 h-12 flex items-center justify-center border ${scrollIndex === 0 ? 'border-gray-250 text-gray-300' : 'border-navy text-navy hover:bg-navy hover:text-white'} transition-all bg-white`}
+                                className={`flex items-center justify-center transition-all ${scrollIndex === 0 ? 'text-gray-300' : 'text-navy hover:scale-110'}`}
                             >
-                                <ChevronLeft className="w-5 h-5" />
+                                <ChevronLeft className="w-6 h-6" strokeWidth={1.5} />
                             </button>
-                            <div className="w-24 h-[2px] bg-gray-200 relative">
+                            
+                            <div className="flex-grow h-[2px] bg-white relative rounded-full overflow-hidden">
                                 <div 
-                                    className="absolute top-0 h-full bg-[#97BFBF] transition-all duration-300"
+                                    className="absolute top-0 h-full bg-[#cca86e] transition-all duration-300"
                                     style={{ 
                                         width: `${collectionItems.length > 0 ? (3 / collectionItems.length) * 100 : 0}%`,
                                         left: `${collectionItems.length > 0 ? (scrollIndex / collectionItems.length) * 100 : 0}%`
                                     }}
                                 ></div>
                             </div>
+
                             <button 
                                 onClick={handleNext}
                                 disabled={scrollIndex >= collectionItems.length - 3}
-                                className={`w-12 h-12 flex items-center justify-center border ${scrollIndex >= collectionItems.length - 3 ? 'border-gray-250 text-gray-300' : 'border-navy text-navy hover:bg-navy hover:text-white'} transition-all bg-white`}
+                                className={`flex items-center justify-center transition-all ${scrollIndex >= collectionItems.length - 3 ? 'text-gray-300' : 'text-navy hover:scale-110'}`}
                             >
-                                <ChevronRight className="w-5 h-5" />
+                                <ChevronRight className="w-6 h-6" strokeWidth={1.5} />
                             </button>
                         </div>
                     </div>
 
-                    {/* Right Column: Sliding Product Collection Cards with overflow-hidden to fix overlap */}
-                    <div className="lg:col-span-9 overflow-hidden">
+                    {/* Right Column: Sliding Product Collection Cards */}
+                    <div className="lg:col-span-9 overflow-hidden mt-10 lg:mt-0">
                         <div 
-                            className="flex gap-6 transition-transform duration-500 ease-out"
+                            className="flex transition-transform duration-500 ease-out"
                             style={{ transform: `translateX(-${scrollIndex * (100 / 3)}%)` }}
                         >
-                            {collectionItems.map((product) => (
+                            {collectionItems.map((product, idx) => (
                                 <div 
                                     key={product.id} 
-                                    className="w-[calc(100%-12px)] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0 bg-white border border-gray-150 p-6 flex flex-col justify-between hover:shadow-md transition-shadow duration-300 cursor-pointer group"
+                                    className={`w-[calc(100%)] sm:w-[50%] lg:w-[33.333%] flex-shrink-0 bg-white border-y border-r border-gray-200 ${idx === 0 ? 'border-l' : ''} p-6 flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group`}
                                     onClick={() => onProductClick(product.id)}
                                 >
-                                    <div className="aspect-square w-full mb-6 overflow-hidden bg-white flex items-center justify-center">
+                                    <div className="aspect-square w-full mb-8 overflow-hidden bg-white flex items-center justify-center">
                                         <img 
                                             src={product.image} 
                                             alt={product.name} 
                                             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                                         />
                                     </div>
-                                    <div>
-                                        <h3 className="font-bold text-navy text-[13px] uppercase tracking-wider mb-2 text-center group-hover:text-[#97BFBF] transition-colors">
+                                    <div className="mt-auto">
+                                        <h3 className="font-extrabold text-navy text-[10px] md:text-[11px] uppercase tracking-wider mb-2 group-hover:text-[#cca86e] transition-colors leading-relaxed">
                                             {product.name}
                                         </h3>
-                                        <p className="text-gray-400 text-xs text-center font-semibold">
+                                        <p className="text-gray-400 text-xs font-semibold">
                                             {product.priceRange}
                                         </p>
                                     </div>
