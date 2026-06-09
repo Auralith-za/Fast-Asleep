@@ -55,7 +55,7 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
     };
 
     return (
-        <section className="relative py-8 md:py-12 overflow-hidden bg-gray-50 lg:bg-transparent">
+        <section className="relative py-4 md:py-6 overflow-hidden bg-gray-50 lg:bg-transparent">
             {/* Split Background for Desktop */}
             <div className="hidden lg:block absolute inset-y-0 left-0 w-[35%] bg-gray-50"></div>
             <div className="hidden lg:block absolute inset-y-0 right-0 w-[65%] bg-navy"></div>
@@ -85,11 +85,11 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                     {/* Right Column: Lifestyle Image & Overlapping Cards */}
                     <div className="w-full lg:w-[65%] relative mt-8 lg:mt-0 flex items-center">
                         {/* Lifestyle Image inside Navy background (navy padding acts as border) */}
-                        <div className="relative w-full h-[350px] md:h-[550px] lg:h-[650px] p-4 md:p-6 lg:p-[40px] z-0">
-                            <div className="w-full h-full relative overflow-hidden">
+                        <div className="relative w-full h-[350px] md:h-[550px] lg:h-[650px] p-2 md:p-4 lg:p-[20px] z-0">
+                            <div className="w-full h-full relative overflow-hidden bg-white">
                                 <img 
-                                    src="/bundle_bedroom.png" 
-                                    alt="Luxury bed styling" 
+                                    src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1200&auto=format&fit=crop" 
+                                    alt="White luxury bed styling" 
                                     className="w-full h-full object-cover"
                                 />
                             </div>
