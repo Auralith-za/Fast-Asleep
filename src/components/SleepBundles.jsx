@@ -55,16 +55,16 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
     };
 
     return (
-        <section className="relative py-16 md:py-24 overflow-hidden bg-gray-50 lg:bg-transparent">
+        <section className="relative py-8 md:py-12 overflow-hidden bg-gray-50 lg:bg-transparent">
             {/* Split Background for Desktop */}
-            <div className="hidden lg:block absolute inset-y-0 left-0 w-[45%] bg-gray-50"></div>
-            <div className="hidden lg:block absolute inset-y-0 right-0 w-[55%] bg-navy"></div>
+            <div className="hidden lg:block absolute inset-y-0 left-0 w-[35%] bg-gray-50"></div>
+            <div className="hidden lg:block absolute inset-y-0 right-0 w-[65%] bg-navy"></div>
 
             <div className="container-custom relative z-10">
                 <div className="flex flex-col lg:flex-row items-center">
                     
                     {/* Left Column: Copy & Button */}
-                    <div className="w-full lg:w-[45%] flex flex-col justify-center pt-8 lg:pt-0 pr-0 lg:pr-12 z-20">
+                    <div className="w-full lg:w-[35%] flex flex-col justify-center pt-6 lg:pt-0 pr-0 lg:pr-12 z-20">
                         <span className="text-gray-600 font-bold uppercase text-[11px] md:text-xs mb-2 block tracking-wider">
                             Save whilst you sleep with our
                         </span>
@@ -83,7 +83,7 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                     </div>
 
                     {/* Right Column: Lifestyle Image & Overlapping Cards */}
-                    <div className="w-full lg:w-[55%] relative mt-10 lg:mt-0 flex items-center">
+                    <div className="w-full lg:w-[65%] relative mt-8 lg:mt-0 flex items-center">
                         {/* Lifestyle Image inside Navy background (navy padding acts as border) */}
                         <div className="relative w-full h-[350px] md:h-[550px] lg:h-[650px] p-4 md:p-6 lg:p-[40px] z-0">
                             <div className="w-full h-full relative overflow-hidden">
@@ -96,7 +96,7 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                         </div>
 
                         {/* Cards Container - Overlapping the left side and image */}
-                        <div className="lg:absolute lg:top-1/2 lg:-left-24 lg:-translate-y-1/2 z-20 flex flex-row gap-4 overflow-x-auto lg:overflow-visible pb-6 lg:pb-0 px-4 lg:px-0 mt-[-80px] lg:mt-0 relative scrollbar-hide w-full max-w-full">
+                        <div className="lg:absolute lg:top-1/2 lg:-left-32 lg:-translate-y-1/2 z-20 flex flex-row gap-4 overflow-x-auto lg:overflow-visible pb-6 lg:pb-0 px-4 lg:px-0 mt-[-80px] lg:mt-0 relative scrollbar-hide w-full max-w-full">
                             {bundles.map((bundle, idx) => {
                                 const activeImage = (bundle.product && bundle.product.image) ? bundle.product.image : bundle.fallbackImage;
                                 return (

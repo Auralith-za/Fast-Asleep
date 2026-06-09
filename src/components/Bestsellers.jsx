@@ -50,19 +50,11 @@ export default function Bestsellers({ onProductClick }) {
                             >
                                 {/* Artwork Image */}
                                 <div className="aspect-[3/4] w-full overflow-hidden relative bg-gray-50">
-                                    {special.id === '4698' ? (
-                                        <img 
-                                            src={special.image} 
-                                            alt={special.name} 
-                                            className="w-full h-full object-cover object-top scale-[1.22] origin-top group-hover:scale-[1.25] transition-transform duration-500"
-                                        />
-                                    ) : (
-                                        <img 
-                                            src={special.image} 
-                                            alt={special.name} 
-                                            className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                    )}
+                                    <img 
+                                        src={special.image} 
+                                        alt={special.name} 
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
                                 </div>
 
                                 {/* Info & CTA */}

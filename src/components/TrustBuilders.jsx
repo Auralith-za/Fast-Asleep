@@ -39,8 +39,9 @@ export default function TrustBuilders() {
                             key={index}
                             className="flex flex-col items-center text-center group cursor-pointer"
                         >
-                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-lightGrey flex items-center justify-center mb-4 md:mb-5 border border-gray-200/50 group-hover:scale-105 transition-transform duration-300">
-                                {feature.icon}
+                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-white to-gray-50 flex items-center justify-center mb-4 md:mb-6 shadow-[0_4px_20px_rgb(0,0,0,0.04)] group-hover:shadow-[0_8px_25px_rgba(204,168,110,0.15)] group-hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+                                <div className="absolute inset-0 bg-[#cca86e]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                {React.cloneElement(feature.icon, { className: "w-8 h-8 md:w-9 md:h-9 text-navy group-hover:text-[#cca86e] transition-colors duration-300 relative z-10" })}
                             </div>
                             <h3 className="font-extrabold text-navy text-[13px] md:text-[15px] uppercase tracking-wide mb-2 max-w-[220px] leading-snug">
                                 {feature.title}
