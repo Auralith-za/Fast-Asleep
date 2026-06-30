@@ -7,7 +7,7 @@ export default function ContactSection() {
             <div className="container-custom max-w-4xl mx-auto">
                 <h2 className="text-3xl md:text-5xl font-bold mb-6">Not Sure What You Need? We're Here To Help.</h2>
                 <p className="text-lg text-gray-300 mb-2">Choosing the right sleep solution can feel overwhelming.</p>
-                <p className="text-xl text-gold font-script mb-12">Let our team guide you.</p>
+                <p className="text-4xl md:text-5xl text-[#cca86e] font-script mb-12">Let our team guide you.</p>
 
                 <div className="flex flex-col md:flex-row justify-center items-center gap-6">
                     <button className="w-full md:w-auto bg-white text-navy font-bold py-4 px-8 rounded-sm flex items-center justify-center gap-3 hover:bg-gray-100 transition-colors uppercase tracking-widest text-sm shadow-lg">

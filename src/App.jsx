@@ -87,7 +87,7 @@ function App() {
                         <Bestsellers onProductClick={navigateToProduct} />
 
                         {/* Customisation Section */}
-                        <CustomisationSection />
+                        <CustomisationSection onNavigate={navigateToCategory} />
 
                         {/* Bestsellers/Sleep Collection Carousel */}
                         <SleepCollection onProductClick={navigateToProduct} products={products} />

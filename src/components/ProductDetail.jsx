@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { Star, Truck, ShieldCheck, ArrowRight, Loader2 } from 'lucide-react';
 import { fetchProductVariations } from '../services/woocommerce';
+import CustomisationSection from './CustomisationSection';
 
 export default function ProductDetail({ productId, onBack, products, onNavigate }) {
     const product = products.find(p => p.id === productId);
@@ -308,23 +309,6 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                     </div>
                 </div>
 
-                {/* TEMPORARY DEBUG PANEL */}
-                {process.env.NODE_ENV !== 'production' && (
-                    <div className="mt-12 bg-gray-100 p-6 rounded text-xs font-mono overflow-auto">
-                        <h3 className="font-bold mb-4">Debug Variation Matching</h3>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <strong>selectedVariants:</strong>
-                                <pre>{JSON.stringify(selectedVariants, null, 2)}</pre>
-                            </div>
-                            <div>
-                                <strong>variationsData (first 5):</strong>
-                                <pre>{JSON.stringify(variationsData.slice(0, 5).map(v => ({ id: v.id, price: v.price, attributes: v.attributes })), null, 2)}</pre>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
             </div>
 
             {/* Custom Category Specific Visuals */}
@@ -344,66 +328,7 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                     return (
                         <div className="mt-24 space-y-24 border-t border-gray-100 pt-16 pb-0">
                             {/* Consolidated Custom Designed Mattresses Section */}
-                            <div 
-                                className="relative min-h-[500px] bg-cover bg-center py-20 px-6 text-white flex items-center justify-center"
-                                style={{ backgroundImage: `linear-gradient(rgba(10, 21, 48, 0.75), rgba(10, 21, 48, 0.75)), url('/assets/ideal-bases-bg.png')` }}
-                            >
-                                <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-                                    <div className="lg:col-span-1 text-center lg:text-left space-y-6">
-                                        <div className="w-12 h-[2px] bg-[#97BFBF] mx-auto lg:mx-0"></div>
-                                        <h3 className="text-3xl md:text-4xl font-extrabold uppercase tracking-wide">
-                                            Custom Designed Mattresses
-                                        </h3>
-                                        <p className="text-white/80 text-lg font-light mb-4">
-                                            Choose feel, size, and colour to match your lifestyle.
-                                        </p>
-                                        <button 
-                                            onClick={() => onNavigate && onNavigate('contact')}
-                                            className="inline-block bg-[#97BFBF] hover:bg-[#7fa8a8] text-navy font-bold uppercase tracking-wider text-xs px-6 py-3.5 transition-colors duration-300"
-                                        >
-                                            unsure? contact us to get a custom design
-                                        </button>
-                                    </div>
-
-                                    <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6 text-navy">
-                                        {/* Step 1: Choose Feel */}
-                                        <div className="bg-white p-6 flex flex-col items-center justify-between min-h-[300px] text-center shadow-lg relative pt-10 rounded-sm">
-                                            <div className="absolute -top-5 w-10 h-10 rounded-full bg-[#0a1530] text-white flex items-center justify-center font-bold text-sm border-4 border-white">
-                                                1
-                                            </div>
-                                            <h4 className="font-bold text-xs uppercase tracking-widest text-[#0a1530] mb-4">CHOOSE YOUR FEEL</h4>
-                                            <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border border-gray-100">
-                                                <img src="/assets/comfort-medium.png" alt="Feel" className="w-full h-full object-cover" />
-                                            </div>
-                                            <span className="text-[11px] text-gray-500 font-semibold leading-relaxed">Select from plush, medium or firm comfort levels to cradle pressure points.</span>
-                                        </div>
-
-                                        {/* Step 2: Choose Size */}
-                                        <div className="bg-white p-6 flex flex-col items-center justify-between min-h-[300px] text-center shadow-lg relative pt-10 rounded-sm">
-                                            <div className="absolute -top-5 w-10 h-10 rounded-full bg-[#0a1530] text-white flex items-center justify-center font-bold text-sm border-4 border-white">
-                                                2
-                                            </div>
-                                            <h4 className="font-bold text-xs uppercase tracking-widest text-[#0a1530] mb-4">CHOOSE YOUR SIZE</h4>
-                                            <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border border-gray-100">
-                                                <img src="/assets/detail-bed-slats.png" alt="Size" className="w-full h-full object-cover" />
-                                            </div>
-                                            <span className="text-[11px] text-gray-500 font-semibold leading-relaxed">Tailor your mattress fit from Single to luxurious Cape Town King.</span>
-                                        </div>
-
-                                        {/* Step 3: Choose Colour */}
-                                        <div className="bg-white p-6 flex flex-col items-center justify-between min-h-[300px] text-center shadow-lg relative pt-10 rounded-sm">
-                                            <div className="absolute -top-5 w-10 h-10 rounded-full bg-[#0a1530] text-white flex items-center justify-center font-bold text-sm border-4 border-white">
-                                                3
-                                            </div>
-                                            <h4 className="font-bold text-xs uppercase tracking-widest text-[#0a1530] mb-4">CHOOSE COLOUR</h4>
-                                            <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border border-gray-100">
-                                                <img src="/assets/comfort-soft.png" alt="Colour" className="w-full h-full object-cover" />
-                                            </div>
-                                            <span className="text-[11px] text-gray-500 font-semibold leading-relaxed">Match your base design (storage/standard) and neutral upholstery shades.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <CustomisationSection onNavigate={onNavigate} />
 
                             {/* 3. 100 Night Trial (Crisp White Background) */}
                             <div className="relative min-h-[500px] bg-white py-20 px-6 text-navy flex items-center justify-center border-b border-gray-150">

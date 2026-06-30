@@ -36,8 +36,8 @@ export default function FAQ() {
             <div className="container-custom max-w-4xl">
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <span className="font-script text-[#cca86e] text-4xl md:text-5xl block mb-2 lowercase">
-                        questions?
+                    <span className="font-script text-[#cca86e] text-4xl md:text-5xl block mb-2">
+                        Questions?
                     </span>
                     <h2 className="text-3xl md:text-4xl font-extrabold text-navy uppercase tracking-widest">
                         Frequently Asked Questions

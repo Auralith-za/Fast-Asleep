@@ -62,7 +62,7 @@ export default function LovedProductsAndUpgrades({ onProductClick, onNavigate, p
 
     return (
         <section className="bg-white py-16 md:py-24 border-b border-gray-150 overflow-hidden">
-            <div className="container-custom">
+            <div className="w-full px-4 lg:px-12">
                 <div className="flex flex-col lg:flex-row gap-10 items-stretch">
                     
                     {/* Left side: Heading, Subtitle, Lifestyle Image */}
@@ -146,24 +146,26 @@ export default function LovedProductsAndUpgrades({ onProductClick, onNavigate, p
             </div>
 
             {/* Section 2: Limited Time Sleep Upgrades Banner */}
-            <div className="container-custom mt-12 md:mt-16">
-                <div className="max-w-6xl mx-auto bg-[#faf8f4] border border-gray-200 overflow-hidden shadow-sm grid grid-cols-1 md:grid-cols-12 items-center rounded-sm">
-                    <div className="p-4 md:p-6 md:col-span-7 text-center md:text-left space-y-2">
-                        <h4 className="font-serif italic text-xl md:text-2xl text-navy">
+            <div className="w-full mt-12 md:mt-16 bg-[#faf8f4] border-t border-b border-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-2 items-stretch h-auto md:h-[300px]">
+                    <div className="p-8 md:p-16 flex flex-col justify-center text-center md:text-left space-y-4">
+                        <h4 className="font-serif italic text-2xl md:text-4xl text-navy">
                             Limited Time Sleep Upgrades
                         </h4>
-                        <p className="text-gray-600 text-xs md:text-sm font-medium">
+                        <p className="text-gray-600 text-sm md:text-base font-medium">
                             Save 20% on Select Mattresses & Pillows
                         </p>
-                        <button 
-                            onClick={() => onNavigate && onNavigate('shop')}
-                            className="bg-navy hover:bg-[#97BFBF] text-white font-bold uppercase tracking-wider text-[9px] px-4 py-2 transition-colors duration-300 rounded-sm inline-block"
-                        >
-                            Shop Specials ▾
-                        </button>
+                        <div>
+                            <button 
+                                onClick={() => onNavigate && onNavigate('shop')}
+                                className="bg-navy hover:bg-[#97BFBF] text-white font-bold uppercase tracking-wider text-[11px] px-6 py-3 transition-colors duration-300 rounded-sm inline-block mt-2"
+                            >
+                                Shop Specials ▾
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="md:col-span-5 h-32 md:h-full min-h-[120px] bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&q=80&w=600')` }}>
+                    <div className="h-48 md:h-full bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=1400&auto=format&fit=crop')` }}>
                     </div>
                 </div>
             </div>

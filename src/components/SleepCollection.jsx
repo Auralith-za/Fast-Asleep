@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function SleepCollection({ onProductClick, products }) {
     const [scrollIndex, setScrollIndex] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(4);
+
+    useEffect(() => {
+        const updateItems = () => {
+            if (window.innerWidth < 640) setItemsPerPage(1);
+            else if (window.innerWidth < 1024) setItemsPerPage(2);
+            else setItemsPerPage(4);
+        };
+        updateItems();
+        window.addEventListener('resize', updateItems);
+        return () => window.removeEventListener('resize', updateItems);
+    }, []);
 
     // Filter to only include pillows and specified toppers, excluding flash sales, wedges, and mother's day specials
     const collectionItems = Array.isArray(products) 
@@ -24,7 +36,7 @@ export default function SleepCollection({ onProductClick, products }) {
         : [];
 
     const handleNext = () => {
-        if (scrollIndex < collectionItems.length - 3) {
+        if (scrollIndex < collectionItems.length - itemsPerPage) {
             setScrollIndex(prev => prev + 1);
         }
     };
@@ -36,7 +48,7 @@ export default function SleepCollection({ onProductClick, products }) {
     };
 
     return (
-        <section className="bg-gray-50 py-20 md:py-32 overflow-hidden">
+        <section className="bg-gray-100 py-12 md:py-16 overflow-hidden">
             <div className="container-custom">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                     
@@ -49,6 +61,9 @@ export default function SleepCollection({ onProductClick, products }) {
                             <h2 className="font-script text-navy text-5xl md:text-6xl font-normal leading-tight mb-4">
                                 Sleep Collection
                             </h2>
+                            <p className="text-gray-500 text-sm mb-6 max-w-[250px]">
+                                Explore our range of premium sleep accessories designed to perfectly complement your mattress and enhance your night's rest.
+                            </p>
                             <div className="w-12 h-0.5 bg-[#cca86e] mb-8 lg:mb-10"></div>
                         </div>
 
@@ -66,7 +81,7 @@ export default function SleepCollection({ onProductClick, products }) {
                                 <div 
                                     className="absolute top-0 h-full bg-[#cca86e] transition-all duration-300"
                                     style={{ 
-                                        width: `${collectionItems.length > 0 ? (3 / collectionItems.length) * 100 : 0}%`,
+                                        width: `${collectionItems.length > 0 ? (itemsPerPage / collectionItems.length) * 100 : 0}%`,
                                         left: `${collectionItems.length > 0 ? (scrollIndex / collectionItems.length) * 100 : 0}%`
                                     }}
                                 ></div>
@@ -74,8 +89,8 @@ export default function SleepCollection({ onProductClick, products }) {
 
                             <button 
                                 onClick={handleNext}
-                                disabled={scrollIndex >= collectionItems.length - 3}
-                                className={`flex items-center justify-center transition-all ${scrollIndex >= collectionItems.length - 3 ? 'text-gray-300' : 'text-navy hover:scale-110'}`}
+                                disabled={scrollIndex >= collectionItems.length - itemsPerPage}
+                                className={`flex items-center justify-center transition-all ${scrollIndex >= collectionItems.length - itemsPerPage ? 'text-gray-300' : 'text-navy hover:scale-110'}`}
                             >
                                 <ChevronRight className="w-6 h-6" strokeWidth={1.5} />
                             </button>
@@ -86,7 +101,7 @@ export default function SleepCollection({ onProductClick, products }) {
                     <div className="lg:col-span-9 overflow-hidden mt-10 lg:mt-0">
                         <div 
                             className="flex transition-transform duration-500 ease-out"
-                            style={{ transform: `translateX(-${scrollIndex * 25}%)` }}
+                            style={{ transform: `translateX(-${scrollIndex * (100 / itemsPerPage)}%)` }}
                         >
                             {collectionItems.map((product, idx) => (
                                 <div 

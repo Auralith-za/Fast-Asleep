@@ -183,55 +183,52 @@ export default function MothersDaySpecials({ onNavigate, onProductClick }) {
                 </div>
 
                 {/* Grid Section: Kept as secondary specials */}
-                <div className="bg-navy rounded-[3rem] p-10 md:p-20 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-                    <div className="relative z-10">
-                        <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">More ways to <span className="font-script font-normal lowercase text-4xl md:text-6xl text-rose-400">spoil her</span></h2>
+                <div className="w-full mt-12 bg-gray-100 py-12 px-4 md:px-12 relative overflow-hidden">
+                    <div className="relative z-10 max-w-[95%] mx-auto">
+                        <div className="text-center mb-10">
+                            <h2 className="text-2xl md:text-3xl font-bold text-navy mb-4">More ways to <span className="font-script font-normal lowercase text-3xl md:text-5xl text-rose-400">spoil her</span></h2>
                             <div className="h-1 w-16 bg-rose-500 mx-auto rounded-full"></div>
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
                             {/* Topper Bundle */}
-                            <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden group cursor-pointer" onClick={() => onProductClick("4688")}>
-                                <div className="h-48 overflow-hidden relative">
-                                    <img src={topperBundleImg} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group cursor-pointer flex flex-col" onClick={() => onProductClick("4688")}>
+                                <div className="h-56 overflow-hidden relative">
+                                    <img src={topperBundleImg} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                                 </div>
-                                <div className="p-8">
-                                    <h4 className="text-xl font-bold text-white mb-3">Mattress Topper Bundle</h4>
-                                    <p className="text-white/50 text-xs mb-6">Buy any topper and get a FREE premium pillow set.</p>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-white font-bold">From R1499</span>
-                                        <ArrowRight className="text-[#B28C57] w-5 h-5" />
-                                    </div>
+                                <div className="p-5 mt-auto">
+                                    <button className="w-full bg-navy text-white px-6 py-3 rounded font-bold uppercase text-[11px] tracking-widest hover:bg-[#B28C57] transition-colors">
+                                        Shop Topper Bundle
+                                    </button>
                                 </div>
                             </div>
                             {/* Backrest Pillow */}
-                            <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden group cursor-pointer" onClick={() => onProductClick("4689")}>
-                                <div className="h-48 overflow-hidden relative bg-[#f9f7f4]">
+                            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group cursor-pointer flex flex-col" onClick={() => onProductClick("4689")}>
+                                <div className="h-56 overflow-hidden relative bg-[#f9f7f4]">
                                     <img 
                                         src="https://wp.fastasleep.co.za/wp-content/uploads/2021/11/00D9E579-5787-4F3C-941B-BB98B786416C.png" 
-                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-1000" 
+                                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" 
                                     />
                                 </div>
-                                <div className="p-8">
-                                    <h4 className="text-xl font-bold text-white mb-3">Backrest Wedge Pillow</h4>
-                                    <p className="text-white/50 text-xs mb-6">Perfect for reading or watching TV in bed.</p>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-white font-bold">R699</span>
-                                        <ArrowRight className="text-[#B28C57] w-5 h-5" />
-                                    </div>
+                                <div className="p-5 mt-auto">
+                                    <button className="w-full bg-navy text-white px-6 py-3 rounded font-bold uppercase text-[11px] tracking-widest hover:bg-[#B28C57] transition-colors">
+                                        Shop Backrest Pillow
+                                    </button>
                                 </div>
                             </div>
                             {/* Flash Sale Card */}
-                            <div className="bg-rose-500 rounded-3xl p-8 flex flex-col justify-center items-center text-center cursor-pointer" onClick={() => onProductClick("4690")}>
-                                <h4 className="text-2xl font-bold text-white mb-6">Pillow Flash Sale</h4>
-                                <div className="bg-white/20 p-4 rounded-2xl w-full mb-6">
-                                    <p className="text-white font-black text-lg">BUY 2 GET 1 FREE</p>
+                            <div className="bg-rose-500 rounded-xl overflow-hidden group cursor-pointer flex flex-col justify-center items-center text-center p-8" onClick={() => onProductClick("4690")}>
+                                <div className="flex flex-col items-center justify-center flex-grow">
+                                    <h4 className="text-2xl font-bold text-white mb-4">Pillow Flash Sale</h4>
+                                    <div className="bg-white/20 p-3 rounded-lg w-full mb-6">
+                                        <p className="text-white font-black text-lg">BUY 2 GET 1 FREE</p>
+                                    </div>
                                 </div>
-                                <button className="bg-white text-rose-500 px-6 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest w-full">
-                                    Shop Sale
-                                </button>
+                                <div className="w-full mt-auto">
+                                    <button className="w-full bg-white text-rose-500 px-6 py-3 rounded font-bold uppercase text-[11px] tracking-widest hover:bg-rose-50 transition-colors">
+                                        Shop Sale
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -8,7 +8,7 @@ export default function BlogTeasers() {
         {
             title: "How to Choose the Right Mattress for Back Pain",
             excerpt: "Waking up sore? Discover why memory foam might be your solution.",
-            image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.21.28.png",
+            image: "https://images.unsplash.com/photo-1505693314120-0d443867891c?q=80&w=1200&auto=format&fit=crop",
             readTime: "5 min read",
             author: "Sleep Specialist",
             content: (
@@ -36,7 +36,7 @@ export default function BlogTeasers() {
         {
             title: "Foam vs Spring: What’s Best for You?",
             excerpt: "We break down the pros and cons of different mattress technologies.",
-            image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.19.00.png",
+            image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=1200&auto=format&fit=crop",
             readTime: "6 min read",
             author: "Product Design Team",
             content: (
@@ -62,7 +62,7 @@ export default function BlogTeasers() {
         {
             title: "Travel in Comfort: Caravan Mattresses Explained",
             excerpt: "Don't compromise on sleep while exploring the country.",
-            image: "https://cloudsplash.co.za/wp/wp-content/uploads/2026/02/Screenshot-2026-02-17-at-21.20.22.png",
+            image: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?q=80&w=1200&auto=format&fit=crop",
             readTime: "4 min read",
             author: "Adventures Editor",
             content: (
