@@ -69,7 +69,7 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                 <div className="flex flex-col lg:flex-row items-center w-full">
                     
                     {/* Left Column: Copy & Button */}
-                    <div className="w-full lg:w-[35%] flex flex-col items-center lg:items-start justify-center text-center lg:text-left pt-4 pb-6 lg:py-0 px-4 lg:px-0 lg:pr-8 z-20">
+                    <div className="w-full lg:w-[35%] flex flex-col items-center lg:items-start justify-center text-center lg:text-left pt-4 pb-6 lg:py-0 px-4 lg:px-0 lg:pr-8 z-20 min-w-0">
                         <span className="text-gray-500 font-bold uppercase text-[10px] md:text-[11px] mb-2 block tracking-widest">
                             Save whilst you sleep with our
                         </span>
@@ -88,10 +88,10 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                     </div>
 
                     {/* Right Column: Image (Mobile) & Scrolling Cards */}
-                    <div className="w-full lg:w-[65%] relative flex flex-col">
+                    <div className="w-full lg:w-[65%] relative flex flex-col min-w-0">
                         
                         {/* Mobile Image (Only visible on small screens) */}
-                        <div className="block lg:hidden w-full h-[250px] relative z-0 mb-4 -mx-4 w-[calc(100%+32px)]">
+                        <div className="block lg:hidden w-full h-[250px] relative z-0 mb-4">
                             <img 
                                 src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1200&auto=format&fit=crop" 
                                 alt="White luxury bedroom styling" 
