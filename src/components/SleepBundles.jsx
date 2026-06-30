@@ -69,7 +69,7 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                 <div className="flex flex-col lg:flex-row items-center w-full">
                     
                     {/* Left Column: Copy & Button */}
-                    <div className="w-full lg:w-[35%] flex flex-col justify-center text-center lg:text-left pt-4 pb-6 lg:py-0 pr-0 lg:pr-8 z-20">
+                    <div className="w-full lg:w-[35%] flex flex-col items-center lg:items-start justify-center text-center lg:text-left pt-4 pb-6 lg:py-0 px-4 lg:px-0 lg:pr-8 z-20">
                         <span className="text-gray-500 font-bold uppercase text-[10px] md:text-[11px] mb-2 block tracking-widest">
                             Save whilst you sleep with our
                         </span>
