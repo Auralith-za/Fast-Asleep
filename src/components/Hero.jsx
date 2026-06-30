@@ -16,14 +16,14 @@ export default function Hero({ onNavigate }) {
                 </div>
 
                 {/* Content */}
-                <div className="container-custom relative z-10 flex flex-col items-center justify-start pt-12 md:justify-center md:pt-0 h-full text-center w-full md:pb-16">
+                <div className="container-custom relative z-10 flex flex-col items-center justify-center h-full text-center w-full">
                     <div className="w-full animate-fade-in-up text-white px-2 flex flex-col items-center">
                         <p className="text-[10px] md:text-lg uppercase tracking-[0.2em] md:tracking-[0.4em] font-black text-[#cca86e] mb-3 md:mb-4 drop-shadow-md whitespace-nowrap">
                             WELCOME TO FAST ASLEEP
                         </p>
                         
-                        <h1 className="font-light leading-[1] mb-3 md:mb-5 flex justify-center w-full drop-shadow-lg">
-                            <span className="font-script font-normal lowercase text-white text-[28px] sm:text-4xl md:text-6xl lg:text-7xl block mb-2 leading-tight whitespace-nowrap">
+                        <h1 className="font-light leading-[1] mb-3 md:mb-5 flex justify-center w-full drop-shadow-lg px-2">
+                            <span className="font-script font-normal lowercase text-white text-[34px] sm:text-4xl md:text-6xl lg:text-7xl block mb-2 leading-tight">
                                 wake up to a better version of you.
                             </span>
                         </h1>
