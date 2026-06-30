@@ -48,12 +48,12 @@ export default function SleepCollection({ onProductClick, products }) {
     };
 
     return (
-        <section className="bg-gray-100 py-12 md:py-16 overflow-hidden">
+        <section className="bg-gray-100 py-6 md:py-16 overflow-hidden">
             <div className="container-custom">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-12 items-center">
                     
                     {/* Left Column: Heading and Slider Controls */}
-                    <div className="lg:col-span-3 flex flex-col justify-center items-center lg:items-start text-center lg:text-left mb-8 lg:mb-0">
+                    <div className="lg:col-span-3 flex flex-col justify-center items-center lg:items-start text-center lg:text-left mb-2 lg:mb-0">
                         <div className="flex flex-col items-center lg:items-start">
                             <span className="text-navy font-bold uppercase tracking-widest text-[11px] block mb-1">
                                 DIVE INTO OUR
@@ -98,7 +98,7 @@ export default function SleepCollection({ onProductClick, products }) {
                     </div>
 
                     {/* Right Column: Sliding Product Collection Cards */}
-                    <div className="lg:col-span-9 overflow-hidden mt-10 lg:mt-0">
+                    <div className="lg:col-span-9 overflow-hidden mt-4 lg:mt-0">
                         <div 
                             className="flex transition-transform duration-500 ease-out"
                             style={{ transform: `translateX(-${scrollIndex * (100 / itemsPerPage)}%)` }}
