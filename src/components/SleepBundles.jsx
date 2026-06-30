@@ -65,8 +65,8 @@ export default function SleepBundles({ onNavigate, onProductClick, products }) {
                 />
             </div>
 
-            <div className="container-custom relative z-10">
-                <div className="flex flex-col lg:flex-row items-center w-full">
+            <div className="container-custom relative z-10 w-full max-w-[100vw] overflow-hidden lg:overflow-visible">
+                <div className="flex flex-col lg:flex-row items-center w-full max-w-[100vw]">
                     
                     {/* Left Column: Copy & Button */}
                     <div className="w-full lg:w-[35%] flex flex-col items-center lg:items-start justify-center text-center lg:text-left pt-4 pb-6 lg:py-0 px-4 lg:px-0 lg:pr-8 z-20 min-w-0">
