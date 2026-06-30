@@ -30,7 +30,7 @@ export default function CustomisationSection({ onNavigate }) {
                             1
                         </div>
                         <h4 className="font-bold text-[10px] lg:text-xs uppercase tracking-widest text-[#0a1530] mb-3">CHOOSE YOUR FEEL</h4>
-                        <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden mb-3 border border-gray-100">
+                        <div className="w-32 h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden mb-3 border border-gray-100 mx-auto">
                             <img src="/assets/comfort-medium.png" alt="Feel" className="w-full h-full object-cover" />
                         </div>
                         <span className="text-[10px] lg:text-[11px] text-gray-500 font-semibold leading-relaxed">Select from plush, medium or firm comfort levels.</span>
@@ -42,7 +42,7 @@ export default function CustomisationSection({ onNavigate }) {
                             2
                         </div>
                         <h4 className="font-bold text-[10px] lg:text-xs uppercase tracking-widest text-[#0a1530] mb-3">CHOOSE YOUR SIZE</h4>
-                        <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden mb-3 border border-gray-100">
+                        <div className="w-32 h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden mb-3 border border-gray-100 mx-auto">
                             <img src="/assets/detail-bed-slats.png" alt="Size" className="w-full h-full object-cover" />
                         </div>
                         <span className="text-[10px] lg:text-[11px] text-gray-500 font-semibold leading-relaxed">Tailor your mattress fit from Single to King.</span>
@@ -54,7 +54,7 @@ export default function CustomisationSection({ onNavigate }) {
                             3
                         </div>
                         <h4 className="font-bold text-[10px] lg:text-xs uppercase tracking-widest text-[#0a1530] mb-3">CHOOSE COLOUR</h4>
-                        <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden mb-3 border border-gray-100">
+                        <div className="w-32 h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden mb-3 border border-gray-100 mx-auto">
                             <img src="/assets/comfort-soft.png" alt="Colour" className="w-full h-full object-cover" />
                         </div>
                         <span className="text-[10px] lg:text-[11px] text-gray-500 font-semibold leading-relaxed">Match your base design and neutral shades.</span>
@@ -66,7 +66,7 @@ export default function CustomisationSection({ onNavigate }) {
                             4
                         </div>
                         <h4 className="font-bold text-[10px] lg:text-xs uppercase tracking-widest text-[#0a1530] mb-3">ADD ACCESSORIES</h4>
-                        <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden mb-3 border border-gray-100">
+                        <div className="w-32 h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden mb-3 border border-gray-100 mx-auto">
                             <img src="/assets/trial-bg.png" alt="Accessories" className="w-full h-full object-cover" />
                         </div>
                         <span className="text-[10px] lg:text-[11px] text-gray-500 font-semibold leading-relaxed">Complete your sleep system with pillows and protectors.</span>
