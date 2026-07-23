@@ -66,8 +66,8 @@ export default function CartDrawer() {
                                                     <div className="flex justify-between text-base font-medium text-navy">
                                                         <div>
                                                             <h3 className="font-semibold">{item.name}</h3>
-                                                            {item.isFathersDaySale && !item.noFathersDay20Percent && (
-                                                                <span className="text-[9px] text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-1.5 py-0.5 rounded block w-max mt-1">Fathers Day Sale</span>
+                                                            {item.isChristmasInJulySale && (
+                                                                <span className="text-[9px] text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-1.5 py-0.5 rounded block w-max mt-1">Christmas in July Sale</span>
                                                             )}
                                                         </div>
                                                         <div className="ml-4 text-right">

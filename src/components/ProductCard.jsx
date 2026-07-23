@@ -36,9 +36,9 @@ export default function ProductCard({ product, onClick }) {
                     {product.description}
                 </p>
 
-                {product.isFathersDaySale && product.originalPriceRange ? (
+                {product.isChristmasInJulySale && product.originalPriceRange ? (
                     <div className="flex flex-col items-center justify-center gap-1">
-                        <span className="text-[10px] text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded">Fathers Day Sale - 20% OFF</span>
+                        <span className="text-[10px] text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded">Christmas in July Sale</span>
                         <div className="flex items-center gap-2">
                             <span className="text-sm text-gray-400 line-through font-medium">{product.originalPriceRange}</span>
                             <span className="text-lg font-bold text-[#97BFBF]">{product.priceRange}</span>

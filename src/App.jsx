@@ -37,12 +37,8 @@ function App() {
     const { products, loading } = useProducts();
 
     const navigateToProduct = (productId) => {
-        if (productId === '4698' || productId === 'father-day-bakkie-mattress') {
+        if (productId === '4698') {
             navigateToCategory('contact');
-            return;
-        }
-        if (productId === 'fathers-day-sale-redirect' || productId === '4696') {
-            navigateToCategory('shop');
             return;
         }
         setSelectedProductId(productId);
@@ -83,7 +79,7 @@ function App() {
                         {/* Fast Asleep Sleep Bundles */}
                         <SleepBundles onNavigate={navigateToCategory} onProductClick={navigateToProduct} products={products} />
 
-                        {/* Father's Day Specials */}
+                        {/* Christmas in July Specials */}
                         <Bestsellers onProductClick={navigateToProduct} />
 
                         {/* Customisation Section */}

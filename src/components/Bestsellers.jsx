@@ -3,25 +3,18 @@ import React from 'react';
 export default function Bestsellers({ onProductClick }) {
     const specials = [
         {
-            id: "fathers-day-sale-redirect",
-            name: "20% fathers day sale",
-            image: "/fathers-day/05485534-4615-416C-8761-20DD20F14C66.PNG",
+            id: "christmas-in-july-baby-play-gym",
+            name: "Christmas in July",
+            image: "/xmas-in-july/FF15F48A-8C8A-4449-8718-DF044419356F.png",
             price: null,
-            cta: "Shop Special Now"
+            cta: "Shop Baby Play Gym"
         },
         {
-            id: "father-day-camping-mattress",
-            name: "Fathers day Special",
-            image: "/fathers-day/68600FBE-5935-41C3-8C42-A36C02ACCA05.PNG",
+            id: "christmas-in-july-play-couch",
+            name: "Christmas in July",
+            image: "/xmas-in-july/3FDF3FC0-2536-4444-849B-5909F28411D5.png",
             price: null,
-            cta: "Shop Special Deal"
-        },
-        {
-            id: "4698",
-            name: "Father's Day Comfort Special",
-            image: "/assets/bakkie-mattress.png",
-            price: null,
-            cta: "Get a Quote"
+            cta: "Shop Play Couch"
         }
     ];
 
@@ -40,8 +33,8 @@ export default function Bestsellers({ onProductClick }) {
                 </div>
 
                 {/* Cards Layout - Carousel on Mobile, Grid on Desktop */}
-                <div className="mx-auto max-w-6xl">
-                    <div className="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory scrollbar-hide md:border md:border-gray-200 bg-white pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0">
+                <div className="mx-auto max-w-4xl">
+                    <div className="flex overflow-x-auto md:grid md:grid-cols-2 snap-x snap-mandatory scrollbar-hide md:border md:border-gray-200 bg-white pb-4 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0">
                         {specials.map((special, index) => (
                             <div 
                                 key={special.id}
@@ -50,21 +43,11 @@ export default function Bestsellers({ onProductClick }) {
                             >
                                 {/* Artwork Image */}
                                 <div className="aspect-[3/4] w-full overflow-hidden relative bg-[#2a2620]">
-                                    {special.id === '4698' ? (
-                                        <div className="absolute top-0 left-0 w-full h-[122%]">
-                                            <img 
-                                                src={special.image} 
-                                                alt={special.name} 
-                                                className="w-full h-full object-contain object-top group-hover:scale-105 transition-transform duration-500"
-                                            />
-                                        </div>
-                                    ) : (
-                                        <img 
-                                            src={special.image} 
-                                            alt={special.name} 
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                    )}
+                                    <img 
+                                        src={special.image} 
+                                        alt={special.name} 
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
                                 </div>
 
                                 {/* Info & CTA */}

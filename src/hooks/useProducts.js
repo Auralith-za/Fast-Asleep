@@ -34,65 +34,52 @@ function applyDiscountToPriceRange(priceStr) {
 }
 
 const processProductsList = (list) => {
-    // 1. Add Camping Mattress if not already present
-    const hasCamping = list.some(p => p.id === 'father-day-camping-mattress' || p.id === '4700');
+    // Add Christmas in July Products
     let updatedList = [...list];
-    if (!hasCamping) {
+    
+    const hasPlayGym = list.some(p => p.id === 'christmas-in-july-baby-play-gym');
+    if (!hasPlayGym) {
         updatedList.push({
-            id: 'father-day-camping-mattress',
-            name: 'Roll Up Memory Foam Camping Mattress',
-            priceRange: 'R1,499.00',
-            originalPriceRange: 'R1,999.00',
-            image: '/fathers-day/68600FBE-5935-41C3-8C42-A36C02ACCA05.PNG',
-            description: 'Premium memory foam for deep, restful sleep. Tri-fold design, easy to fold, carry & store. Removable, washable cover. Perfect for camping, road trips, guests & sleepovers.',
-            slug: 'father-day-camping-mattress',
-            category: 'paedic-and-travel',
-            categories: ['paedic-and-travel', 'mattress-toppers', 'mattresses'],
-            features: ['Ultra Comfort', 'Tri-Fold Design', 'Durable & Easy Care', 'Supportive & Pressure Relieving', 'Roll Up & Go'],
-            isFathersDaySale: true,
-            noFathersDay20Percent: true
+            id: 'christmas-in-july-baby-play-gym',
+            name: 'Baby Play Gym',
+            priceRange: 'R4,999.00',
+            originalPriceRange: 'R5,999.00',
+            image: '/xmas-in-july/FF15F48A-8C8A-4449-8718-DF044419356F.png',
+            description: 'A world of fun and development designed for little explorers. Play, learn & grow!',
+            slug: 'christmas-in-july-baby-play-gym',
+            category: 'baby',
+            categories: ['baby', 'play'],
+            features: ['Developmental Play', 'Safe & Soft', 'Comfortable & Durable', 'Modular & Versatile', 'Easy to Clean'],
+            isChristmasInJulySale: true
         });
     }
 
-    // 2. Map and apply 20% discount to all eligible products
+    const hasPlayCouch = list.some(p => p.id === 'christmas-in-july-play-couch');
+    if (!hasPlayCouch) {
+        updatedList.push({
+            id: 'christmas-in-july-play-couch',
+            name: 'Play Couch',
+            priceRange: 'R4,699.00',
+            originalPriceRange: 'R5,899.00',
+            image: '/xmas-in-july/3FDF3FC0-2536-4444-849B-5909F28411D5.png',
+            description: 'Give the gift of imagination, play & comfort - all year round! Build forts, slides, tunnels & more.',
+            slug: 'christmas-in-july-play-couch',
+            category: 'kids',
+            categories: ['kids', 'play'],
+            features: ['Endless Play', 'Safe & Soft', 'Durable & Stylish', 'Easy to Clean', 'Supports Growth'],
+            isChristmasInJulySale: true
+        });
+    }
+
+    // Process bakkie mattress special image
     return updatedList.map(p => {
-        const nameUpper = p.name ? p.name.toUpperCase() : '';
-        const eligibleNames = [
-            'HYBRID-PC',
-            'LATEX PLUSH',
-            'B ZEN BRONNEL',
-            'COMFY KING',
-            'THE MECHANICAL MOTION BED',
-            'HYDRA-COOL',
-            'ORTHO ECLIPSE'
-        ];
-
-        const isEligibleCategory = eligibleNames.some(name => nameUpper.includes(name));
-
-        const isExcluded = !isEligibleCategory || p.noFathersDay20Percent;
-        
-        // Update Bakkie special image
         if (p.id === '4698') {
-            p.image = '/assets/bakkie-mattress.png';
-            p.noFathersDay20Percent = true;
-        }
-
-        if (isExcluded) {
             return {
                 ...p,
-                isFathersDaySale: false,
-                noFathersDay20Percent: true
+                image: '/assets/bakkie-mattress.png'
             };
         }
-
-        const original = p.originalPriceRange || p.priceRange;
-        const discounted = applyDiscountToPriceRange(original);
-        return {
-            ...p,
-            originalPriceRange: original,
-            priceRange: discounted,
-            isFathersDaySale: true
-        };
+        return p;
     });
 };
 

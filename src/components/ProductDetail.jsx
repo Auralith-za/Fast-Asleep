@@ -106,11 +106,11 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                 setVariationId(match.id || null);
                 setVariationAttributes(match.attributes || []);
 
-                if (product.isFathersDaySale && !product.noFathersDay20Percent) {
-                    const discountedPrice = priceVal * 0.8;
+                if (product.isChristmasInJulySale) {
+                    const discountedPrice = priceVal; // Fixed price from variation
                     setDisplayedPrice(
                         <div className="flex flex-col items-center sm:items-start gap-1">
-                            <span className="text-xs text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded inline-block">Fathers Day Sale - 20% OFF</span>
+                            <span className="text-xs text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded inline-block">Christmas in July Sale</span>
                             <div className="flex items-center gap-3">
                                 <span className="text-lg text-gray-400 line-through font-medium">R{priceVal.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}</span>
                                 <span className="text-3xl font-extrabold text-[#0a1530]">R{discountedPrice.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}</span>
@@ -129,10 +129,10 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
         // No match found — fall back to product price range
         setVariationId(null);
         setVariationAttributes([]);
-        if (product.isFathersDaySale && product.originalPriceRange) {
+        if (product.isChristmasInJulySale && product.originalPriceRange) {
             setDisplayedPrice(
                 <div className="flex flex-col items-center sm:items-start gap-1">
-                    <span className="text-xs text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded inline-block">Fathers Day Sale - 20% OFF</span>
+                    <span className="text-xs text-rose-500 font-extrabold uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded inline-block">Christmas in July Sale</span>
                     <div className="flex items-center gap-3">
                         <span className="text-lg text-gray-400 line-through font-medium">{product.originalPriceRange}</span>
                         <span className="text-3xl font-extrabold text-[#0a1530]">{product.priceRange}</span>
@@ -198,8 +198,8 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                             />
                         </div>
 
-                        {/* Only show gallery thumbnails if not a Fathers Day product */}
-                        {!product.isFathersDaySale && (
+                        {/* Only show gallery thumbnails if not a Christmas in July product */}
+                        {!product.isChristmasInJulySale && (
                             <div className="grid grid-cols-4 gap-4">
                                 {/* Placeholder thumbnails */}
                                 {[...Array(4)].map((_, i) => (

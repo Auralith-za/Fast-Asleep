@@ -266,9 +266,6 @@ export default function CheckoutModal({ isOpen, onClose }) {
                             <div className="mt-6 pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                 <div className="text-lg font-bold text-navy">
                                     Total: R{cartTotal.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
-                                    {cart.some(item => item.isFathersDaySale && !item.noFathersDay20Percent) && (
-                                        <span className="block text-[11px] text-rose-500 font-extrabold uppercase tracking-wider mt-1">Includes 20% Fathers Day Sale discount</span>
-                                    )}
                                 </div>
                                 
                                 <button

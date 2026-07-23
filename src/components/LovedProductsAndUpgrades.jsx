@@ -21,7 +21,7 @@ export default function LovedProductsAndUpgrades({ onProductClick, onNavigate, p
                 image: found.image,
                 price: found.priceRange,
                 originalPrice: found.originalPriceRange,
-                isSale: found.isFathersDaySale,
+                isSale: found.isChristmasInJulySale,
                 rating: 5
             };
         }
@@ -153,7 +153,7 @@ export default function LovedProductsAndUpgrades({ onProductClick, onNavigate, p
                             Limited Time Sleep Upgrades
                         </h4>
                         <p className="text-gray-600 text-sm md:text-base font-medium">
-                            Save 20% on Select Mattresses & Pillows
+                            Don't miss out on our Christmas in July specials
                         </p>
                         <div>
                             <button 
