@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CustomisationSection({ onNavigate }) {
+export default function CustomisationSection({ onNavigate, onOpenCustomBed }) {
     return (
         <div 
             className="relative min-h-[500px] bg-cover bg-center py-20 px-6 text-white flex items-center justify-center"
@@ -16,10 +16,10 @@ export default function CustomisationSection({ onNavigate }) {
                         Choose feel, size, colour and accessories to match your lifestyle.
                     </p>
                     <button 
-                        onClick={() => onNavigate && onNavigate('contact')}
-                        className="inline-block bg-[#97BFBF] hover:bg-[#7fa8a8] text-navy font-bold uppercase tracking-wider text-[10px] px-6 py-3.5 transition-colors duration-300 w-full"
+                        onClick={() => onOpenCustomBed ? onOpenCustomBed() : (onNavigate && onNavigate('contact'))}
+                        className="inline-block bg-[#97BFBF] hover:bg-[#7fa8a8] text-navy font-bold uppercase tracking-wider text-[10px] px-6 py-3.5 transition-colors duration-300 w-full shadow-md"
                     >
-                        unsure? contact us to get a custom design
+                        BUILD A CUSTOM BED / GET DESIGN QUOTE
                     </button>
                 </div>
 

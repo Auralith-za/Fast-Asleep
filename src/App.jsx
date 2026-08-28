@@ -26,6 +26,8 @@ import Configurator from './components/Configurator';
 import FAQ from './components/FAQ';
 import { CartProvider } from './context/CartContext';
 import LovedProductsAndUpgrades from './components/LovedProductsAndUpgrades';
+import CustomPillowModal from './components/CustomPillowModal';
+import CustomBedModal from './components/CustomBedModal';
 
 import { useProducts } from './hooks/useProducts';
 import DebugInfo from './components/DebugInfo';
@@ -34,6 +36,8 @@ function App() {
     const [currentView, setCurrentView] = useState('home');
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [currentCategory, setCurrentCategory] = useState(null);
+    const [isCustomPillowOpen, setIsCustomPillowOpen] = useState(false);
+    const [isCustomBedOpen, setIsCustomBedOpen] = useState(false);
     const { products, loading } = useProducts();
 
     const navigateToProduct = (productId) => {
@@ -83,7 +87,7 @@ function App() {
                         <Bestsellers onProductClick={navigateToProduct} />
 
                         {/* Customisation Section */}
-                        <CustomisationSection onNavigate={navigateToCategory} />
+                        <CustomisationSection onNavigate={navigateToCategory} onOpenCustomBed={() => setIsCustomBedOpen(true)} />
 
                         {/* Bestsellers/Sleep Collection Carousel */}
                         <SleepCollection onProductClick={navigateToProduct} products={products} />
@@ -132,6 +136,10 @@ function App() {
                 {/* 10. Footer (Full Info) */}
                 <Footer />
                 <CartDrawer />
+
+                {/* Global Custom Builder Modals */}
+                <CustomPillowModal isOpen={isCustomPillowOpen} onClose={() => setIsCustomPillowOpen(false)} />
+                <CustomBedModal isOpen={isCustomBedOpen} onClose={() => setIsCustomBedOpen(false)} />
             </div>
         </CartProvider>
     );

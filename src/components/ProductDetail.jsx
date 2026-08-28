@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 // import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
-import { Star, Truck, ShieldCheck, ArrowRight, Loader2 } from 'lucide-react';
+import { Star, Truck, ShieldCheck, ArrowRight, Loader2, Sliders, BedDouble } from 'lucide-react';
 import { fetchProductVariations } from '../services/woocommerce';
 import CustomisationSection from './CustomisationSection';
+import PillowSpecArtwork from './PillowSpecArtwork';
+import PillowCustomiseProcess from './PillowCustomiseProcess';
+import CustomPillowModal from './CustomPillowModal';
+import CustomBedModal from './CustomBedModal';
 
 export default function ProductDetail({ productId, onBack, products, onNavigate }) {
     const product = products.find(p => p.id === productId);
@@ -16,6 +20,41 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
     const [variationAttributes, setVariationAttributes] = useState([]);
     const [isLoadingVars, setIsLoadingVars] = useState(false);
     const [activeTab, setActiveTab] = useState('features');
+    const [isCustomPillowOpen, setIsCustomPillowOpen] = useState(false);
+    const [isCustomBedOpen, setIsCustomBedOpen] = useState(false);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+    React.useEffect(() => {
+        setSelectedImageIndex(0);
+    }, [productId]);
+
+    // Helper to get non-duplicated gallery images (lifestyle images strictly for pillows)
+    const getGalleryImages = (prod) => {
+        if (!prod) return [];
+        
+        const rawImages = (prod.images && Array.isArray(prod.images) && prod.images.length > 0)
+            ? prod.images.map(img => typeof img === 'string' ? img : (img.src || '')).filter(Boolean)
+            : [prod.image].filter(Boolean);
+
+        const category = (prod.category || '').toLowerCase();
+        const categories = (prod.categories || []).map(c => c.toLowerCase());
+        const name = (prod.name || '').toLowerCase();
+
+        const isPillow = category.includes('pillow') || categories.some(c => c.includes('pillow')) || name.includes('pillow');
+
+        let lifestyleAddons = [];
+
+        if (isPillow) {
+            // Exactly 1 related luxury bed pillow lifestyle image
+            lifestyleAddons.push('/assets/pillow-hero-bg.webp');
+        }
+
+        // For non-pillows, ONLY use actual product images from WooCommerce
+        const combined = [...rawImages, ...lifestyleAddons].filter(Boolean);
+        return Array.from(new Set(combined));
+    };
+
+    const galleryImages = getGalleryImages(product);
 
     // 1. Setup Defaults
     React.useEffect(() => {
@@ -186,11 +225,11 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
 
                     {/* Left: Image Gallery */}
                     <div className="space-y-4">
-                        <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-100 rounded-none">
+                        <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-100 rounded-lg shadow-sm border border-gray-200">
                             <img
-                                src={product.image}
+                                src={galleryImages[selectedImageIndex] || product.image}
                                 alt={product.name}
-                                className="h-full w-full object-cover object-center"
+                                className="h-full w-full object-cover object-center transition-all duration-300"
                                 onError={(e) => {
                                     e.target.onerror = null;
                                     e.target.src = 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?auto=format&fit=crop&q=80&w=800';
@@ -198,15 +237,22 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                             />
                         </div>
 
-                        {/* Only show gallery thumbnails if not a Christmas in July product */}
-                        {!product.isChristmasInJulySale && (
-                            <div className="grid grid-cols-4 gap-4">
-                                {/* Placeholder thumbnails */}
-                                {[...Array(4)].map((_, i) => (
-                                    <div key={i} className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-100 cursor-pointer opacity-70 hover:opacity-100">
+                        {/* Interactive Non-Duplicated Gallery Thumbnails */}
+                        {galleryImages.length > 1 && (
+                            <div className="grid grid-cols-4 gap-3">
+                                {galleryImages.map((imgUrl, i) => (
+                                    <div
+                                        key={i}
+                                        onClick={() => setSelectedImageIndex(i)}
+                                        className={`aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md cursor-pointer transition-all duration-200 ${
+                                            selectedImageIndex === i
+                                                ? 'ring-2 ring-[#0a1530] opacity-100 scale-102 shadow'
+                                                : 'opacity-70 hover:opacity-100 border border-gray-200'
+                                        }`}
+                                    >
                                         <img
-                                            src={product.image}
-                                            alt={`Thumbnail ${i}`}
+                                            src={imgUrl}
+                                            alt={`${product.name} lifestyle view ${i + 1}`}
                                             className="h-full w-full object-cover"
                                             onError={(e) => {
                                                 e.target.onerror = null;
@@ -280,12 +326,29 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                         <button
                             onClick={handleAddToCart}
                             disabled={isLoadingVars}
-                            className="btn-primary w-full py-4 text-base mb-6 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            className="btn-primary w-full py-4 text-base mb-3 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
                             {isLoadingVars ? (
                                 <><Loader2 className="w-5 h-5 animate-spin" /> Loading prices...</>
                             ) : 'Add to Cart'}
                         </button>
+
+                        {/* Custom Builder Button */}
+                        {(product.category || '').toLowerCase().includes('pillow') || (product.categories || []).some(c => c.toLowerCase().includes('pillow')) || product.name.toLowerCase().includes('pillow') ? (
+                            <button
+                                onClick={() => setIsCustomPillowOpen(true)}
+                                className="w-full py-3.5 mb-6 bg-[#0a1530] hover:bg-[#122246] text-white border border-[#0a1530] text-xs font-extrabold uppercase tracking-widest transition-all rounded-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                            >
+                                <Sliders className="w-4 h-4 text-gold" /> Custom Make a Pillow (Pillow Builder)
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => setIsCustomBedOpen(true)}
+                                className="w-full py-3.5 mb-6 bg-[#0a1530] hover:bg-[#122246] text-white border border-[#0a1530] text-xs font-extrabold uppercase tracking-widest transition-all rounded-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                            >
+                                <BedDouble className="w-4 h-4 text-gold" /> Build a Custom Bed (Bed Studio)
+                            </button>
+                        )}
 
                         {/* Trust Badges */}
                         <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 bg-gray-50 p-6">
@@ -328,7 +391,7 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                     return (
                         <div className="mt-24 space-y-24 border-t border-gray-100 pt-16 pb-0">
                             {/* Consolidated Custom Designed Mattresses Section */}
-                            <CustomisationSection onNavigate={onNavigate} />
+                            <CustomisationSection onNavigate={onNavigate} onOpenCustomBed={() => setIsCustomBedOpen(true)} />
 
                             {/* 3. 100 Night Trial (Crisp White Background) */}
                             <div className="relative min-h-[500px] bg-white py-20 px-6 text-navy flex items-center justify-center border-b border-gray-150">
@@ -399,7 +462,12 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
 
                 if (isPillow) {
                     return (
-                        <div className="mt-24 space-y-24 border-t border-gray-100 pt-16 pb-0">
+                        <div className="mt-12 space-y-16 border-t border-gray-100 pt-8 pb-0">
+                            {/* Pillow Spec Artwork (Matching Dual Pillow spec format) */}
+                            <div className="max-w-6xl mx-auto px-4">
+                                <PillowSpecArtwork product={product} />
+                            </div>
+
                             {/* Comfort / Loft Level Selector */}
                             <div className="text-center">
                                 <h3 className="text-2xl md:text-3xl font-extrabold uppercase tracking-widest text-[#0a1530] mb-2 px-4">
@@ -490,6 +558,9 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Pillow Customisation Process (Memory Chip / Filling adjustment) */}
+                            <PillowCustomiseProcess productName={product.name} />
 
                             {/* Pillow Trial details (Crisp White Background) */}
                             <div className="relative min-h-[480px] bg-white py-20 px-6 text-navy flex items-center justify-center border-t border-b border-gray-150">
@@ -1029,6 +1100,10 @@ export default function ProductDetail({ productId, onBack, products, onNavigate 
 
                 return null;
             })()}
+
+            {/* Custom Builder Modals */}
+            <CustomPillowModal isOpen={isCustomPillowOpen} onClose={() => setIsCustomPillowOpen(false)} />
+            <CustomBedModal isOpen={isCustomBedOpen} onClose={() => setIsCustomBedOpen(false)} />
         </div>
     );
 }
