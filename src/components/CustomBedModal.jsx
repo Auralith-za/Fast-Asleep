@@ -90,11 +90,11 @@ function DynamicBedPreview({ size, foamType, firmness, colour, accessories }) {
             </div>
 
             {/* Middle Live Graphic Visualization Canvas */}
-            <div className="py-6 flex flex-col items-center justify-center relative z-10 my-auto">
+            <div className="py-4 md:py-6 flex flex-col items-center justify-center relative z-10 my-auto w-full">
                 
                 {/* 3D Bed Graphic Profile - Dynamically Scaled */}
                 <div 
-                    className="relative transition-all duration-500 ease-out flex flex-col items-center filter drop-shadow-2xl mx-auto"
+                    className="relative transition-all duration-500 ease-out flex flex-col items-center filter drop-shadow-2xl mx-auto max-w-full overflow-hidden"
                     style={{ width: `${scaleWidthPx}px` }}
                 >
                     {/* Headboard */}

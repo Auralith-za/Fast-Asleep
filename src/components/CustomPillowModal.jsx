@@ -155,11 +155,11 @@ function DynamicPillowPreview({ width, length, thickness, border, filling }) {
             </div>
 
             {/* Middle Live Graphic Visualization Canvas */}
-            <div className="py-6 flex flex-col items-center justify-center relative z-10 my-auto">
+            <div className="py-4 md:py-6 flex flex-col items-center justify-center relative z-10 my-auto w-full">
                 
                 {/* Dynamic Realistic 3D Pillow SVG Canvas */}
                 <div 
-                    className="relative transition-all duration-500 ease-out flex items-center justify-center filter drop-shadow-2xl"
+                    className="relative transition-all duration-500 ease-out flex items-center justify-center filter drop-shadow-2xl max-w-full overflow-hidden"
                     style={{ 
                         width: `${containerWidth}px`, 
                         height: `${containerHeight}px` 
@@ -366,8 +366,8 @@ function DynamicPillowPreview({ width, length, thickness, border, filling }) {
                 </div>
 
                 {/* Dimension Label */}
-                <div className="mt-6 flex items-center gap-3 text-[11px] text-gray-300 bg-white/5 px-4 py-1.5 rounded-full border border-white/10">
-                    <Ruler className="w-3.5 h-3.5 text-gold" />
+                <div className="mt-4 md:mt-6 flex items-center gap-3 text-[10px] md:text-[11px] text-gray-300 bg-white/5 px-3 md:px-4 py-1.5 rounded-full border border-white/10 text-center">
+                    <Ruler className="w-3.5 h-3.5 text-gold flex-shrink-0" />
                     <span>Dimensions: <strong className="text-white">{widthNum}cm W × {lengthNum}cm L × {thicknessNum}cm T</strong></span>
                 </div>
             </div>
