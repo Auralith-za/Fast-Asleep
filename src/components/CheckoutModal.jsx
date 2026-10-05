@@ -101,8 +101,8 @@ export default function CheckoutModal({ isOpen, onClose }) {
                 clearCart();
                 
                 if (paymentMethod === 'payfast') {
-                    // Generate Payfast payload securely
-                    const payfastData = generatePayfastForm(createdOrder.id, cartTotal, formData);
+                    // Generate Payfast payload securely with order ID and order_key for WooCommerce ITN
+                    const payfastData = generatePayfastForm(createdOrder, cartTotal, formData);
                     
                     // Create dynamic form and bounce to Payfast
                     const form = document.createElement('form');

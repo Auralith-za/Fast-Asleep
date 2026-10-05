@@ -1,6 +1,10 @@
 import md5 from 'crypto-js/md5';
 
-export const generatePayfastForm = (orderId, cartTotal, customerDetails) => {
+export const generatePayfastForm = (orderOrId, cartTotal, customerDetails, maybeOrderKey = null) => {
+    // Extract order id and order key
+    const orderId = typeof orderOrId === 'object' && orderOrId !== null ? orderOrId.id : orderOrId;
+    const orderKey = typeof orderOrId === 'object' && orderOrId !== null ? orderOrId.order_key : maybeOrderKey;
+
     // These keys are matched directly from the provided Fast Asleep screenshot
     const merchant_id = '13431158';
     const merchant_key = 'l428fj6xj0pik';
@@ -27,7 +31,16 @@ export const generatePayfastForm = (orderId, cartTotal, customerDetails) => {
         
         m_payment_id: String(orderId),
         amount: parseFloat(cartTotal).toFixed(2),
-        item_name: `Fast Asleep Order #${orderId}`
+        item_name: `Fast Asleep Order #${orderId}`,
+        item_description: `Fast Asleep Order #${orderId}`,
+
+        // WooCommerce PayFast Gateway (WC_Gateway_PayFast) strictly relies on custom_str1 (order_key)
+        // and custom_str3 (order_id) to look up and validate the order during Instant Transaction Notification (ITN).
+        // Without these fields, WooCommerce cannot match the payment to the order, leaving orders stuck in "Pending payment"!
+        ...(orderKey ? { custom_str1: orderKey } : {}),
+        custom_str2: `WooCommerce/10.1.3; ${wcBaseUrl}`,
+        custom_str3: String(orderId),
+        source: 'WooCommerce-Free-Plugin'
     };
 
     // Clean data (Remove empty/null/undefined params exactly as PayFast expects)
